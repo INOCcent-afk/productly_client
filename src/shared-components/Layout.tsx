@@ -13,6 +13,9 @@ const Layout: FC<LayoutProps> = ({ children }: LayoutProps) => {
     <StyledContainer>
       <ul>
         <li>
+          <Link href="/productly-homepage">Homepage</Link>
+        </li>
+        <li>
           <Link href="/">Login</Link>
         </li>
         <li>
