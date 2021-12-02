@@ -1,4 +1,5 @@
 import React, { FC, FormEvent, SyntheticEvent, useState } from "react";
+import Router from "next/router";
 import { signIn, signUp } from "../../utils/api/products_api";
 
 interface Props {
@@ -38,11 +39,10 @@ const UserFormComponent: FC<Props> = ({ pageType }: Props) => {
     try {
       e.preventDefault();
       const authFn = isLogInPage
-        ? signIn(userSignInData)
-        : signUp(userSignUpData);
-      const { data } = await authFn;
+        ? (signIn(userSignInData), Router.push("/productly-homepage"))
+        : (signUp(userSignUpData), Router.push("/"));
 
-      console.log(data);
+      // const { data } = await authFn;
     } catch (error: any) {
       console.log(error.response.data);
       if (error.response.data) {

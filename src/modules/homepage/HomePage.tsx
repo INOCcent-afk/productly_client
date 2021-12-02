@@ -1,27 +1,17 @@
-import React, { useEffect, useState } from "react";
-import Router from "next/router";
-import { verifyUser } from "../../utils/api/verify_user";
+import React, { FC, ReactNode } from "react";
+import AuthLayout from "../../shared-components/AuthLayout";
+import Layout from "../../shared-components/Layout";
 
 const HomePage = () => {
-  const [user, setUser] = useState<boolean>(false);
-  const [error, setError] = useState("");
-
-  const checkAuthenticated = async () => {
-    const data = await verifyUser();
-
-    if (data === true) setUser(data);
-    else Router.push("/");
-  };
-
-  useEffect(() => {
-    checkAuthenticated();
-  }, []);
-
-  return (
-    <div>
-      <h1>{user && "Welcome to Homepage"}</h1>
-    </div>
-  );
+  return <h1>Home Page</h1>;
 };
 
 export default HomePage;
+
+HomePage.getLayout = function getLayout(page: ReactNode) {
+  return (
+    <Layout>
+      <AuthLayout>{page}</AuthLayout>
+    </Layout>
+  );
+};
