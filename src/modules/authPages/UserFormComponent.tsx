@@ -1,12 +1,16 @@
 import React, { FC, FormEvent, SyntheticEvent, useState } from "react";
 import Router from "next/router";
 import { signIn, signUp } from "../../utils/api/products_api";
+import { useAppDispatch } from "../../redux/hooks";
+import { signInDispatch } from "../../redux/AuthSlice.slice";
 
 interface Props {
   pageType: "login" | "signup";
 }
 
 const UserFormComponent: FC<Props> = ({ pageType }: Props) => {
+  const dispatch = useAppDispatch();
+
   const [userSignInData, setUserSignInData] = useState({
     email: "",
     password: "",
@@ -17,6 +21,7 @@ const UserFormComponent: FC<Props> = ({ pageType }: Props) => {
     email: "",
     password: "",
   });
+
   const isLogInPage = pageType === "login";
 
   const [error, setError] = useState("");
@@ -39,12 +44,17 @@ const UserFormComponent: FC<Props> = ({ pageType }: Props) => {
     try {
       e.preventDefault();
       const authFn = isLogInPage
-        ? (signIn(userSignInData), Router.push("/productly-homepage"))
-        : (signUp(userSignUpData), Router.push("/"));
+        ? signIn(userSignInData)
+        : signUp(userSignUpData);
 
-      // const { data } = await authFn;
+      const { data } = await authFn;
+
+      isLogInPage &&
+        (dispatch(signInDispatch(data.jwtToken)),
+        Router.push("/productly-homepage"));
+
+      !isLogInPage && Router.push("/");
     } catch (error: any) {
-      console.log(error.response.data);
       if (error.response.data) {
         setError(error.response.data);
       }

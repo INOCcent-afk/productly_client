@@ -1,14 +1,24 @@
 import React, { FC, ReactNode } from "react";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import Link from "next/link";
 import Footer from "../ui/Footer";
 import Header from "../ui/Header";
+import { useAppDispatch } from "../redux/hooks";
+import { signOutDispatch } from "../redux/AuthSlice.slice";
+import Router from "next/router";
 
 interface LayoutProps {
   children: ReactNode;
 }
 
 const Layout: FC<LayoutProps> = ({ children }: LayoutProps) => {
+  const dispatch = useAppDispatch();
+
+  const handleSignOut = () => {
+    dispatch(signOutDispatch());
+    Router.push("/");
+  };
+
   return (
     <StyledContainer>
       <ul>
@@ -21,6 +31,7 @@ const Layout: FC<LayoutProps> = ({ children }: LayoutProps) => {
         <li>
           <Link href="/register">Sign up</Link>
         </li>
+        <li onClick={handleSignOut}>Log out</li>
       </ul>
       <Header />
       {children}
