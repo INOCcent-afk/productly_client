@@ -15,9 +15,5 @@ export const verifyUser = async (token: string) => {
     if (res !== undefined) {
       return res.data;
     }
-  } catch (error: any) {
-    if (error.response.data) {
-      return error.response.data.msg;
-    }
-  }
+  } catch (error) {}
 };

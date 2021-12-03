@@ -12,28 +12,26 @@ const initialState: IAuth = {
     cover_photo: "",
     display_picture: "",
   },
-  isLogin: false,
 };
 
 export const authSlice = createSlice({
   name: "Auth",
   initialState,
   reducers: {
-    signInDispatch: (
-      state,
-      action: PayloadAction<{ token: string; user: IUser }>
-    ) => {
+    signInDispatch: (state, action: PayloadAction<IAuth>) => {
       localStorage.setItem("token", action.payload.token);
+      localStorage.setItem("user", JSON.stringify(action.payload.user));
 
       return {
         ...state,
         token: action.payload.token,
         user: action.payload.user,
-        isLogin: true,
       };
     },
     signOutDispatch: (state) => {
       localStorage.removeItem("token");
+      localStorage.removeItem("user");
+
       return {
         ...state,
         token: "",
@@ -45,12 +43,22 @@ export const authSlice = createSlice({
           cover_photo: "",
           display_picture: "",
         },
-        isLogin: false,
+      };
+    },
+    setUserDispatch: (state) => {
+      const token = localStorage.getItem("token")!;
+      const userData = JSON.parse(localStorage.getItem("user")!);
+
+      return {
+        ...state,
+        token: token,
+        user: userData,
       };
     },
   },
 });
 
-export const { signInDispatch, signOutDispatch } = authSlice.actions;
+export const { signInDispatch, signOutDispatch, setUserDispatch } =
+  authSlice.actions;
 
 export default authSlice.reducer;

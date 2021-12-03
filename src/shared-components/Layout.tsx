@@ -5,38 +5,55 @@ import Footer from "../ui/Footer";
 import Header from "../ui/Header";
 import Router, { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
-import { useAppSelector } from "../redux/hooks";
-import { signOutDispatch } from "../redux/AuthSlice.slice";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { setUserDispatch, signOutDispatch } from "../redux/AuthSlice.slice";
 import { toast, ToastContainer } from "react-toastify";
+import { verifyUser } from "../utils/api/verify_user";
 
 interface LayoutProps {
   children: ReactNode;
 }
 
 const Layout: FC<LayoutProps> = ({ children }: LayoutProps) => {
-  const router = useRouter();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const selectAuth = useAppSelector((state) => state.auth);
+  const router = useRouter();
 
   const handleSignOut = () => {
     dispatch(signOutDispatch());
     Router.push("/");
   };
 
-  // useEffect(() => {
-  //   if (
-  //     !selectAuth.isLogin &&
-  //     router.pathname !== "/" &&
-  //     router.pathname !== "/register"
-  //   )
-  //     router.push("/");
-  // }, [router.pathname]);
+  const checkAuthenticated = async () => {
+    const data = await verifyUser(localStorage.getItem("token")!);
+
+    if (
+      data !== true &&
+      router.pathname !== "/" &&
+      router.pathname !== "/register"
+    )
+      router.push("/");
+    else if (
+      data === true &&
+      (router.pathname === "/" || router.pathname === "/register")
+    ) {
+      router.push("/productly-homepage");
+    }
+  };
+
+  useEffect(() => {
+    checkAuthenticated();
+  }, [router.pathname]);
+
+  useEffect(() => {
+    dispatch(setUserDispatch());
+  }, []);
 
   return (
     <>
       <ToastContainer />
       <StyledContainer>
-        {selectAuth.isLogin && <h1>hello {selectAuth.user.display_name}</h1>}
+        {selectAuth.token && <h1>hello {selectAuth.user.display_name}</h1>}
         <ul>
           <li>
             <Link href="/productly-homepage">Homepage</Link>
