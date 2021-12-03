@@ -1,36 +1,56 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AppState } from "./store";
+import { IAuth } from "../models/Auth/IAuth";
+import { IUser } from "../models/user/IUser";
 
-const initialState: Auth = {
+const initialState: IAuth = {
   token: "",
+  user: {
+    user_id: "",
+    display_name: "",
+    email: "",
+    password: "",
+    cover_photo: "",
+    display_picture: "",
+  },
+  isLogin: false,
 };
 
-interface Auth {
-  token: string;
-}
-
 export const authSlice = createSlice({
-  name: "Posts",
+  name: "Auth",
   initialState,
   reducers: {
-    signInDispatch: (state, action: PayloadAction<string>) => {
-      localStorage.setItem("token", action.payload);
+    signInDispatch: (
+      state,
+      action: PayloadAction<{ token: string; user: IUser }>
+    ) => {
+      localStorage.setItem("token", action.payload.token);
 
       return {
-        token: action.payload,
+        ...state,
+        token: action.payload.token,
+        user: action.payload.user,
+        isLogin: true,
       };
     },
     signOutDispatch: (state) => {
       localStorage.removeItem("token");
       return {
+        ...state,
         token: "",
+        user: {
+          user_id: "",
+          display_name: "",
+          email: "",
+          password: "",
+          cover_photo: "",
+          display_picture: "",
+        },
+        isLogin: false,
       };
     },
   },
 });
 
 export const { signInDispatch, signOutDispatch } = authSlice.actions;
-
-export const selectToken = (state: AppState) => state.auth.token;
 
 export default authSlice.reducer;

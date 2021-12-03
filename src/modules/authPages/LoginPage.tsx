@@ -1,7 +1,7 @@
-import React, { ReactNode } from "react";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
 import { Page } from "../../models/next/INext";
-import Layout from "../../shared-components/Layout";
-import MainLayout from "../../shared-components/MainLayout";
+import { useAppSelector } from "../../redux/hooks";
 import UserFormComponent from "./UserFormComponent";
 
 const LoginPage: Page = () => {
@@ -9,11 +9,3 @@ const LoginPage: Page = () => {
 };
 
 export default LoginPage;
-
-LoginPage.getLayout = function getLayout(page: ReactNode) {
-  return (
-    <MainLayout>
-      <Layout>{page}</Layout>
-    </MainLayout>
-  );
-};

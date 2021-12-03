@@ -1,8 +1,8 @@
 import React, { FC, FormEvent, SyntheticEvent, useState } from "react";
 import Router from "next/router";
 import { signIn, signUp } from "../../utils/api/products_api";
-import { useAppDispatch } from "../../redux/hooks";
 import { signInDispatch } from "../../redux/AuthSlice.slice";
+import { useAppDispatch } from "../../redux/hooks";
 
 interface Props {
   pageType: "login" | "signup";
@@ -49,9 +49,13 @@ const UserFormComponent: FC<Props> = ({ pageType }: Props) => {
 
       const { data } = await authFn;
 
+      const payload = {
+        token: data.jwtToken,
+        user: data.user,
+      };
+
       isLogInPage &&
-        (dispatch(signInDispatch(data.jwtToken)),
-        Router.push("/productly-homepage"));
+        (dispatch(signInDispatch(payload)), Router.push("/productly-homepage"));
 
       !isLogInPage && Router.push("/");
     } catch (error: any) {
