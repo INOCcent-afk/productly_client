@@ -1,5 +1,4 @@
-import React, { FC, ReactNode } from "react";
-import Layout from "../../shared-components/Layout";
+import React, { FC } from "react";
 
 const HomePage: FC = () => {
   return <h1>Home Page</h1>;

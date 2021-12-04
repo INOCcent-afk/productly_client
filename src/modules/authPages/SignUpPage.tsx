@@ -1,8 +1,7 @@
-import React from "react";
-import { Page } from "../../models/next/INext";
+import React, { FC } from "react";
 import UserFormComponent from "./UserFormComponent";
 
-const SignUpPage: Page = () => {
+const SignUpPage: FC = () => {
   return <UserFormComponent pageType="signup" />;
 };
 

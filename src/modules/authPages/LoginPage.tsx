@@ -1,10 +1,7 @@
-import { useRouter } from "next/router";
-import React, { useEffect } from "react";
-import { Page } from "../../models/next/INext";
-import { useAppSelector } from "../../redux/hooks";
+import React, { FC } from "react";
 import UserFormComponent from "./UserFormComponent";
 
-const LoginPage: Page = () => {
+const LoginPage: FC = () => {
   return <UserFormComponent pageType="login" />;
 };
 
