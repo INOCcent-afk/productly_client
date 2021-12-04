@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IAuth } from "../models/Auth/IAuth";
-import { IUser } from "../models/user/IUser";
 
 const initialState: IAuth = {
   token: "",
@@ -14,7 +13,7 @@ const initialState: IAuth = {
   },
 };
 
-const oneHour = 5000;
+const oneHour = 3600000;
 
 export const authSlice = createSlice({
   name: "Auth",
