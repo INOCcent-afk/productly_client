@@ -14,13 +14,21 @@ const initialState: IAuth = {
   },
 };
 
+const oneHour = 5000;
+
 export const authSlice = createSlice({
   name: "Auth",
   initialState,
   reducers: {
     signInDispatch: (state, action: PayloadAction<IAuth>) => {
+      let obj = {
+        time: new Date().getTime(),
+        expire: oneHour,
+      };
+
       localStorage.setItem("token", action.payload.token);
       localStorage.setItem("user", JSON.stringify(action.payload.user));
+      localStorage.setItem("expiredUser", JSON.stringify(obj));
 
       return {
         ...state,
@@ -46,6 +54,14 @@ export const authSlice = createSlice({
       };
     },
     setUserDispatch: (state) => {
+      if (localStorage.getItem("expiredUser")) {
+        let name = JSON.parse(localStorage.getItem("expiredUser")!);
+        if (new Date().getTime() - name.time >= name.expire) {
+          localStorage.removeItem("expiredUser");
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+        }
+      }
       const token = localStorage.getItem("token")!;
       const userData = JSON.parse(localStorage.getItem("user")!);
 
