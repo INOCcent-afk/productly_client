@@ -12,6 +12,16 @@ const GlobalStyles = styled.createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+  a {
+    color: black;
+    text-decoration: none;
+  }
+
+  ul {
+    padding: 0;
+    list-style: none;
+  }
 `;
 
 export default GlobalStyles;

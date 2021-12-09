@@ -1,8 +1,13 @@
 import React, { FC } from "react";
+import { StyledContainer } from "../../styles/styled-elements";
 import UserFormComponent from "./UserFormComponent";
 
 const SignUpPage: FC = () => {
-  return <UserFormComponent pageType="signup" />;
+  return (
+    <StyledContainer>
+      <UserFormComponent pageType="signup" />
+    </StyledContainer>
+  );
 };
 
 export default SignUpPage;
