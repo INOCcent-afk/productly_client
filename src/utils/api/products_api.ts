@@ -14,3 +14,9 @@ export const getAllProducts = async () => {
 
   return data.data.products;
 };
+
+export const getReviewsOfSingleProduct = async (id: string) => {
+  const { data } = await API.get(`/product/${id}/reviews`);
+
+  return data.data;
+};
