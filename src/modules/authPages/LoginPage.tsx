@@ -1,12 +1,12 @@
 import React, { FC } from "react";
-import { StyledContainer } from "../../styles/styled-elements";
+import { StyledMainContainer } from "../../styles/styled-elements/container-elements";
 import UserFormComponent from "./UserFormComponent";
 
 const LoginPage: FC = () => {
   return (
-    <StyledContainer>
+    <StyledMainContainer>
       <UserFormComponent pageType="login" />
-    </StyledContainer>
+    </StyledMainContainer>
   );
 };
 

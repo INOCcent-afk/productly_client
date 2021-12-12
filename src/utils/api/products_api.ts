@@ -8,3 +8,9 @@ const API = axios.create({
 
 export const signIn = (formData: IUserSignIn) => API.post("/login", formData);
 export const signUp = (formData: IUserSignUp) => API.post("/signup", formData);
+
+export const getAllProducts = async () => {
+  const { data } = await API.get("/products");
+
+  return data.data.products;
+};

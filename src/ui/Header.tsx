@@ -4,7 +4,7 @@ import Router from "next/router";
 import { signOutDispatch } from "../redux/AuthSlice.slice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import styled from "styled-components";
-import { StyledContainer } from "../styles/styled-elements";
+import { StyledMainContainer } from "../styles/styled-elements/container-elements";
 
 const Header = () => {
   const dispatch = useAppDispatch();
@@ -16,7 +16,7 @@ const Header = () => {
   };
 
   return (
-    <StyledContainer>
+    <StyledMainContainer>
       <StyledHeader>
         <StyledLeftNav>
           <StyledBranding>
@@ -53,7 +53,7 @@ const Header = () => {
           )}
         </StyledRightNav>
       </StyledHeader>
-    </StyledContainer>
+    </StyledMainContainer>
   );
 };
 
