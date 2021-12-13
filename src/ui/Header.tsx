@@ -4,7 +4,6 @@ import Router from "next/router";
 import { signOutDispatch } from "../redux/AuthSlice.slice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import styled from "styled-components";
-import { StyledMainContainer } from "../styles/styled-elements/container-elements";
 
 const Header = () => {
   const dispatch = useAppDispatch();
@@ -16,7 +15,7 @@ const Header = () => {
   };
 
   return (
-    <StyledMainContainer>
+    <StyledHeaderContainer>
       <StyledHeader>
         <StyledLeftNav>
           <StyledBranding>
@@ -25,7 +24,7 @@ const Header = () => {
           </StyledBranding>
           <StyledMainNav>
             <li>
-              <Link href="/productly-homepage">Review</Link>
+              <Link href="/review">Review</Link>
             </li>
             <li>
               <Link href="/productly-homepage">Products</Link>
@@ -53,11 +52,15 @@ const Header = () => {
           )}
         </StyledRightNav>
       </StyledHeader>
-    </StyledMainContainer>
+    </StyledHeaderContainer>
   );
 };
 
 export default Header;
+
+const StyledHeaderContainer = styled.div`
+  box-shadow: 0 2px 10px -2px gray;
+`;
 
 const StyledHeader = styled.header`
   display: flex;
@@ -65,6 +68,9 @@ const StyledHeader = styled.header`
   justify-content: space-between;
   background-color: white;
   height: 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 10px;
 `;
 
 const StyledBranding = styled.ul`

@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import styled from "styled-components";
 import { IProduct } from "../../models/products/product";
 import { StyledButtonOutlined } from "../../styles/styled-elements/button-elements";
+import { StyledMainContainer } from "../../styles/styled-elements/container-elements";
 import HeroBanner from "../../ui/HeroBanner";
 import { getAllProducts } from "../../utils/api/products_api";
 
@@ -20,12 +21,14 @@ const HomePage: FC = () => {
     <>
       <HeroBanner />
       <StyledHomepageContainer>
-        {productData &&
-          productData.map((item) => (
-            <StyledButtonOutlined key={item.product_id}>
-              {item.product_name}
-            </StyledButtonOutlined>
-          ))}
+        <StyledMainContainer>
+          {productData &&
+            productData.map((item) => (
+              <StyledButtonOutlined key={item.product_id}>
+                {item.product_name}
+              </StyledButtonOutlined>
+            ))}
+        </StyledMainContainer>
       </StyledHomepageContainer>
     </>
   );

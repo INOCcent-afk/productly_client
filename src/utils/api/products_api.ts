@@ -1,4 +1,5 @@
 import axios from "axios";
+import { IReviewPost } from "../../models/products/reviews";
 import { IUserSignIn } from "../../models/user/IUserSign";
 import { IUserSignUp } from "../../models/user/IUserSIgnUp";
 
@@ -14,6 +15,12 @@ export const getAllProducts = async () => {
 
   return data.data.products;
 };
+
+export const createReview = async (
+  payload: IReviewPost,
+  user_id: string | unknown,
+  review_product_id: string
+) => API.post(`/product/${user_id}/${review_product_id}/addReview`, payload);
 
 export const getReviewsOfSingleProduct = async (id: string) => {
   const { data } = await API.get(`/product/${id}/reviews`);
