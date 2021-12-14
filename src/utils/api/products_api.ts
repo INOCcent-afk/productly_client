@@ -1,4 +1,5 @@
 import axios from "axios";
+import { TRouterQuery } from "../../models/nextType/TRouterQuery";
 import { IReviewPost } from "../../models/products/reviews";
 import { IUserSignIn } from "../../models/user/IUserSign";
 import { IUserSignUp } from "../../models/user/IUserSIgnUp";
@@ -14,6 +15,12 @@ export const getAllProducts = async () => {
   const { data } = await API.get("/products");
 
   return data.data.products;
+};
+
+export const getSingleProduct = async (id: TRouterQuery) => {
+  const { data } = await API.get(`/product/${id}`);
+
+  return data.data.product;
 };
 
 export const createReview = async (

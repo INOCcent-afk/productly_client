@@ -1,17 +1,13 @@
 import React, { FC } from "react";
-import { useQuery } from "react-query";
 import styled from "styled-components";
-import { IProduct } from "../../models/products/product";
 import { StyledButtonOutlined } from "../../styles/styled-elements/button-elements";
 import { StyledMainContainer } from "../../styles/styled-elements/container-elements";
 import HeroBanner from "../../ui/HeroBanner";
-import { getAllProducts } from "../../utils/api/products_api";
+import { useProductsData } from "../../utils/reactQueryHooks/productsQueryHooks";
+import Link from "next/link";
 
 const HomePage: FC = () => {
-  const { data: productData, isLoading } = useQuery<IProduct[]>(
-    "products",
-    getAllProducts
-  );
+  const { data: productsData, isLoading } = useProductsData();
 
   if (isLoading) {
     return <div>loading tnagina ka!!!!</div>;
@@ -22,10 +18,12 @@ const HomePage: FC = () => {
       <HeroBanner />
       <StyledHomepageContainer>
         <StyledMainContainer>
-          {productData &&
-            productData.map((item) => (
+          {productsData &&
+            productsData.map((item) => (
               <StyledButtonOutlined key={item.product_id}>
-                {item.product_name}
+                <Link href={`/product/${item.product_id}`}>
+                  {item.product_name}
+                </Link>
               </StyledButtonOutlined>
             ))}
         </StyledMainContainer>

@@ -1,8 +1,5 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
-import { IProduct } from "../../models/products/product";
-import { IReview } from "../../models/products/reviews";
 import { AppState } from "../../redux/store";
 import { StyledButton } from "../../styles/styled-elements/button-elements";
 import {
@@ -10,7 +7,11 @@ import {
   StyledMainContainer,
   StyledPanelDominantLeft,
 } from "../../styles/styled-elements/container-elements";
-import { createReview, getAllProducts } from "../../utils/api/products_api";
+import { createReview } from "../../utils/api/products_api";
+import {
+  useProductData,
+  useProductsData,
+} from "../../utils/reactQueryHooks/productsQueryHooks";
 
 const ReviewPage = () => {
   const user = useSelector<AppState>((state) => state.auth.user.user_id);
@@ -21,10 +22,13 @@ const ReviewPage = () => {
     rating: 1,
   });
 
-  const { data: productData, isLoading } = useQuery<IProduct[]>(
-    "products",
-    getAllProducts
-  );
+  const { data: productsData, isLoading } = useProductsData();
+  const { data: singleProductData, isLoading: singleProductIsLoading } =
+    useProductData(
+      selectedProduct,
+      selectedProduct ? true : false,
+      selectedProduct
+    );
 
   const handleReviewData = (
     e: ChangeEvent<HTMLTextAreaElement | HTMLSelectElement>
@@ -44,10 +48,10 @@ const ReviewPage = () => {
   };
 
   useEffect(() => {
-    if (productData) {
-      setSelectedProduct(productData[0].product_id);
+    if (productsData) {
+      setSelectedProduct(productsData[0].product_id);
     }
-  }, [productData]);
+  }, [productsData]);
 
   return (
     <StyledMainContainer>
@@ -62,8 +66,8 @@ const ReviewPage = () => {
               onChange={(e) => setSelectedProduct(e.currentTarget.value)}
               required
             >
-              {productData ? (
-                productData.map((product) => (
+              {productsData ? (
+                productsData.map((product) => (
                   <option key={product.product_id} value={product.product_id}>
                     {product.product_name}
                   </option>
@@ -102,7 +106,11 @@ const ReviewPage = () => {
           </form>
         </StyledBox>
         <StyledBox>
-          <h1></h1>
+          {singleProductIsLoading ? (
+            <h1>Wait a minute kapeng mainit</h1>
+          ) : (
+            <h1>{singleProductData && singleProductData.product_name}</h1>
+          )}
         </StyledBox>
       </StyledPanelDominantLeft>
     </StyledMainContainer>
