@@ -5,9 +5,7 @@ import Header from "../ui/Header";
 import { useRouter } from "next/router";
 import { useAppDispatch } from "../redux/hooks";
 import { setUserDispatch } from "../redux/AuthSlice.slice";
-import { ToastContainer } from "react-toastify";
 import { verifyUser } from "../utils/api/verify_user";
-import HeroBanner from "../ui/HeroBanner";
 
 interface LayoutProps {
   children: ReactNode;
@@ -41,7 +39,6 @@ const Layout: FC<LayoutProps> = ({ children }: LayoutProps) => {
 
   return (
     <>
-      <ToastContainer />
       <StyledLayout>
         <Header />
         {children}

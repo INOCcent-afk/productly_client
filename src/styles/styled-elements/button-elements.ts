@@ -14,6 +14,7 @@ export const StyledButton = styled.button`
   font-size: 16px;
   padding: 10px 20px;
   border: 2px solid maroon;
+  cursor: pointer;
 `;
 
 export const StyledButtonOutlined = styled(StyledButton)<ButtonProps>`

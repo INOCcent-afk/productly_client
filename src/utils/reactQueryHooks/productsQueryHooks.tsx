@@ -14,3 +14,4 @@ export const useProductData = (
   useQuery<IProduct>(["product", state], () => getSingleProduct(id), {
     enabled: isEnabled,
   });
+

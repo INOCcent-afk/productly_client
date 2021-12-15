@@ -1,5 +1,7 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { useMutation } from "react-query";
 import { useSelector } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
 import { AppState } from "../../redux/store";
 import { StyledButton } from "../../styles/styled-elements/button-elements";
 import {
@@ -22,6 +24,12 @@ const ReviewPage = () => {
     rating: 1,
   });
 
+  const mutation = useMutation(() => createReview(reviewData, user, selectedProduct), {
+    onSuccess: () => {
+      toast("Review has been posted Suckah!");
+    }
+  })
+
   const { data: productsData, isLoading } = useProductsData();
   const { data: singleProductData, isLoading: singleProductIsLoading } =
     useProductData(
@@ -43,7 +51,7 @@ const ReviewPage = () => {
     try {
       e.preventDefault();
 
-      createReview(reviewData, user, selectedProduct);
+      mutation.mutate();
     } catch (error) {}
   };
 
@@ -55,6 +63,7 @@ const ReviewPage = () => {
 
   return (
     <StyledMainContainer>
+      <ToastContainer theme="dark"/>
       <StyledPanelDominantLeft>
         <StyledBox>
           <form onSubmit={submit}>
