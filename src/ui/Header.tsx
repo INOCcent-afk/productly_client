@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { SyntheticEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import Router from "next/router";
 import { signOutDispatch } from "../redux/AuthSlice.slice";
@@ -6,12 +6,12 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import styled from "styled-components";
 import { useUsersSearchedData } from "../utils/reactQueryHooks/productsQueryHooks";
 import { searchUsers } from "../utils/api/products_api";
+import { useQuery } from "react-query";
 
 const Header = () => {
   const dispatch = useAppDispatch();
   const selectAuth = useAppSelector((state) => state.auth);
   const [searchUser, setSearchUser] = useState("");
-
   const [users, setUsers] = useState([]);
 
   const handleSignOut = () => {
@@ -19,9 +19,34 @@ const Header = () => {
     Router.push("/");
   };
 
-  const handleSearch = async (name: string) => {
-    setSearchUser(name);
+  const { data, refetch } = useUsersSearchedData(
+    searchUser,
+    selectAuth.token,
+    false,
+    searchUser
+  );
+
+  const handleSearch = (event: SyntheticEvent<HTMLInputElement>) => {
+    setSearchUser(event.currentTarget.value);
   };
+
+  // const query = async () => {
+  //   if (searchUser !== "") {
+  //     const data = await searchUsers(searchUser, selectAuth.token);
+
+  //     if (data && data.users) {
+  //       setUsers(data.users);
+  //     }
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   query();
+
+  //   console.log(users);
+  // }, [searchUser]);
+
+  console.log(data);
 
   return (
     <StyledHeaderContainer>
@@ -31,7 +56,8 @@ const Header = () => {
             <h1>Productly</h1>
             <input
               type="text"
-              onChange={(e) => handleSearch(e.currentTarget.value)}
+              value={searchUser}
+              onChange={handleSearch}
               placeholder="search"
             />
           </StyledBranding>

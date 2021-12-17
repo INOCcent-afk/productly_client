@@ -1,7 +1,6 @@
 import { useQuery } from "react-query";
 import { TRouterQuery } from "../../models/nextType/TRouterQuery";
 import { IProduct } from "../../models/products/product";
-import { IUser } from "../../models/user/IUser";
 
 import {
   getAllProducts,
