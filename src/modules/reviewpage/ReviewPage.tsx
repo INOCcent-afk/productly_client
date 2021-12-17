@@ -16,7 +16,7 @@ import {
 } from "../../utils/reactQueryHooks/productsQueryHooks";
 
 const ReviewPage = () => {
-  const user = useSelector<AppState>((state) => state.auth.user.user_id);
+  const user: any = useSelector<AppState>((state) => state.auth.user);
 
   const [selectedProduct, setSelectedProduct] = useState("");
   const [reviewData, setReviewData] = useState({
@@ -24,11 +24,16 @@ const ReviewPage = () => {
     rating: 1,
   });
 
-  const mutation = useMutation(() => createReview(reviewData, user, selectedProduct), {
-    onSuccess: () => {
-      toast("Review has been posted Suckah!");
+  const userID = user && user.user_id;
+
+  const mutation = useMutation(
+    () => createReview(reviewData, userID, selectedProduct),
+    {
+      onSuccess: () => {
+        toast("Review has been posted Suckah!");
+      },
     }
-  })
+  );
 
   const { data: productsData, isLoading } = useProductsData();
   const { data: singleProductData, isLoading: singleProductIsLoading } =
@@ -63,7 +68,7 @@ const ReviewPage = () => {
 
   return (
     <StyledMainContainer>
-      <ToastContainer theme="dark"/>
+      <ToastContainer theme="dark" />
       <StyledPanelDominantLeft>
         <StyledBox>
           <form onSubmit={submit}>

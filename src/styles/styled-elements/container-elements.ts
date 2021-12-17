@@ -2,10 +2,10 @@ import styled from "styled-components";
 import { devices } from "../../utils/theme/breakpoints";
 
 export const StyledMainContainer = styled.div`
-  width: 100%;
+  width: calc(100% - 10px);
   max-width: 1200px;
   margin: 0 auto;
-  padding: 100px 10px;
+  padding: 100px 0;
   min-height: 80vh;
 `;
 

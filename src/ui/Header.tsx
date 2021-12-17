@@ -1,17 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Router from "next/router";
 import { signOutDispatch } from "../redux/AuthSlice.slice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import styled from "styled-components";
+import { useUsersSearchedData } from "../utils/reactQueryHooks/productsQueryHooks";
+import { searchUsers } from "../utils/api/products_api";
 
 const Header = () => {
   const dispatch = useAppDispatch();
   const selectAuth = useAppSelector((state) => state.auth);
+  const [searchUser, setSearchUser] = useState("");
+
+  const [users, setUsers] = useState([]);
 
   const handleSignOut = () => {
     dispatch(signOutDispatch());
     Router.push("/");
+  };
+
+  const handleSearch = async (name: string) => {
+    setSearchUser(name);
   };
 
   return (
@@ -20,7 +29,11 @@ const Header = () => {
         <StyledLeftNav>
           <StyledBranding>
             <h1>Productly</h1>
-            <input type="text" placeholder="search" />
+            <input
+              type="text"
+              onChange={(e) => handleSearch(e.currentTarget.value)}
+              placeholder="search"
+            />
           </StyledBranding>
           <StyledMainNav>
             <li>

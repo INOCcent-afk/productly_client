@@ -34,3 +34,13 @@ export const getReviewsOfSingleProduct = async (id: string) => {
 
   return data.data;
 };
+
+export const searchUsers = async (name: string, token: string) => {
+  const { data } = await API.get(`/user/search/${name}`, {
+    headers: {
+      jwt_token: token,
+    },
+  });
+
+  return data.data;
+};

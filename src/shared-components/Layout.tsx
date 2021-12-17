@@ -35,7 +35,7 @@ const Layout: FC<LayoutProps> = ({ children }: LayoutProps) => {
   useEffect(() => {
     checkAuthenticated();
     dispatch(setUserDispatch());
-  }, [router.pathname]);
+  }, [router]);
 
   return (
     <>
