@@ -22,31 +22,13 @@ const Header = () => {
   const { data, refetch } = useUsersSearchedData(
     searchUser,
     selectAuth.token,
-    false,
+    searchUser === "" ? false : true,
     searchUser
   );
 
   const handleSearch = (event: SyntheticEvent<HTMLInputElement>) => {
     setSearchUser(event.currentTarget.value);
   };
-
-  // const query = async () => {
-  //   if (searchUser !== "") {
-  //     const data = await searchUsers(searchUser, selectAuth.token);
-
-  //     if (data && data.users) {
-  //       setUsers(data.users);
-  //     }
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   query();
-
-  //   console.log(users);
-  // }, [searchUser]);
-
-  console.log(data);
 
   return (
     <StyledHeaderContainer>
@@ -60,6 +42,10 @@ const Header = () => {
               onChange={handleSearch}
               placeholder="search"
             />
+            {data &&
+              data.users.map((item) => (
+                <h1 key={item.user_id}>{item.display_name}</h1>
+              ))}
           </StyledBranding>
           <StyledMainNav>
             <li>
