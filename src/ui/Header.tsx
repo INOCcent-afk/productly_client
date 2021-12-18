@@ -1,25 +1,27 @@
-import React, { SyntheticEvent, useEffect, useState } from "react";
+import React, { SyntheticEvent, useState } from "react";
 import Link from "next/link";
 import Router from "next/router";
 import { signOutDispatch } from "../redux/AuthSlice.slice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import styled from "styled-components";
 import { useUsersSearchedData } from "../utils/reactQueryHooks/productsQueryHooks";
-import { searchUsers } from "../utils/api/products_api";
-import { useQuery } from "react-query";
+
+interface ISearchedUser {
+  user_id: string;
+  display_name: string;
+}
 
 const Header = () => {
   const dispatch = useAppDispatch();
   const selectAuth = useAppSelector((state) => state.auth);
   const [searchUser, setSearchUser] = useState("");
-  const [users, setUsers] = useState([]);
 
   const handleSignOut = () => {
     dispatch(signOutDispatch());
     Router.push("/");
   };
 
-  const { data, refetch } = useUsersSearchedData(
+  const { data: searchedUsers } = useUsersSearchedData(
     searchUser,
     selectAuth.token,
     searchUser === "" ? false : true,
@@ -42,9 +44,9 @@ const Header = () => {
               onChange={handleSearch}
               placeholder="search"
             />
-            {data &&
-              data.users.map((item) => (
-                <h1 key={item.user_id}>{item.display_name}</h1>
+            {searchedUsers &&
+              searchedUsers.users.map((user: ISearchedUser) => (
+                <h1 key={user.user_id}>{user.display_name}</h1>
               ))}
           </StyledBranding>
           <StyledMainNav>

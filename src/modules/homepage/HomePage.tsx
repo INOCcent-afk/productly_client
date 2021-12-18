@@ -10,7 +10,7 @@ const HomePage: FC = () => {
   const { data: productsData, isLoading } = useProductsData();
 
   if (isLoading) {
-    return <div>loading tnagina ka!!!!</div>;
+    return <div>loading</div>;
   }
 
   return (
