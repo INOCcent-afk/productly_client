@@ -15,6 +15,10 @@ export const StyledButton = styled.button`
   padding: 10px 20px;
   border: 2px solid maroon;
   cursor: pointer;
+
+  a {
+    color: white;
+  }
 `;
 
 export const StyledButtonOutlined = styled(StyledButton)<ButtonProps>`
@@ -22,4 +26,8 @@ export const StyledButtonOutlined = styled(StyledButton)<ButtonProps>`
   border: ${(props) => props.borderWidth || 2}px solid
     ${(props) => props.borderColor || "maroon"};
   color: ${(props) => props.color || "maroon"};
+
+  a {
+    color: ${(props) => props.color || "maroon"};
+  }
 `;

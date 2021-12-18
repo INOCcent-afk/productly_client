@@ -1,20 +1,26 @@
-import React, { SyntheticEvent, useState } from "react";
+import React, {
+  FC,
+  SyntheticEvent,
+  useCallback,
+  useRef,
+  useState,
+} from "react";
 import Link from "next/link";
 import Router from "next/router";
 import { signOutDispatch } from "../../redux/AuthSlice.slice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import styled from "styled-components";
 import { useUsersSearchedData } from "../../utils/reactQueryHooks/productsQueryHooks";
+import UserSearchedDropdown from "./UserSearchedDropdown";
+import debounce from "lodash.debounce";
 
-interface ISearchedUser {
-  user_id: string;
-  display_name: string;
-}
-
-const Header = () => {
+const Header: FC = () => {
   const dispatch = useAppDispatch();
   const selectAuth = useAppSelector((state) => state.auth);
   const [searchUser, setSearchUser] = useState("");
+  const [output, setOutput] = useState("");
+  const debounced = useRef(debounce((value) => setOutput(value), 600));
+
   const [isInputFocus, setIsInputFocus] = useState(false);
 
   const handleSignOut = () => {
@@ -22,16 +28,22 @@ const Header = () => {
     Router.push("/");
   };
 
-  const { data: searchedUsers } = useUsersSearchedData(
-    searchUser,
-    selectAuth.token,
-    searchUser === "" ? false : true,
-    searchUser
-  );
+  const { data: searchedUsers, isFetching: isSearchedUsersLoading } =
+    useUsersSearchedData(
+      searchUser,
+      selectAuth.token,
+      searchUser === "" ? false : true,
+      output,
+      true
+    );
 
-  const handleSearch = (event: SyntheticEvent<HTMLInputElement>) => {
-    setSearchUser(event.currentTarget.value);
-  };
+  const updateUserValue = useCallback(
+    (event: SyntheticEvent<HTMLInputElement>) => {
+      setSearchUser(event.currentTarget.value);
+      debounced.current(event.currentTarget.value);
+    },
+    []
+  );
 
   return (
     <StyledHeaderContainer>
@@ -40,20 +52,18 @@ const Header = () => {
       >
         <StyledLeftNav>
           <StyledBranding className={`${isInputFocus && "basis-full"}`}>
-            <h1 className="text-red-900">Productly</h1>
+            <Link href="/productly-homepage">
+              <h1 className="text-red-900 cursor-pointer">Productly</h1>
+            </Link>
             <input
               type="text"
               value={searchUser}
-              onChange={handleSearch}
+              onChange={updateUserValue}
               placeholder="search"
               onFocus={() => setIsInputFocus(true)}
               onBlur={() => setIsInputFocus(false)}
               className={`${isInputFocus && "w-full"}`}
             />
-            {searchedUsers &&
-              searchedUsers.users.map((user: ISearchedUser) => (
-                <h1 key={user.user_id}>{user.display_name}</h1>
-              ))}
           </StyledBranding>
           {!isInputFocus && (
             <StyledMainNav>
@@ -86,6 +96,12 @@ const Header = () => {
             </>
           )}
         </StyledRightNav>
+        {output && isInputFocus && (
+          <UserSearchedDropdown
+            users={searchedUsers ? searchedUsers.users : []}
+            isLoading={isSearchedUsersLoading}
+          />
+        )}
       </StyledHeader>
     </StyledHeaderContainer>
   );

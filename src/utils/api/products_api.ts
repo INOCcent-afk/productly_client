@@ -36,15 +36,11 @@ export const getReviewsOfSingleProduct = async (id: string) => {
 };
 
 export const searchUsers = async (name: string, token: string) => {
-  console.log(name);
-
   const { data } = await API.get(`/user/search/${name}`, {
     headers: {
       jwt_token: token,
     },
   });
-
-  console.log(data);
 
   return data.data;
 };

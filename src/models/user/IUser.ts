@@ -11,3 +11,8 @@ export interface IUser {
 
   display_picture: string;
 }
+
+export interface ISearchedUser {
+  user_id: string;
+  display_name: string;
+}

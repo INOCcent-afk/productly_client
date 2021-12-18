@@ -16,6 +16,7 @@ const GlobalStyles = styled.createGlobalStyle`
   a {
     color: black;
     text-decoration: none;
+    cursor: pointer;
   }
 
   ul {
@@ -23,7 +24,9 @@ const GlobalStyles = styled.createGlobalStyle`
     list-style: none;
   }
 
-  input {
+  input,
+  textarea,
+  select {
     border: 1px solid;
   }
 `;

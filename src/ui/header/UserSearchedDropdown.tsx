@@ -1,13 +1,42 @@
-import React from "react";
+import React, { FC } from "react";
 import styled from "styled-components";
-import { StyledAvatar } from "../../styles/styled-elements/common-elements";
+import { ISearchedUser } from "../../models/user/IUser";
+import UserLink from "./UserLink";
 
-const UserSearchedDropdown = ({}) => {
+interface UserSearchedDropdownProps {
+  users: ISearchedUser[];
+  isLoading: boolean;
+}
+
+const UserSearchedDropdown: FC<UserSearchedDropdownProps> = ({
+  users,
+  isLoading,
+}: UserSearchedDropdownProps) => {
+  console.log(isLoading);
+
   return (
     <StyledUserSearchedDropdown>
-      <StyledUserLink>
-        <StyledAvatar size={30}></StyledAvatar>
-      </StyledUserLink>
+      {isLoading ? (
+        <StyledMessage>
+          <h1>Spinner</h1>
+        </StyledMessage>
+      ) : (
+        <>
+          {users.length !== 0 ? (
+            users.map((user) => (
+              <UserLink
+                key={user.user_id}
+                id={user.user_id}
+                name={user.display_name}
+              />
+            ))
+          ) : (
+            <StyledMessage>
+              <h1>No Data T_T</h1>
+            </StyledMessage>
+          )}
+        </>
+      )}
     </StyledUserSearchedDropdown>
   );
 };
@@ -16,12 +45,18 @@ export default UserSearchedDropdown;
 
 const StyledUserSearchedDropdown = styled.div`
   position: absolute;
-  display: flex;
+  background-color: white;
+  width: 100%;
+  z-index: 1;
+  top: 85px;
+  max-height: 150px;
+  overflow-y: auto;
 `;
 
-const StyledUserLink = styled.a`
+const StyledMessage = styled.div`
+  height: 80px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding-left: 15px;
+  justify-content: center;
+  text-align: center;
 `;
