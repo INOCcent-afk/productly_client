@@ -1,7 +1,7 @@
 import React, { FC, ReactNode, useEffect } from "react";
 import styled from "styled-components";
 import Footer from "../ui/Footer";
-import Header from "../ui/Header";
+import Header from "../ui/header/Header";
 import { useRouter } from "next/router";
 import { useAppDispatch } from "../redux/hooks";
 import { setUserDispatch } from "../redux/AuthSlice.slice";

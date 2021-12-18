@@ -1,10 +1,10 @@
 import React, { SyntheticEvent, useState } from "react";
 import Link from "next/link";
 import Router from "next/router";
-import { signOutDispatch } from "../redux/AuthSlice.slice";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { signOutDispatch } from "../../redux/AuthSlice.slice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import styled from "styled-components";
-import { useUsersSearchedData } from "../utils/reactQueryHooks/productsQueryHooks";
+import { useUsersSearchedData } from "../../utils/reactQueryHooks/productsQueryHooks";
 
 interface ISearchedUser {
   user_id: string;
@@ -15,6 +15,7 @@ const Header = () => {
   const dispatch = useAppDispatch();
   const selectAuth = useAppSelector((state) => state.auth);
   const [searchUser, setSearchUser] = useState("");
+  const [isInputFocus, setIsInputFocus] = useState(false);
 
   const handleSignOut = () => {
     dispatch(signOutDispatch());
@@ -34,34 +35,41 @@ const Header = () => {
 
   return (
     <StyledHeaderContainer>
-      <StyledHeader>
+      <StyledHeader
+        className={`${isInputFocus && "!grid grid-cols-3frAnd1fr gap-4"}`}
+      >
         <StyledLeftNav>
-          <StyledBranding>
-            <h1>Productly</h1>
+          <StyledBranding className={`${isInputFocus && "basis-full"}`}>
+            <h1 className="text-red-900">Productly</h1>
             <input
               type="text"
               value={searchUser}
               onChange={handleSearch}
               placeholder="search"
+              onFocus={() => setIsInputFocus(true)}
+              onBlur={() => setIsInputFocus(false)}
+              className={`${isInputFocus && "w-full"}`}
             />
             {searchedUsers &&
               searchedUsers.users.map((user: ISearchedUser) => (
                 <h1 key={user.user_id}>{user.display_name}</h1>
               ))}
           </StyledBranding>
-          <StyledMainNav>
-            <li>
-              <Link href="/review">Review</Link>
-            </li>
-            <li>
-              <Link href="/productly-homepage">Products</Link>
-            </li>
-            <li>
-              <Link href="/productly-homepage">About</Link>
-            </li>
-          </StyledMainNav>
+          {!isInputFocus && (
+            <StyledMainNav>
+              <li>
+                <Link href="/review">Review</Link>
+              </li>
+              <li>
+                <Link href="/productly-homepage">Products</Link>
+              </li>
+              <li>
+                <Link href="/productly-homepage">About</Link>
+              </li>
+            </StyledMainNav>
+          )}
         </StyledLeftNav>
-        <StyledRightNav>
+        <StyledRightNav className={`${isInputFocus && "justify-end"}`}>
           {selectAuth.token ? (
             <>
               {selectAuth.token && <h3>{selectAuth.user.display_name}</h3>}
@@ -98,6 +106,7 @@ const StyledHeader = styled.header`
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 10px;
+  position: relative;
 `;
 
 const StyledBranding = styled.ul`

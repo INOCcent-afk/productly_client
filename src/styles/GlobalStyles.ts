@@ -22,6 +22,10 @@ const GlobalStyles = styled.createGlobalStyle`
     padding: 0;
     list-style: none;
   }
+
+  input {
+    border: 1px solid;
+  }
 `;
 
 export default GlobalStyles;

@@ -6,7 +6,7 @@ export const StyledMainContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 100px 0;
-  min-height: 80vh;
+  min-height: 100vh;
 `;
 
 export const StyledBox = styled.div`
