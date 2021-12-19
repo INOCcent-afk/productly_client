@@ -13,6 +13,12 @@ import styled from "styled-components";
 import { useUsersSearchedData } from "../../utils/reactQueryHooks/productsQueryHooks";
 import UserSearchedDropdown from "./UserSearchedDropdown";
 import debounce from "lodash.debounce";
+import {
+  StyledButton,
+  StyledButtonOutlined,
+} from "../../styles/styled-elements/button-elements";
+import SearchInput from "../SearchInput";
+import { StyledAnimatedAvatar } from "../../styles/styled-elements/common-elements";
 
 const Header: FC = () => {
   const dispatch = useAppDispatch();
@@ -45,6 +51,11 @@ const Header: FC = () => {
     []
   );
 
+  const clearUserValue = useCallback(() => {
+    setSearchUser("");
+    debounced.current("");
+  }, []);
+
   return (
     <StyledHeaderContainer>
       <StyledHeader
@@ -53,16 +64,17 @@ const Header: FC = () => {
         <StyledLeftNav>
           <StyledBranding className={`${isInputFocus && "basis-full"}`}>
             <Link href="/productly-homepage">
-              <h1 className="text-red-900 cursor-pointer">Productly</h1>
+              <a className="text-red-900 cursor-pointer">Productly</a>
             </Link>
-            <input
-              type="text"
+            <SearchInput
               value={searchUser}
-              onChange={updateUserValue}
+              onChangeEvent={updateUserValue}
               placeholder="search"
-              onFocus={() => setIsInputFocus(true)}
-              onBlur={() => setIsInputFocus(false)}
-              className={`${isInputFocus && "w-full"}`}
+              onFocusEvent={() => setIsInputFocus(true)}
+              onBlurEvent={() => setIsInputFocus(false)}
+              closeButtonEvent={clearUserValue}
+              additonalInputClassname={isInputFocus ? "w-full" : ""}
+              additonalContainerClassname={isInputFocus ? "w-full" : ""}
             />
           </StyledBranding>
           {!isInputFocus && (
@@ -83,16 +95,18 @@ const Header: FC = () => {
           {selectAuth.token ? (
             <>
               {selectAuth.token && <h3>{selectAuth.user.display_name}</h3>}
-              <span onClick={handleSignOut}>Log out</span>
+              <StyledAnimatedAvatar size={40} tabIndex={0}>
+                {selectAuth.user.display_name.charAt(0)}
+              </StyledAnimatedAvatar>
             </>
           ) : (
             <>
-              <span>
-                <Link href="/">Login</Link>
-              </span>
-              <span>
-                <Link href="/register">Register</Link>
-              </span>
+              <Link href="/">
+                <StyledButton>Login</StyledButton>
+              </Link>
+              <Link href="/register">
+                <StyledButtonOutlined>Register</StyledButtonOutlined>
+              </Link>
             </>
           )}
         </StyledRightNav>
@@ -128,6 +142,7 @@ const StyledHeader = styled.header`
 const StyledBranding = styled.ul`
   display: flex;
   gap: 30px;
+  align-items: center;
 
   h1 {
     font-weight: bold;

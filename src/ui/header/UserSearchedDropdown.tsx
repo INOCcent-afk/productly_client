@@ -12,8 +12,6 @@ const UserSearchedDropdown: FC<UserSearchedDropdownProps> = ({
   users,
   isLoading,
 }: UserSearchedDropdownProps) => {
-  console.log(isLoading);
-
   return (
     <StyledUserSearchedDropdown>
       {isLoading ? (
