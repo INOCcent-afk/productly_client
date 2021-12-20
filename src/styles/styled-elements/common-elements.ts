@@ -13,8 +13,9 @@ export const StyledAvatar = styled.div<IAvatarProps>`
   border-radius: 50%;
   width: ${(props) => props.size}px;
   height: ${(props) => props.size}px;
-  background-color: ${(props) => props.backgroundColor || "maroon"};
-  color: ${(props) => props.color || "white"};
+  background-color: ${(props) =>
+    props.backgroundColor || props.theme.backgroundColors.primary};
+  color: ${(props) => props.color || props.theme.colors.white};
   font-size: 14px;
 `;
 
@@ -31,14 +32,15 @@ export const StyledAnimatedAvatar = styled(StyledAvatar)`
     left: -4px;
     right: -4px;
     bottom: -4px;
-    border: 2px solid ${(props) => props.backgroundColor || "maroon"};
+    border: 2px solid
+      ${(props) =>
+        props.backgroundColor || props.theme.borderColors.yellowBorder};
     border-radius: 50%;
     width: ${(props) => props.size + 8}px;
     height: ${(props) => props.size + 8}px;
     transition: none;
   }
 
-  &:hover,
   &:focus {
     transform: scale(0.8);
 

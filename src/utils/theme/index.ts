@@ -40,6 +40,7 @@ export const theme = {
   borderColors: {
     yellowBorder: darkYellow,
     grayBorder: gray300,
+    grayLightBorder: gray100,
   },
 
   boxShadows: {

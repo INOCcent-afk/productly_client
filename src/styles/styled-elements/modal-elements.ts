@@ -19,4 +19,5 @@ export const StyledModal = styled.div<ModalProps>`
   bottom: ${(props) => props.bottom}px;
   background-color: ${(props) => props.backgroundColor || "white"};
   box-shadow: ${(props) => props.theme.boxShadows.bottomBoxShadow};
+  border: 1px solid ${(props) => props.theme.borderColors.grayLightBorder};
 `;

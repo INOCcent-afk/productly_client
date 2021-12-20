@@ -44,6 +44,8 @@ export default ListModal;
 const StyledListModal = styled(StyledModal)`
   display: flex;
   flex-direction: column;
+  background-color: white;
+  z-index: 1;
 `;
 
 const StyledListModalItem = styled.span`
@@ -52,7 +54,7 @@ const StyledListModalItem = styled.span`
   align-items: center;
   cursor: pointer;
   color: ${(props) => props.theme.colors.fontGray};
-  padding: 2px 50px 2px 10px;
+  padding: 2px 80px 2px 15px;
   font-size: ${(props) => props.theme.fontSizes.link};
 
   &:hover {

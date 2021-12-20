@@ -29,12 +29,14 @@ const Header: FC = () => {
   const selectAuth = useAppSelector((state) => state.auth);
   const [searchUser, setSearchUser] = useState("");
   const [output, setOutput] = useState("");
+  const [userSettingModal, setUserSettingModal] = useState(false);
   const debounced = useRef(debounce((value) => setOutput(value), 600));
 
-  const [isInputFocus, setIsInputFocus] = useState(false);
+  const [isInputFocus, setIsInputFocus] = useState(true);
 
   const handleSignOut = () => {
     dispatch(signOutDispatch());
+    setUserSettingModal(false);
     Router.push("/");
   };
 
@@ -127,7 +129,12 @@ const Header: FC = () => {
           {selectAuth.token ? (
             <>
               {selectAuth.token && <h3>{selectAuth.user.display_name}</h3>}
-              <StyledAnimatedAvatar size={40} tabIndex={0}>
+              <StyledAnimatedAvatar
+                size={40}
+                tabIndex={0}
+                onClick={() => setUserSettingModal(!userSettingModal)}
+                className="outline-none"
+              >
                 {selectAuth.user.display_name.charAt(0)}
               </StyledAnimatedAvatar>
             </>
@@ -142,7 +149,9 @@ const Header: FC = () => {
             </>
           )}
         </StyledRightNav>
-        <ListModal items={userDropdownItems} top={130} right={15} />
+        {userSettingModal && (
+          <ListModal items={userDropdownItems} top={100} right={15} />
+        )}
       </StyledHeader>
     </StyledHeaderContainer>
   );
@@ -200,7 +209,8 @@ const StyledLeftNav = styled.div`
 const StyledRightNav = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
+  font-size: ${(props) => props.theme.fontSizes.link};
 `;
 
 const StyledHeaderSearchContainer = styled.div`
