@@ -19,6 +19,9 @@ import {
 } from "../../styles/styled-elements/button-elements";
 import SearchInput from "../SearchInput";
 import { StyledAnimatedAvatar } from "../../styles/styled-elements/common-elements";
+import ListModal from "../modals/ListModal";
+import { ITextAndEvent } from "../../models/Modal/IModal";
+import SearchIcon from "../../icons/SearchIcon";
 
 const Header: FC = () => {
   const dispatch = useAppDispatch();
@@ -55,6 +58,24 @@ const Header: FC = () => {
     setSearchUser("");
     debounced.current("");
   }, []);
+
+  const userDropdownItems: ITextAndEvent[] = [
+    {
+      text: "Profile",
+      event: handleSignOut,
+      icon: <SearchIcon />,
+    },
+    {
+      text: "Account Settings",
+      event: handleSignOut,
+      icon: <SearchIcon />,
+    },
+    {
+      text: "Sign out",
+      event: handleSignOut,
+      icon: <SearchIcon />,
+    },
+  ];
 
   return (
     <StyledHeaderContainer>
@@ -116,6 +137,12 @@ const Header: FC = () => {
             isLoading={isSearchedUsersLoading}
           />
         )}
+        <ListModal
+          items={userDropdownItems}
+          top={90}
+          right={15}
+          padding="10px"
+        />
       </StyledHeader>
     </StyledHeaderContainer>
   );
@@ -124,7 +151,7 @@ const Header: FC = () => {
 export default Header;
 
 const StyledHeaderContainer = styled.div`
-  box-shadow: 0 2px 10px -2px gray;
+  box-shadow: ${(props) => props.theme.boxShadow.bottomBoxShadow};
 `;
 
 const StyledHeader = styled.header`

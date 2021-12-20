@@ -1,3 +1,5 @@
+import { black, darkYellow, transparent, white } from "./colors";
+
 const fontSizes = [12, 14, 16, 18, 20, 24, 36, 48, 80, 96];
 const fontWeights = [100, 200, 300, 400, 500, 600, 700, 800, 900];
 const lineHeights = [1, 1.25, 1.5];
@@ -16,23 +18,22 @@ export const theme = {
   lineHeights,
 
   colors: {
-    black: "#000",
-    white: "#fff",
-    transparent: "transparent",
-    background: "",
-    blue: "blue",
-    lightblue: "",
-    lighterblue: "",
-    lightestblue: "",
-    gray: "",
-    darkgray: "",
-    red: "red",
+    black: black,
+    white: white,
+    transparent: transparent,
+    primary: darkYellow,
   },
 
   backgroundColors: {
     black: "#000",
   },
   radii,
+
+  boxShadow: {
+    bottomBoxShadow:
+      "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+    fullBoxShadow: "0px 4px 8px 2px rgba(0, 0, 0, 0.15);",
+  },
 
   mediaQueries: {
     mobileS: `@media screen and (min-width: ${breakpoints[0]})`,
@@ -43,7 +44,7 @@ export const theme = {
   },
 };
 
-// /** Radius */
+/** Radius */
 export const radiusButton = theme.radii[2];
 export const radiusRounded = theme.radii[5];
 

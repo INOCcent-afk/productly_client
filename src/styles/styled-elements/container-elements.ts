@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { devices } from "../../utils/theme/breakpoints";
 
 export const StyledMainContainer = styled.div`
-  width: calc(100% - 10px);
+  width: calc(100% - 15px);
   max-width: 1200px;
   margin: 0 auto;
   padding: 100px 0;
@@ -12,7 +12,7 @@ export const StyledMainContainer = styled.div`
 export const StyledBox = styled.div`
   background-color: white;
   border-radius: 8px;
-  box-shadow: 0px 4px 8px 2px rgba(0, 0, 0, 0.15);
+  box-shadow: ${(props) => props.theme.boxShadow.fullBoxShadow};
 `;
 
 export const StyledPanelDominantLeft = styled.div`
