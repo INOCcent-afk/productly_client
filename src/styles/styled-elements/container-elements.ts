@@ -12,7 +12,7 @@ export const StyledMainContainer = styled.div`
 export const StyledBox = styled.div`
   background-color: white;
   border-radius: 8px;
-  box-shadow: ${(props) => props.theme.boxShadow.fullBoxShadow};
+  box-shadow: ${(props) => props.theme.boxShadows.fullBoxShadow};
 `;
 
 export const StyledPanelDominantLeft = styled.div`

@@ -13,7 +13,7 @@ interface ListModalProps extends ModalProps {
 
 const ListModal: FC<ListModalProps> = ({
   backgroundColor,
-  padding,
+  padding = "10px 0",
   bottom,
   left,
   right,
@@ -21,7 +21,7 @@ const ListModal: FC<ListModalProps> = ({
   items,
 }: ListModalProps) => {
   return (
-    <StyledModal
+    <StyledListModal
       backgroundColor={backgroundColor}
       padding={padding}
       bottom={bottom}
@@ -35,7 +35,7 @@ const ListModal: FC<ListModalProps> = ({
           <span>{item.text}</span>
         </StyledListModalItem>
       ))}
-    </StyledModal>
+    </StyledListModal>
   );
 };
 
@@ -43,6 +43,7 @@ export default ListModal;
 
 const StyledListModal = styled(StyledModal)`
   display: flex;
+  flex-direction: column;
 `;
 
 const StyledListModalItem = styled.span`
@@ -50,9 +51,11 @@ const StyledListModalItem = styled.span`
   gap: 10px;
   align-items: center;
   cursor: pointer;
-  color: ${(props) => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.fontGray};
+  padding: 2px 50px 2px 10px;
+  font-size: ${(props) => props.theme.fontSizes.link};
 
   &:hover {
-    opacity: 0.8;
+    background-color: ${(props) => props.theme.backgroundColors.linkHover};
   }
 `;

@@ -22,6 +22,7 @@ import { StyledAnimatedAvatar } from "../../styles/styled-elements/common-elemen
 import ListModal from "../modals/ListModal";
 import { ITextAndEvent } from "../../models/Modal/IModal";
 import SearchIcon from "../../icons/SearchIcon";
+import { darkYellow } from "../../utils/theme/colors";
 
 const Header: FC = () => {
   const dispatch = useAppDispatch();
@@ -63,17 +64,17 @@ const Header: FC = () => {
     {
       text: "Profile",
       event: handleSignOut,
-      icon: <SearchIcon />,
+      icon: <SearchIcon fill={darkYellow} width={15} />,
     },
     {
       text: "Account Settings",
       event: handleSignOut,
-      icon: <SearchIcon />,
+      icon: <SearchIcon fill={darkYellow} width={15} />,
     },
     {
       text: "Sign out",
       event: handleSignOut,
-      icon: <SearchIcon />,
+      icon: <SearchIcon fill={darkYellow} width={15} />,
     },
   ];
 
@@ -87,28 +88,38 @@ const Header: FC = () => {
             <Link href="/productly-homepage">
               <a className="text-red-900 cursor-pointer">Productly</a>
             </Link>
-            <SearchInput
-              value={searchUser}
-              onChangeEvent={updateUserValue}
-              placeholder="search"
-              onFocusEvent={() => setIsInputFocus(true)}
-              onBlurEvent={() => setIsInputFocus(false)}
-              closeButtonEvent={clearUserValue}
-              additonalInputClassname={isInputFocus ? "w-full" : ""}
-              additonalContainerClassname={isInputFocus ? "w-full" : ""}
-            />
+            <StyledHeaderSearchContainer
+              className={`${isInputFocus ? "w-full" : ""}`}
+            >
+              <SearchInput
+                value={searchUser}
+                onChangeEvent={updateUserValue}
+                placeholder={isInputFocus ? "search other users" : "search..."}
+                onFocusEvent={() => setIsInputFocus(true)}
+                onBlurEvent={() => setIsInputFocus(false)}
+                closeButtonEvent={clearUserValue}
+                additonalInputClassname={isInputFocus ? "w-full" : "w-52"}
+                additonalContainerClassname={isInputFocus ? "w-full" : ""}
+              />
+              {searchUser && isInputFocus && (
+                <UserSearchedDropdown
+                  users={searchedUsers ? searchedUsers.users : []}
+                  isLoading={isSearchedUsersLoading}
+                />
+              )}
+            </StyledHeaderSearchContainer>
           </StyledBranding>
           {!isInputFocus && (
             <StyledMainNav>
-              <li>
-                <Link href="/review">Review</Link>
-              </li>
-              <li>
-                <Link href="/productly-homepage">Products</Link>
-              </li>
-              <li>
-                <Link href="/productly-homepage">About</Link>
-              </li>
+              <Link href="/review">
+                <li>Review</li>
+              </Link>
+              <Link href="/productly-homepage">
+                <li>Products</li>
+              </Link>
+              <Link href="/productly-homepage">
+                <li>About</li>
+              </Link>
             </StyledMainNav>
           )}
         </StyledLeftNav>
@@ -131,18 +142,7 @@ const Header: FC = () => {
             </>
           )}
         </StyledRightNav>
-        {output && isInputFocus && (
-          <UserSearchedDropdown
-            users={searchedUsers ? searchedUsers.users : []}
-            isLoading={isSearchedUsersLoading}
-          />
-        )}
-        <ListModal
-          items={userDropdownItems}
-          top={90}
-          right={15}
-          padding="10px"
-        />
+        <ListModal items={userDropdownItems} top={130} right={15} />
       </StyledHeader>
     </StyledHeaderContainer>
   );
@@ -151,7 +151,7 @@ const Header: FC = () => {
 export default Header;
 
 const StyledHeaderContainer = styled.div`
-  box-shadow: ${(props) => props.theme.boxShadow.bottomBoxShadow};
+  box-shadow: ${(props) => props.theme.boxShadows.bottomBoxShadow};
 `;
 
 const StyledHeader = styled.header`
@@ -159,27 +159,36 @@ const StyledHeader = styled.header`
   align-items: center;
   justify-content: space-between;
   background-color: white;
-  height: 80px;
+  height: 120px;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 10px;
+  padding: 0 15px;
   position: relative;
+
+  @media ${(props) => props.theme.mediaQueries.laptopL} {
+    padding: 0;
+  }
 `;
 
 const StyledBranding = styled.ul`
   display: flex;
   gap: 30px;
   align-items: center;
-
-  h1 {
-    font-weight: bold;
-    font-size: 20px;
-  }
 `;
 
 const StyledMainNav = styled.ul`
   display: flex;
   gap: 20px;
+
+  li {
+    font-size: ${(props) => props.theme.fontSizes.link};
+    color: ${(props) => props.theme.colors.fontGray};
+    cursor: pointer;
+
+    &:hover {
+      color: ${(props) => props.theme.colors.primary};
+    }
+  }
 `;
 
 const StyledLeftNav = styled.div`
@@ -192,4 +201,8 @@ const StyledRightNav = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+`;
+
+const StyledHeaderSearchContainer = styled.div`
+  position: relative;
 `;

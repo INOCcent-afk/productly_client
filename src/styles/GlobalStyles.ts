@@ -1,11 +1,12 @@
 import * as styled from "styled-components";
+import { darkYellow } from "../utils/theme/colors";
 
 const GlobalStyles = styled.createGlobalStyle`
   html,
   body {
     padding: 0;
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Inter;
     font-weight: 400;
     font-style: normal;
     line-height: 1.5em;
@@ -28,6 +29,11 @@ const GlobalStyles = styled.createGlobalStyle`
   textarea,
   select {
     border: 1px solid;
+    outline: none;
+
+    &:focus {
+      border: 1px solid ${darkYellow};
+    }
   }
 `;
 

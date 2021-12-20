@@ -13,7 +13,7 @@ const UserLink: FC<UserLinkProps> = ({ id, name }: UserLinkProps) => {
     <Link href={`/user/profile/${id}`}>
       <StyledUserLink>
         <StyledAvatar size={30}>{name.charAt(0)}</StyledAvatar>
-        <p>{name}</p>
+        <span>{name}</span>
       </StyledUserLink>
     </Link>
   );
@@ -27,8 +27,9 @@ const StyledUserLink = styled.a`
   gap: 10px;
   padding: 10px 0 10px 15px;
   width: 100%;
+  color: ${(props) => props.theme.colors.fontColor};
 
   &:hover {
-    background-color: #e7e7e7;
+    background-color: ${(props) => props.theme.backgroundColors.linkHover};
   }
 `;

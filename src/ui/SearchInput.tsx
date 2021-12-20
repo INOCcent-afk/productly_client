@@ -2,6 +2,7 @@ import React, { FC, SyntheticEvent } from "react";
 import styled from "styled-components";
 import CloseIcon from "../icons/CloseIcon";
 import SearchIcon from "../icons/SearchIcon";
+import { gray300 } from "../utils/theme/colors";
 
 interface ISearchInputProps {
   borderRadius?: number;
@@ -32,7 +33,11 @@ const SearchInput: FC<ISearchInputProps> = ({
       onFocus={onFocusEvent}
       key="input-container"
     >
-      <SearchIcon className="absolute left-2 top-3" fill="gray" />
+      <SearchIcon
+        className="absolute left-2"
+        style={{ top: 14 }}
+        fill={gray300}
+      />
       <StyledSearchInput
         type="text"
         value={value}
@@ -41,7 +46,7 @@ const SearchInput: FC<ISearchInputProps> = ({
         className={`${additonalInputClassname} border-none`}
       />
       <CloseIcon
-        className="absolute right-2 top-3 cursor-pointer"
+        className="absolute right-2 cursor-pointer"
         onClick={() => {
           closeButtonEvent();
           onFocusEvent();
@@ -50,7 +55,8 @@ const SearchInput: FC<ISearchInputProps> = ({
           if (event.key === "Enter") closeButtonEvent();
         }}
         tabIndex={0}
-        fill="gray"
+        style={{ top: 13 }}
+        fill={gray300}
       />
     </StyledSearchInputContainer>
   );
@@ -64,7 +70,8 @@ const StyledSearchInputContainer = styled.div`
 
 const StyledSearchInput = styled.input<Pick<ISearchInputProps, "borderRadius">>`
   border-radius: ${(props) => props.borderRadius || 15}px;
-  border: 1px solid gray;
-  color: black;
-  padding: 10px 30px;
+  border: 1px solid ${(props) => props.theme.borderColors.grayBorder};
+  color: ${(props) => props.theme.colors.fontGray};
+  font-size: ${(props) => props.theme.fontSizes.link};
+  padding: 10px 30px 10px 35px;
 `;

@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 import { ISearchedUser } from "../../models/user/IUser";
+import { StyledModal } from "../../styles/styled-elements/modal-elements";
 import UserLink from "./UserLink";
 
 interface UserSearchedDropdownProps {
@@ -41,12 +42,12 @@ const UserSearchedDropdown: FC<UserSearchedDropdownProps> = ({
 
 export default UserSearchedDropdown;
 
-const StyledUserSearchedDropdown = styled.div`
+const StyledUserSearchedDropdown = styled(StyledModal)`
   position: absolute;
   background-color: white;
   width: 100%;
   z-index: 1;
-  top: 85px;
+  top: 95px;
   max-height: 150px;
   overflow-y: auto;
 `;
