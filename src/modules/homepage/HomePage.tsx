@@ -36,6 +36,7 @@ const HomePage: FC = () => {
                       product_name={item.product_name}
                       product_description={item.product_description}
                       product_reviews={item.count}
+                      average_rating={item.average_rating}
                     />
                   ))}
               </StyledBox>

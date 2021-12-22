@@ -17,6 +17,7 @@ export const theme = {
 
   fontSizes: {
     link: "14px",
+    mainTitle: "36px",
     sectionTitle: "20px",
     paragraph: "14px",
   },

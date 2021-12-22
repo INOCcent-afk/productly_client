@@ -9,6 +9,8 @@ interface IAvatarProps {
 interface ITitleProps {
   marginTop?: number;
   marginBottom?: number;
+  fontWeight?: string;
+  colors?: string;
 }
 
 export const StyledAvatar = styled.div<IAvatarProps>`
@@ -54,9 +56,18 @@ export const StyledAnimatedAvatar = styled(StyledAvatar)`
   }
 `;
 
+export const StyledMainTitle = styled.h1<ITitleProps>`
+  font-size: ${(props) => props.theme.fontSizes.mainTitle};
+  font-weight: ${(props) => props.fontWeight || "bold"};
+  margin-top: ${(props) => props.marginTop || 0}px;
+  margin-bottom: ${(props) => props.marginBottom || 0}px;
+  color: ${(props) => props.color || props.theme.colors.primary};
+  line-height: 36px;
+`;
+
 export const StyledTitle = styled.h2<ITitleProps>`
   font-size: ${(props) => props.theme.fontSizes.sectionTitle};
-  font-weight: bold;
+  font-weight: ${(props) => props.fontWeight || "bold"};
   margin-top: ${(props) => props.marginTop || 0}px;
   margin-bottom: ${(props) => props.marginBottom || 0}px;
 `;

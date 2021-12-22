@@ -140,7 +140,9 @@ const Header: FC = () => {
         <StyledLeftNav>
           <StyledBranding className={`${isInputFocus && "basis-full"}`}>
             <Link href="/productly-homepage">
-              <a className="text-red-900 cursor-pointer">Productly</a>
+              <a className="cursor-pointer">
+                <img className="w-24" src="/brand.png" alt="" />
+              </a>
             </Link>
             <div className={`relative ${isInputFocus ? "w-full" : ""}`}>
               <SearchInput
@@ -231,6 +233,7 @@ export default Header;
 
 const StyledHeaderContainer = styled.div`
   box-shadow: ${(props) => props.theme.boxShadows.bottomBoxShadow};
+  z-index: 100;
 `;
 
 const StyledHeader = styled.header`
@@ -243,6 +246,7 @@ const StyledHeader = styled.header`
   margin: 0 auto;
   padding: 0 15px;
   position: relative;
+  gap: 10px;
 
   @media ${(props) => props.theme.mediaQueries.laptopL} {
     padding: 0;
@@ -251,7 +255,7 @@ const StyledHeader = styled.header`
 
 const StyledBranding = styled.ul`
   display: flex;
-  gap: 10px;
+  gap: 25px;
   align-items: center;
 `;
 

@@ -7,12 +7,14 @@ import {
 } from "../../styles/styled-elements/common-elements";
 import PencilAltIcon from "../../icons/PencilAltIcon";
 import StarMeter from "../StarMeter";
+import Image from "next/image";
 
 interface LongProductDisplay {
   product_id: string;
   product_name: string;
   product_description: string;
   product_reviews: number;
+  average_rating: number;
 }
 
 const LongProductDisplay: FC<LongProductDisplay> = ({
@@ -20,16 +22,25 @@ const LongProductDisplay: FC<LongProductDisplay> = ({
   product_name,
   product_description,
   product_reviews,
+  average_rating,
 }: LongProductDisplay) => {
-  const checkLength = product_description.length > 130 ? 130 : 0;
-  const checkElepsis = checkLength === 130 ? "..." : "";
+  const maxLength = 110;
+  const checkLength = product_description.length > maxLength ? maxLength : 0;
+  const checkElepsis = checkLength === maxLength ? "..." : "";
   const cutText = product_description.substring(0, checkLength) + checkElepsis;
 
   return (
     <Link href={`/product/${product_id}`}>
       <StyledLongProductDisplay>
         <StyledVisual>
-          <img src="" alt="" />
+          <Image
+            layout="fill"
+            src="https://images.pexels.com/photos/1002649/pexels-photo-1002649.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+            alt="product_image"
+            blurDataURL="https://images.pexels.com/photos/1002649/pexels-photo-1002649.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+            placeholder="blur"
+            objectFit="cover"
+          />
         </StyledVisual>
         <StyledContent>
           <div>
@@ -43,7 +54,10 @@ const LongProductDisplay: FC<LongProductDisplay> = ({
           </Link>
           <StyledFooter>
             <StyledBody>{product_reviews || 0} reviews</StyledBody>
-            <StarMeter />
+            <div className="flex items-center gap-2">
+              <StarMeter rating={average_rating} />
+              <StyledBody>{average_rating || 0}</StyledBody>
+            </div>
           </StyledFooter>
         </StyledContent>
       </StyledLongProductDisplay>
@@ -66,6 +80,7 @@ const StyledLongProductDisplay = styled.div`
 `;
 
 const StyledVisual = styled.div`
+  position: relative;
   flex-basis: 30%;
   background-color: ${(props) => props.theme.backgroundColors.grayLightBg};
   min-height: 200px;
