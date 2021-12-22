@@ -3,9 +3,15 @@ import Router from "next/router";
 import { signIn, signUp } from "../../utils/api/products_api";
 import { signInDispatch } from "../../redux/AuthSlice.slice";
 import { useAppDispatch } from "../../redux/hooks";
+import styled from "styled-components";
+import LightingBoldIcon from "../../icons/LightingBoldIcon";
+import { darkYellow } from "../../utils/theme/colors";
+import { StyledInputText } from "../../styles/styled-elements/input-elements";
+import { StyledButtonFullWidth } from "../../styles/styled-elements/button-elements";
+import Link from "next/link";
 
 interface Props {
-  pageType: "login" | "signup";
+  pageType: "Login" | "Register";
 }
 
 const UserFormComponent: FC<Props> = ({ pageType }: Props) => {
@@ -22,7 +28,7 @@ const UserFormComponent: FC<Props> = ({ pageType }: Props) => {
     password: "",
   });
 
-  const isLogInPage = pageType === "login";
+  const isLogInPage = pageType === "Login";
 
   const [error, setError] = useState("");
 
@@ -67,62 +73,110 @@ const UserFormComponent: FC<Props> = ({ pageType }: Props) => {
 
   return (
     <>
-      <h1>{pageType}</h1>
+      <StyledUserFormComponent onSubmit={submit}>
+        <StyledFormTitle>
+          <LightingBoldIcon width={30} height={30} fill={darkYellow} />
+          {pageType}
+        </StyledFormTitle>
 
-      <form onSubmit={submit}>
-        {!isLogInPage && (
-          <>
-            <label htmlFor="userDisplayName">display name</label>
-            <br />
-            <input
-              name="display_name"
-              id="userDisplayName"
-              type="text"
-              value={userSignUpData.display_name}
-              required
-              placeholder="Enter your Display Name here"
-              onChange={(e) => handleSignUpData(e)}
-            />
-            <br />
-          </>
+        <StyledFormBody className="">
+          {!isLogInPage && (
+            <>
+              <label htmlFor="userDisplayName">display name</label>
+              <StyledInputText
+                borderRadius={4}
+                name="display_name"
+                id="userDisplayName"
+                type="text"
+                value={userSignUpData.display_name}
+                required
+                placeholder="What do we call you?"
+                onChange={(e) => handleSignUpData(e)}
+              />
+            </>
+          )}
+          <label htmlFor="userEmail">Email</label>
+          <StyledInputText
+            borderRadius={4}
+            name="email"
+            id="userEmail"
+            type="email"
+            value={isLogInPage ? userSignInData.email : userSignUpData.email}
+            required
+            placeholder="Enter your email here"
+            onChange={(e) =>
+              isLogInPage ? handleLogInData(e) : handleSignUpData(e)
+            }
+          />
+          <label htmlFor="userPassword">password</label>
+          <StyledInputText
+            borderRadius={4}
+            name="password"
+            id="userPassword"
+            type="password"
+            value={
+              isLogInPage ? userSignInData.password : userSignUpData.password
+            }
+            required
+            placeholder="Enter your password here"
+            onChange={(e) =>
+              isLogInPage ? handleLogInData(e) : handleSignUpData(e)
+            }
+          />
+          <div className="mt-5">
+            <StyledButtonFullWidth borderRadius={30} type="submit">
+              {pageType}
+            </StyledButtonFullWidth>
+          </div>
+        </StyledFormBody>
+        {isLogInPage && (
+          <StyledFormFooter>
+            <Link href="/register">
+              <span>CREATE ACCOUNT</span>
+            </Link>
+            <Link href="/register">
+              <span>CAN'T SIGN IN?</span>
+            </Link>
+          </StyledFormFooter>
         )}
-        <label htmlFor="userEmail">Email</label>
-        <br />
-        <input
-          name="email"
-          id="userEmail"
-          type="email"
-          value={isLogInPage ? userSignInData.email : userSignUpData.email}
-          required
-          placeholder="Enter your email here"
-          onChange={(e) =>
-            pageType === "login" ? handleLogInData(e) : handleSignUpData(e)
-          }
-        />
-        <br />
-        <label htmlFor="userPassword">password</label>
-        <br />
-        <input
-          name="password"
-          id="userPassword"
-          type="password"
-          value={
-            isLogInPage ? userSignInData.password : userSignUpData.password
-          }
-          required
-          placeholder="Enter your password here"
-          onChange={(e) =>
-            pageType === "login" ? handleLogInData(e) : handleSignUpData(e)
-          }
-        />
-        <div className="">
-          <button type="submit">{pageType}</button>
-        </div>
-      </form>
-
-      <h1>{error}</h1>
+      </StyledUserFormComponent>
     </>
   );
 };
 
 export default UserFormComponent;
+
+const StyledUserFormComponent = styled.form`
+  padding: 50px 50px 80px 50px;
+  display: flex;
+  gap: 60px;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const StyledFormTitle = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: ${(props) => props.theme.fontSizes.label};
+  font-weight: bold;
+`;
+
+const StyledFormBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+`;
+
+const StyledFormFooter = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: -30px;
+
+  span {
+    font-size: ${(props) => props.theme.fontSizes.subLink};
+    color: ${(props) => props.theme.colors.fontGray};
+    font-weight: 500;
+    cursor: pointer;
+  }
+`;

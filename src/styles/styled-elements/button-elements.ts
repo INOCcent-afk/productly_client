@@ -5,10 +5,11 @@ interface ButtonProps {
   borderColor?: string;
   backgroundColor?: string;
   color?: string;
+  borderRadius?: number;
 }
 
 export const StyledButton = styled.button<ButtonProps>`
-  border-radius: 15px;
+  border-radius: ${(props) => props.borderRadius || 0}px;
   background-color: ${(props) =>
     props.backgroundColor || props.theme.backgroundColors.primary};
   color: ${(props) => props.color || props.theme.colors.white};
@@ -49,4 +50,10 @@ export const StyledButtonOutlined = styled(StyledButton)`
     background-color: ${(props) =>
       props.color || props.theme.backgroundColors.primary};
   }
+`;
+
+export const StyledButtonFullWidth = styled(StyledButton)`
+  padding: 10px 20px;
+  width: 100%;
+  font-size: ${(props) => props.theme.fontSizes.button};
 `;

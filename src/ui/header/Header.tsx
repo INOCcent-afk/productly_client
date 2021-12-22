@@ -193,10 +193,12 @@ const Header: FC = () => {
           ) : (
             <>
               <Link href="/">
-                <StyledButton>Login</StyledButton>
+                <StyledButton borderRadius={15}>Login</StyledButton>
               </Link>
               <Link href="/register">
-                <StyledButtonOutlined>Register</StyledButtonOutlined>
+                <StyledButtonOutlined borderRadius={15}>
+                  Register
+                </StyledButtonOutlined>
               </Link>
             </>
           )}

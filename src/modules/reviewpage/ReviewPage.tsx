@@ -116,7 +116,7 @@ const ReviewPage = () => {
                 onChange={(e) => handleReviewData(e)}
               ></textarea>
             </div>
-            <StyledButton>Post My Rating</StyledButton>
+            <StyledButton borderRadius={15}>Post My Rating</StyledButton>
           </form>
         </StyledBox>
         <StyledBox>

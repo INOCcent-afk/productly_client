@@ -1,5 +1,9 @@
 import styled from "styled-components";
-import { devices } from "../../utils/theme/breakpoints";
+
+interface PanelDominantLeftProps {
+  gridGap?: number;
+  gridColumnsDesktop?: string;
+}
 
 export const StyledMainContainer = styled.div`
   width: calc(100% - 15px);
@@ -13,20 +17,21 @@ export const StyledBox = styled.div`
   background-color: white;
   border-radius: 8px;
   box-shadow: ${(props) => props.theme.boxShadows.fullBoxShadow};
+  overflow: hidden;
 `;
 
-export const StyledPanelDominantLeft = styled.div`
+export const StyledPanelDominantLeft = styled.div<PanelDominantLeftProps>`
   display: grid;
   grid-template-columns: 1fr;
-  grid-gap: 15px;
+  grid-gap: ${(props) => props.gridGap || 0}px;
 
-  @media ${devices.laptop} {
-    grid-template-columns: 9fr 3fr;
+  @media ${(props) => props.theme.mediaQueries.laptop} {
+    grid-template-columns: ${(props) => props.gridColumnsDesktop || "9fr 3fr"};
   }
 `;
 
 export const StyledPanelDominantRight = styled(StyledPanelDominantLeft)`
-  @media ${devices.laptop} {
-    grid-template-columns: 3fr 9fr;
+  @media ${(props) => props.theme.mediaQueries.laptop} {
+    grid-template-columns: ${(props) => props.gridColumnsDesktop || "3fr 9fr"};
   }
 `;

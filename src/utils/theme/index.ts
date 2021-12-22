@@ -16,10 +16,16 @@ export const theme = {
   },
 
   fontSizes: {
+    subLink: "10px",
     link: "14px",
+
     mainTitle: "36px",
     sectionTitle: "20px",
     paragraph: "14px",
+
+    input: "16px",
+    label: "24px",
+    button: "16px",
   },
 
   colors: {

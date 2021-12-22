@@ -22,7 +22,7 @@ const HomePage: FC = () => {
       <HeroBanner />
       <StyledHomepageContainer>
         <StyledMainContainer>
-          <StyledPanelDominantLeft>
+          <StyledPanelDominantLeft gridGap={30}>
             <div>
               <StyledTitle marginTop={20} marginBottom={30}>
                 🔥 Top Rated Products Today
