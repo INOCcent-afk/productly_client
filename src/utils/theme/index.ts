@@ -17,6 +17,8 @@ export const theme = {
 
   fontSizes: {
     link: "14px",
+    sectionTitle: "20px",
+    paragraph: "14px",
   },
 
   colors: {
@@ -35,6 +37,8 @@ export const theme = {
     transparent: transparent,
     primary: darkYellow,
     linkHover: gray100,
+
+    grayLightBg: gray100,
   },
 
   borderColors: {

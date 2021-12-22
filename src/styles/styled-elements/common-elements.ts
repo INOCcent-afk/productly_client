@@ -6,6 +6,11 @@ interface IAvatarProps {
   color?: string;
 }
 
+interface ITitleProps {
+  marginTop?: number;
+  marginBottom?: number;
+}
+
 export const StyledAvatar = styled.div<IAvatarProps>`
   display: flex;
   align-items: center;
@@ -47,4 +52,16 @@ export const StyledAnimatedAvatar = styled(StyledAvatar)`
       display: block;
     }
   }
+`;
+
+export const StyledTitle = styled.h2<ITitleProps>`
+  font-size: ${(props) => props.theme.fontSizes.sectionTitle};
+  font-weight: bold;
+  margin-top: ${(props) => props.marginTop || 0}px;
+  margin-bottom: ${(props) => props.marginBottom || 0}px;
+`;
+
+export const StyledBody = styled.p`
+  font-size: ${(props) => props.theme.fontSizes.paragraph};
+  color: ${(props) => props.theme.colors.fontGray};
 `;

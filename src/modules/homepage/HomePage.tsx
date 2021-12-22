@@ -1,10 +1,14 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { StyledButtonOutlined } from "../../styles/styled-elements/button-elements";
-import { StyledMainContainer } from "../../styles/styled-elements/container-elements";
+import {
+  StyledBox,
+  StyledMainContainer,
+  StyledPanelDominantLeft,
+} from "../../styles/styled-elements/container-elements";
 import HeroBanner from "../../ui/HeroBanner";
 import { useProductsData } from "../../utils/reactQueryHooks/productsQueryHooks";
-import Link from "next/link";
+import { StyledTitle } from "../../styles/styled-elements/common-elements";
+import LongProductDisplay from "../../ui/products/LongProductDisplay";
 
 const HomePage: FC = () => {
   const { data: productsData, isLoading } = useProductsData();
@@ -18,12 +22,30 @@ const HomePage: FC = () => {
       <HeroBanner />
       <StyledHomepageContainer>
         <StyledMainContainer>
-          {productsData &&
-            productsData.map((item) => (
-              <Link key={item.product_id} href={`/product/${item.product_id}`}>
-                <StyledButtonOutlined>{item.product_name}</StyledButtonOutlined>
-              </Link>
-            ))}
+          <StyledPanelDominantLeft>
+            <div>
+              <StyledTitle marginTop={20} marginBottom={30}>
+                🔥 Top Rated Products Today
+              </StyledTitle>
+              <StyledBox className="overflow-hidden">
+                {productsData &&
+                  productsData.map((item) => (
+                    <LongProductDisplay
+                      key={item.product_id}
+                      product_id={item.product_id}
+                      product_name={item.product_name}
+                      product_description={item.product_description}
+                      product_reviews={item.count}
+                    />
+                  ))}
+              </StyledBox>
+            </div>
+            <div className="hidden lg:block">
+              <StyledTitle marginTop={20} marginBottom={30}>
+                📄 Latest Story
+              </StyledTitle>
+            </div>
+          </StyledPanelDominantLeft>
         </StyledMainContainer>
       </StyledHomepageContainer>
     </>
