@@ -14,6 +14,10 @@ const GlobalStyles = styled.createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
   }
 
+  *:focus {
+    outline: 1px solid ${darkYellow};
+  }
+
   a {
     color: black;
     text-decoration: none;

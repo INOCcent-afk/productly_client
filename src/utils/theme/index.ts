@@ -38,7 +38,7 @@ export const theme = {
   },
 
   borderColors: {
-    yellowBorder: darkYellow,
+    primary: darkYellow,
     grayBorder: gray300,
     grayLightBorder: gray100,
   },

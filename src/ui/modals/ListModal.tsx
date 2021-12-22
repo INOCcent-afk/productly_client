@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import SearchIcon from "../../icons/SearchIcon";
 import { ITextAndEvent } from "../../models/Modal/IModal";
 import {
   ModalProps,
@@ -29,8 +28,8 @@ const ListModal: FC<ListModalProps> = ({
       right={right}
       top={top}
     >
-      {items.map((item) => (
-        <StyledListModalItem onClick={item.event}>
+      {items.map((item, index) => (
+        <StyledListModalItem key={index} onClick={item.event}>
           {item.icon}
           <span>{item.text}</span>
         </StyledListModalItem>
@@ -57,7 +56,15 @@ const StyledListModalItem = styled.span`
   padding: 2px 80px 2px 15px;
   font-size: ${(props) => props.theme.fontSizes.link};
 
+  svg {
+    min-width: 15px;
+  }
+
   &:hover {
     background-color: ${(props) => props.theme.backgroundColors.linkHover};
+  }
+
+  span {
+    white-space: nowrap;
   }
 `;

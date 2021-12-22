@@ -15,7 +15,7 @@ export const StyledButton = styled.button<ButtonProps>`
   font-size: 14px;
   padding: 5px 15px;
   border: ${(props) => props.borderWidth || 2}px solid
-    ${(props) => props.borderColor || props.theme.borderColors.yellowBorder};
+    ${(props) => props.borderColor || props.theme.borderColors.primary};
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 
@@ -23,10 +23,12 @@ export const StyledButton = styled.button<ButtonProps>`
     color: white;
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     color: ${(props) => props.backgroundColor || props.theme.colors.primary};
     background-color: ${(props) =>
       props.color || props.theme.backgroundColors.white};
+    outline: none;
   }
 `;
 
@@ -41,7 +43,8 @@ export const StyledButtonOutlined = styled(StyledButton)`
     color: ${(props) => props.color || props.theme.colors.primary};
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     color: ${(props) => props.backgroundColor || props.theme.colors.white};
     background-color: ${(props) =>
       props.color || props.theme.backgroundColors.primary};

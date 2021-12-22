@@ -33,8 +33,7 @@ export const StyledAnimatedAvatar = styled(StyledAvatar)`
     right: -4px;
     bottom: -4px;
     border: 2px solid
-      ${(props) =>
-        props.backgroundColor || props.theme.borderColors.yellowBorder};
+      ${(props) => props.backgroundColor || props.theme.borderColors.primary};
     border-radius: 50%;
     width: ${(props) => props.size + 8}px;
     height: ${(props) => props.size + 8}px;

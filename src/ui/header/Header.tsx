@@ -6,7 +6,7 @@ import React, {
   useState,
 } from "react";
 import Link from "next/link";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import { signOutDispatch } from "../../redux/AuthSlice.slice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import styled from "styled-components";
@@ -21,8 +21,15 @@ import SearchInput from "../SearchInput";
 import { StyledAnimatedAvatar } from "../../styles/styled-elements/common-elements";
 import ListModal from "../modals/ListModal";
 import { ITextAndEvent } from "../../models/Modal/IModal";
-import SearchIcon from "../../icons/SearchIcon";
 import { darkYellow } from "../../utils/theme/colors";
+import LogoutIcon from "../../icons/LogoutIcon";
+import CogIcon from "../../icons/CogIcon";
+import { navItems } from "./HeaderItemList";
+import DotsVertical from "../../icons/DotsVertical";
+import LinkIcon from "../../icons/LinkIcon";
+import UserIcon from "../../icons/UserIcon";
+import useWindowDimensions from "../../utils/hooks/UseWindowDimensions";
+import { tablet } from "../../utils/theme/breakpoints";
 
 const Header: FC = () => {
   const dispatch = useAppDispatch();
@@ -30,9 +37,11 @@ const Header: FC = () => {
   const [searchUser, setSearchUser] = useState("");
   const [output, setOutput] = useState("");
   const [userSettingModal, setUserSettingModal] = useState(false);
+  const [mobileNavModal, setMobileNavModal] = useState(false);
   const debounced = useRef(debounce((value) => setOutput(value), 600));
-
-  const [isInputFocus, setIsInputFocus] = useState(true);
+  const router = useRouter();
+  const { width } = useWindowDimensions();
+  const [isInputFocus, setIsInputFocus] = useState(false);
 
   const handleSignOut = () => {
     dispatch(signOutDispatch());
@@ -65,34 +74,66 @@ const Header: FC = () => {
   const userDropdownItems: ITextAndEvent[] = [
     {
       text: "Profile",
-      event: handleSignOut,
-      icon: <SearchIcon fill={darkYellow} width={15} />,
+      event: () => Router.push("/profile"),
+      icon: <UserIcon fill={darkYellow} width={15} />,
     },
     {
       text: "Account Settings",
-      event: handleSignOut,
-      icon: <SearchIcon fill={darkYellow} width={15} />,
+      event: () => Router.push("/account-settings"),
+      icon: <CogIcon fill={darkYellow} width={15} />,
     },
     {
       text: "Sign out",
       event: handleSignOut,
-      icon: <SearchIcon fill={darkYellow} width={15} />,
+      icon: <LogoutIcon fill={darkYellow} width={15} />,
     },
+  ];
+
+  const mobileLoginRegisterItems: ITextAndEvent[] = [
+    {
+      text: "Login",
+      event: () => Router.push("/"),
+      icon: <LinkIcon fill={darkYellow} width={15} />,
+    },
+    {
+      text: "Register",
+      event: () => Router.push("/register"),
+      icon: <LinkIcon fill={darkYellow} width={15} />,
+    },
+  ];
+
+  const mobileDropdownItems: ITextAndEvent[] = [
+    {
+      text: "Reviews",
+      event: () => Router.push("/reviews"),
+      icon: <LinkIcon fill={darkYellow} width={15} />,
+    },
+    {
+      text: "Products",
+      event: () => Router.push("/products"),
+      icon: <LinkIcon fill={darkYellow} width={15} />,
+    },
+    {
+      text: "About",
+      event: () => Router.push("/about"),
+      icon: <LinkIcon fill={darkYellow} width={15} />,
+    },
+    ...(router.pathname === "/" ? mobileLoginRegisterItems : userDropdownItems),
   ];
 
   return (
     <StyledHeaderContainer>
       <StyledHeader
-        className={`${isInputFocus && "!grid grid-cols-3frAnd1fr gap-4"}`}
+        className={`${
+          isInputFocus && "smd:!grid smd:grid-cols-3frAnd1fr smd:gap-4"
+        }`}
       >
         <StyledLeftNav>
           <StyledBranding className={`${isInputFocus && "basis-full"}`}>
             <Link href="/productly-homepage">
               <a className="text-red-900 cursor-pointer">Productly</a>
             </Link>
-            <StyledHeaderSearchContainer
-              className={`${isInputFocus ? "w-full" : ""}`}
-            >
+            <div className={`relative ${isInputFocus ? "w-full" : ""}`}>
               <SearchInput
                 value={searchUser}
                 onChangeEvent={updateUserValue}
@@ -100,7 +141,9 @@ const Header: FC = () => {
                 onFocusEvent={() => setIsInputFocus(true)}
                 onBlurEvent={() => setIsInputFocus(false)}
                 closeButtonEvent={clearUserValue}
-                additonalInputClassname={isInputFocus ? "w-full" : "w-52"}
+                additonalInputClassname={`w-52 ${
+                  isInputFocus && "smd:w-full md:w-full"
+                }`}
                 additonalContainerClassname={isInputFocus ? "w-full" : ""}
               />
               {searchUser && isInputFocus && (
@@ -109,26 +152,24 @@ const Header: FC = () => {
                   isLoading={isSearchedUsersLoading}
                 />
               )}
-            </StyledHeaderSearchContainer>
+            </div>
           </StyledBranding>
           {!isInputFocus && (
             <StyledMainNav>
-              <Link href="/review">
-                <li>Review</li>
-              </Link>
-              <Link href="/productly-homepage">
-                <li>Products</li>
-              </Link>
-              <Link href="/productly-homepage">
-                <li>About</li>
-              </Link>
+              {navItems.map((item) => (
+                <Link key={item.href} href={item.href}>
+                  <li tabIndex={0}>{item.text}</li>
+                </Link>
+              ))}
             </StyledMainNav>
           )}
         </StyledLeftNav>
         <StyledRightNav className={`${isInputFocus && "justify-end"}`}>
           {selectAuth.token ? (
             <>
-              {selectAuth.token && <h3>{selectAuth.user.display_name}</h3>}
+              {selectAuth.token && (
+                <h3 className="text-center">{selectAuth.user.display_name}</h3>
+              )}
               <StyledAnimatedAvatar
                 size={40}
                 tabIndex={0}
@@ -149,7 +190,17 @@ const Header: FC = () => {
             </>
           )}
         </StyledRightNav>
-        {userSettingModal && (
+        <div
+          className="relative md:hidden cursor-pointer"
+          onClick={() => setMobileNavModal(!mobileNavModal)}
+        >
+          <DotsVertical className="ml-auto" fill={darkYellow} />
+          {mobileNavModal && width < +tablet && (
+            <ListModal items={mobileDropdownItems} top={40} right={15} />
+          )}
+        </div>
+
+        {userSettingModal && width > +tablet && (
           <ListModal items={userDropdownItems} top={100} right={15} />
         )}
       </StyledHeader>
@@ -181,12 +232,12 @@ const StyledHeader = styled.header`
 
 const StyledBranding = styled.ul`
   display: flex;
-  gap: 30px;
+  gap: 10px;
   align-items: center;
 `;
 
 const StyledMainNav = styled.ul`
-  display: flex;
+  display: none;
   gap: 20px;
 
   li {
@@ -198,21 +249,26 @@ const StyledMainNav = styled.ul`
       color: ${(props) => props.theme.colors.primary};
     }
   }
+
+  @media ${(props) => props.theme.mediaQueries.tablet} {
+    display: flex;
+    align-items: center;
+  }
 `;
 
 const StyledLeftNav = styled.div`
   display: flex;
-  gap: 60px;
+  gap: 30px;
   align-items: center;
 `;
 
 const StyledRightNav = styled.div`
-  display: flex;
-  align-items: center;
+  display: none;
   gap: 20px;
   font-size: ${(props) => props.theme.fontSizes.link};
-`;
 
-const StyledHeaderSearchContainer = styled.div`
-  position: relative;
+  @media ${(props) => props.theme.mediaQueries.tablet} {
+    display: flex;
+    align-items: center;
+  }
 `;

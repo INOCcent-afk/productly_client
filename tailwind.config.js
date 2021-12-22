@@ -11,6 +11,19 @@ module.exports = {
       gridTemplateColumns: {
         "3frAnd1fr": "3fr, 1fr",
       },
+      screens: {
+        sm: "320px",
+
+        smd: "600px",
+
+        md: "768px",
+
+        lg: "1024px",
+
+        xl: "1440px",
+
+        "2xl": "2560px",
+      },
     },
   },
   plugins: [],
