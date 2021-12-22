@@ -30,6 +30,7 @@ import LinkIcon from "../../icons/LinkIcon";
 import UserIcon from "../../icons/UserIcon";
 import useWindowDimensions from "../../utils/hooks/UseWindowDimensions";
 import { tablet } from "../../utils/theme/breakpoints";
+import useClickOutsideHook from "../../utils/hooks/useClickOutsideHook";
 
 const Header: FC = () => {
   const dispatch = useAppDispatch();
@@ -57,6 +58,14 @@ const Header: FC = () => {
       output,
       true
     );
+
+  let userSettingNode = useClickOutsideHook(() => {
+    setUserSettingModal(false);
+  });
+
+  let mobileNavNode = useClickOutsideHook(() => {
+    setMobileNavModal(false);
+  });
 
   const updateUserValue = useCallback(
     (event: SyntheticEvent<HTMLInputElement>) => {
@@ -196,12 +205,22 @@ const Header: FC = () => {
         >
           <DotsVertical className="ml-auto" fill={darkYellow} />
           {mobileNavModal && width < +tablet && (
-            <ListModal items={mobileDropdownItems} top={40} right={15} />
+            <ListModal
+              ref={mobileNavNode}
+              items={mobileDropdownItems}
+              top={40}
+              right={15}
+            />
           )}
         </div>
 
         {userSettingModal && width > +tablet && (
-          <ListModal items={userDropdownItems} top={100} right={15} />
+          <ListModal
+            ref={userSettingNode}
+            items={userDropdownItems}
+            top={100}
+            right={15}
+          />
         )}
       </StyledHeader>
     </StyledHeaderContainer>

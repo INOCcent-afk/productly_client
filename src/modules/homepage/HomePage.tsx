@@ -20,11 +20,9 @@ const HomePage: FC = () => {
         <StyledMainContainer>
           {productsData &&
             productsData.map((item) => (
-              <StyledButtonOutlined key={item.product_id}>
-                <Link href={`/product/${item.product_id}`}>
-                  {item.product_name}
-                </Link>
-              </StyledButtonOutlined>
+              <Link key={item.product_id} href={`/product/${item.product_id}`}>
+                <StyledButtonOutlined>{item.product_name}</StyledButtonOutlined>
+              </Link>
             ))}
         </StyledMainContainer>
       </StyledHomepageContainer>

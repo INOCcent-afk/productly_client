@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import styled from "styled-components";
 import { ITextAndEvent } from "../../models/Modal/IModal";
 import {
@@ -10,33 +10,31 @@ interface ListModalProps extends ModalProps {
   items: ITextAndEvent[];
 }
 
-const ListModal: FC<ListModalProps> = ({
-  backgroundColor,
-  padding = "10px 0",
-  bottom,
-  left,
-  right,
-  top,
-  items,
-}: ListModalProps) => {
-  return (
-    <StyledListModal
-      backgroundColor={backgroundColor}
-      padding={padding}
-      bottom={bottom}
-      left={left}
-      right={right}
-      top={top}
-    >
-      {items.map((item, index) => (
-        <StyledListModalItem key={index} onClick={item.event}>
-          {item.icon}
-          <span>{item.text}</span>
-        </StyledListModalItem>
-      ))}
-    </StyledListModal>
-  );
-};
+const ListModal = React.forwardRef<HTMLDivElement, ListModalProps>(
+  (
+    { backgroundColor, padding = "10px 0", bottom, left, right, top, items },
+    ref
+  ) => {
+    return (
+      <StyledListModal
+        backgroundColor={backgroundColor}
+        padding={padding}
+        bottom={bottom}
+        left={left}
+        right={right}
+        top={top}
+        ref={ref}
+      >
+        {items.map((item, index) => (
+          <StyledListModalItem key={index} onClick={item.event}>
+            {item.icon}
+            <span>{item.text}</span>
+          </StyledListModalItem>
+        ))}
+      </StyledListModal>
+    );
+  }
+);
 
 export default ListModal;
 
