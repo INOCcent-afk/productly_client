@@ -24,12 +24,21 @@ export const StyledButton = styled.button<ButtonProps>`
     color: white;
   }
 
-  &:hover,
-  &:focus {
+  &:hover:enabled,
+  &:focus:enabled {
     color: ${(props) => props.backgroundColor || props.theme.colors.primary};
     background-color: ${(props) =>
       props.color || props.theme.backgroundColors.white};
     outline: none;
+
+    .bullets {
+      background: ${(props) => props.theme.backgroundColors.primary};
+    }
+  }
+
+  &:disabled {
+    opacity: 0.8;
+    cursor: no-drop;
   }
 `;
 

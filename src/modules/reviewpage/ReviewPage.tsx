@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useMutation } from "react-query";
 import { useSelector } from "react-redux";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { AppState } from "../../redux/store";
 import { StyledButton } from "../../styles/styled-elements/button-elements";
 import {
@@ -30,7 +30,9 @@ const ReviewPage = () => {
     () => createReview(reviewData, userID, selectedProduct),
     {
       onSuccess: () => {
-        toast("Review has been posted Suckah!");
+        toast.success("Review has been added!", {
+          icon: false,
+        });
       },
     }
   );
@@ -68,7 +70,6 @@ const ReviewPage = () => {
 
   return (
     <StyledMainContainer>
-      <ToastContainer theme="dark" />
       <StyledPanelDominantLeft>
         <StyledBox>
           <form onSubmit={submit}>

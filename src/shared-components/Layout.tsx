@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useAppDispatch } from "../redux/hooks";
 import { setUserDispatch } from "../redux/AuthSlice.slice";
 import { verifyUser } from "../utils/api/verify_user";
+import { ToastContainer } from "react-toastify";
 
 interface LayoutProps {
   children: ReactNode;
@@ -40,6 +41,18 @@ const Layout: FC<LayoutProps> = ({ children }: LayoutProps) => {
   return (
     <>
       <StyledLayout>
+        <ToastContainer
+          position="bottom-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
         <Header />
         {children}
         <Footer />

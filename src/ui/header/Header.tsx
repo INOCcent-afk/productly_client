@@ -31,6 +31,7 @@ import UserIcon from "../../icons/UserIcon";
 import useWindowDimensions from "../../utils/hooks/UseWindowDimensions";
 import { tablet } from "../../utils/theme/breakpoints";
 import useClickOutsideHook from "../../utils/hooks/useClickOutsideHook";
+import { toast } from "react-toastify";
 
 const Header: FC = () => {
   const dispatch = useAppDispatch();
@@ -47,6 +48,9 @@ const Header: FC = () => {
   const handleSignOut = () => {
     dispatch(signOutDispatch());
     setUserSettingModal(false);
+    toast.warn("👋 You have logged out. See you later!", {
+      icon: false,
+    });
     Router.push("/");
   };
 

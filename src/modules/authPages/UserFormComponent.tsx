@@ -9,6 +9,8 @@ import { darkYellow } from "../../utils/theme/colors";
 import { StyledInputText } from "../../styles/styled-elements/input-elements";
 import { StyledButtonFullWidth } from "../../styles/styled-elements/button-elements";
 import Link from "next/link";
+import { toast } from "react-toastify";
+import LoadingSpinner from "../../ui/LoadingSpinner";
 
 interface Props {
   pageType: "Login" | "Register";
@@ -16,6 +18,8 @@ interface Props {
 
 const UserFormComponent: FC<Props> = ({ pageType }: Props) => {
   const dispatch = useAppDispatch();
+
+  const [loading, setLoading] = useState(false);
 
   const [userSignInData, setUserSignInData] = useState({
     email: "",
@@ -47,27 +51,46 @@ const UserFormComponent: FC<Props> = ({ pageType }: Props) => {
   };
 
   const submit = async (e: FormEvent): Promise<void> => {
-    try {
-      e.preventDefault();
-      const authFn = isLogInPage
-        ? signIn(userSignInData)
-        : signUp(userSignUpData);
+    e.preventDefault();
+    if (isLogInPage && (!userSignInData.email || !userSignInData.password)) {
+      toast.error("Failed to Login");
+    } else if (
+      !isLogInPage &&
+      (!userSignUpData.display_name ||
+        !userSignUpData.email ||
+        !userSignUpData.password)
+    ) {
+      toast.error("Fail to Register");
+    } else {
+      setLoading(true);
+      try {
+        const authFn = isLogInPage
+          ? signIn(userSignInData)
+          : signUp(userSignUpData);
 
-      const { data } = await authFn;
+        const { data } = await authFn;
 
-      const payload = {
-        token: data.jwtToken,
-        user: data.user,
-      };
+        const payload = {
+          token: data.jwtToken,
+          user: data.user,
+        };
 
-      isLogInPage &&
-        (dispatch(signInDispatch(payload)), Router.push("/productly-homepage"));
+        isLogInPage &&
+          (dispatch(signInDispatch(payload)),
+          toast.success(`👋 Succesfully Login as ${data.user.display_name}`, {
+            icon: false,
+          }),
+          Router.push("/productly-homepage"));
 
-      !isLogInPage && Router.push("/");
-    } catch (error: any) {
-      if (error.response.data) {
-        setError(error.response.data);
+        !isLogInPage &&
+          toast.success(`Registered Succesfully`) &&
+          Router.push("/");
+      } catch (error: any) {
+        if (error.response.data) {
+          setError(error.response.data);
+        }
       }
+      setLoading(false);
     }
   };
 
@@ -89,7 +112,6 @@ const UserFormComponent: FC<Props> = ({ pageType }: Props) => {
                 id="userDisplayName"
                 type="text"
                 value={userSignUpData.display_name}
-                required
                 placeholder="What do we call you?"
                 onChange={(e) => handleSignUpData(e)}
               />
@@ -102,7 +124,6 @@ const UserFormComponent: FC<Props> = ({ pageType }: Props) => {
             id="userEmail"
             type="email"
             value={isLogInPage ? userSignInData.email : userSignUpData.email}
-            required
             placeholder="Enter your email here"
             onChange={(e) =>
               isLogInPage ? handleLogInData(e) : handleSignUpData(e)
@@ -117,15 +138,25 @@ const UserFormComponent: FC<Props> = ({ pageType }: Props) => {
             value={
               isLogInPage ? userSignInData.password : userSignUpData.password
             }
-            required
             placeholder="Enter your password here"
             onChange={(e) =>
               isLogInPage ? handleLogInData(e) : handleSignUpData(e)
             }
           />
           <div className="mt-5">
-            <StyledButtonFullWidth borderRadius={30} type="submit">
-              {pageType}
+            <StyledButtonFullWidth
+              borderRadius={30}
+              type="submit"
+              disabled={loading}
+            >
+              {loading ? (
+                <span className="flex items-center justify-center gap-12">
+                  <LoadingSpinner />
+                  Loading...
+                </span>
+              ) : (
+                pageType
+              )}
             </StyledButtonFullWidth>
           </div>
         </StyledFormBody>
