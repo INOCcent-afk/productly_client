@@ -50,16 +50,18 @@ const UserFormComponent: FC<Props> = ({ pageType }: Props) => {
     });
   };
 
+  const isSignInFieldsComplete =
+    !userSignInData.email || !userSignInData.password;
+  const isSignUpFIeldsComplete =
+    !userSignUpData.display_name ||
+    !userSignUpData.email ||
+    !userSignUpData.password;
+
   const submit = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
-    if (isLogInPage && (!userSignInData.email || !userSignInData.password)) {
+    if (isLogInPage && isSignInFieldsComplete) {
       toast.error("Failed to Login");
-    } else if (
-      !isLogInPage &&
-      (!userSignUpData.display_name ||
-        !userSignUpData.email ||
-        !userSignUpData.password)
-    ) {
+    } else if (!isLogInPage && isSignUpFIeldsComplete) {
       toast.error("Failed to Register");
     } else {
       setLoading(true);
