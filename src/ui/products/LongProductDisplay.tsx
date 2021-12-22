@@ -6,6 +6,7 @@ import {
   StyledTitle,
 } from "../../styles/styled-elements/common-elements";
 import PencilAltIcon from "../../icons/PencilAltIcon";
+import StarMeter from "../StarMeter";
 
 interface LongProductDisplay {
   product_id: string;
@@ -42,7 +43,7 @@ const LongProductDisplay: FC<LongProductDisplay> = ({
           </Link>
           <StyledFooter>
             <StyledBody>{product_reviews || 0} reviews</StyledBody>
-            <StyledBody>1 reviews</StyledBody>
+            <StarMeter />
           </StyledFooter>
         </StyledContent>
       </StyledLongProductDisplay>
