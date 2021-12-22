@@ -60,7 +60,7 @@ const UserFormComponent: FC<Props> = ({ pageType }: Props) => {
         !userSignUpData.email ||
         !userSignUpData.password)
     ) {
-      toast.error("Fail to Register");
+      toast.error("Failed to Register");
     } else {
       setLoading(true);
       try {
