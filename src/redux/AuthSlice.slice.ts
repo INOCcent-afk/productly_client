@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IAuth } from "../models/Auth/IAuth";
+import { IUser } from "../models/user/IUser";
 
 const initialState: IAuth = {
   token: "",
@@ -56,6 +57,14 @@ export const authSlice = createSlice({
         },
       };
     },
+    refetchUser: (state, action: PayloadAction<IUser>) => {
+      localStorage.setItem("user", JSON.stringify(action.payload));
+
+      return {
+        ...state,
+        user: action.payload,
+      };
+    },
     setUserDispatch: (state) => {
       if (localStorage.getItem("expiredUser")) {
         let name = JSON.parse(localStorage.getItem("expiredUser")!);
@@ -77,7 +86,7 @@ export const authSlice = createSlice({
   },
 });
 
-export const { signInDispatch, signOutDispatch, setUserDispatch } =
+export const { signInDispatch, signOutDispatch, setUserDispatch, refetchUser } =
   authSlice.actions;
 
 export default authSlice.reducer;

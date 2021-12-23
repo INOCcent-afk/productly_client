@@ -1,12 +1,17 @@
+import { useRouter } from "next/router";
 import React, { SyntheticEvent, useEffect, useState } from "react";
 import { useMutation } from "react-query";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { IUpdateUser } from "../models/user/IUser";
+import { refetchUser } from "../redux/AuthSlice.slice";
+import { useAppDispatch } from "../redux/hooks";
 import { AppState } from "../redux/store";
-import { uploadUserAvatar } from "../utils/api/products_api";
+import { getSingleUser, uploadUserAvatar } from "../utils/api/products_api";
 
 const EditProfile = () => {
+  const dispatch = useAppDispatch();
+  const router = useRouter();
   const user: any = useSelector<AppState>((state) => state.auth);
   const [previewSource, setPreviewSource] = useState<any>("");
   const [selectedFile, setSelectedFile] = useState(null);
@@ -40,7 +45,7 @@ const EditProfile = () => {
     };
   };
 
-  const handleSubmitFile = (e: any) => {
+  const handleSubmitFile = async (e: any) => {
     e.preventDefault();
     if (!selectedFile) {
       mutation.mutate();
@@ -67,8 +72,14 @@ const EditProfile = () => {
   const mutation = useMutation(
     () => uploadUserAvatar(userID, userInfo, user.token),
     {
-      onSuccess: () => {
+      onSuccess: async () => {
+        const { user } = await getSingleUser(userID);
+
+        dispatch(refetchUser(user));
+
         toast.success("Profile Updated");
+
+        router.push("/profile");
       },
       onMutate: () => {
         toast.warn("Updating Profile info", {
@@ -137,6 +148,13 @@ const EditProfile = () => {
       </form>
       {previewSource && (
         <img src={previewSource} alt="chosen" style={{ height: "300px" }} />
+      )}
+      {!previewSource && user.user.display_picture && (
+        <img
+          src={user.user.display_picture}
+          alt="chosen"
+          style={{ height: "300px" }}
+        />
       )}
     </div>
   );

@@ -52,3 +52,9 @@ export const uploadUserAvatar = async (
       jwt_token: token,
     },
   });
+
+export const getSingleUser = async (id: string) => {
+  const { data } = await API.get(`/user/${id}`);
+
+  return data.data;
+};
