@@ -26,7 +26,7 @@ const UserSearchedDropdown: FC<UserSearchedDropdownProps> = ({
               <UserLink
                 key={user.user_id}
                 id={user.user_id}
-                name={user.display_name}
+                name={`${user.first_name} ${user.last_name}`}
               />
             ))
           ) : (

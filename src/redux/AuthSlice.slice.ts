@@ -5,7 +5,8 @@ const initialState: IAuth = {
   token: "",
   user: {
     user_id: "",
-    display_name: "",
+    first_name: "",
+    last_name: "",
     email: "",
     password: "",
     cover_photo: "",
@@ -44,7 +45,8 @@ export const authSlice = createSlice({
         token: "",
         user: {
           user_id: "",
-          display_name: "",
+          first_name: "",
+          last_name: "",
           email: "",
           password: "",
           cover_photo: "",

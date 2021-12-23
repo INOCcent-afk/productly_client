@@ -27,7 +27,8 @@ const UserFormComponent: FC<Props> = ({ pageType }: Props) => {
   });
 
   const [userSignUpData, setUserSignUpData] = useState({
-    display_name: "",
+    first_name: "",
+    last_name: "",
     email: "",
     password: "",
   });
@@ -53,7 +54,8 @@ const UserFormComponent: FC<Props> = ({ pageType }: Props) => {
   const isSignInFieldsComplete =
     !userSignInData.email || !userSignInData.password;
   const isSignUpFIeldsComplete =
-    !userSignUpData.display_name ||
+    !userSignUpData.first_name ||
+    !userSignUpData.last_name ||
     !userSignUpData.email ||
     !userSignUpData.password;
 
@@ -79,7 +81,7 @@ const UserFormComponent: FC<Props> = ({ pageType }: Props) => {
 
         isLogInPage &&
           (dispatch(signInDispatch(payload)),
-          toast.success(`👋 Succesfully Login as ${data.user.display_name}`, {
+          toast.success(`👋 Succesfully Login as ${data.user.first_name}`, {
             icon: false,
           }),
           Router.push("/productly-homepage"));
@@ -107,14 +109,24 @@ const UserFormComponent: FC<Props> = ({ pageType }: Props) => {
         <StyledFormBody className="">
           {!isLogInPage && (
             <>
-              <label htmlFor="userDisplayName">display name</label>
+              <label htmlFor="userFirstName">First Name</label>
               <StyledInputText
                 borderRadius={4}
-                name="display_name"
-                id="userDisplayName"
+                name="first_name"
+                id="userFirstName"
                 type="text"
-                value={userSignUpData.display_name}
-                placeholder="What do we call you?"
+                value={userSignUpData.first_name}
+                placeholder="Enter First Name"
+                onChange={(e) => handleSignUpData(e)}
+              />
+              <label htmlFor="userLastName">Last Name</label>
+              <StyledInputText
+                borderRadius={4}
+                name="last_name"
+                id="userLastName"
+                type="text"
+                value={userSignUpData.last_name}
+                placeholder="Enter Last Name"
                 onChange={(e) => handleSignUpData(e)}
               />
             </>

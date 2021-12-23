@@ -3,5 +3,7 @@ export interface IUserSignUp {
 
   password: string;
 
-  display_name: string;
+  first_name: string;
+
+  last_name: string;
 }

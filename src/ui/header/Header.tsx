@@ -183,7 +183,7 @@ const Header: FC = () => {
           {selectAuth.token ? (
             <>
               {selectAuth.token && (
-                <h3 className="text-center">{selectAuth.user.display_name}</h3>
+                <h3 className="text-center">{selectAuth.user.first_name}</h3>
               )}
               <StyledAnimatedAvatar
                 size={40}
@@ -191,7 +191,7 @@ const Header: FC = () => {
                 onClick={() => setUserSettingModal(!userSettingModal)}
                 className="outline-none"
               >
-                {selectAuth.user.display_name.charAt(0)}
+                {selectAuth.user.first_name.charAt(0)}
               </StyledAnimatedAvatar>
             </>
           ) : (
