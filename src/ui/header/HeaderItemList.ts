@@ -23,6 +23,6 @@ export const navItems: ILink[] = [
   },
   {
     text: "About",
-    href: "/about",
+    href: "/edit-profile",
   },
 ];

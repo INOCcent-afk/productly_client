@@ -70,7 +70,7 @@ const ReviewPage = () => {
 
   return (
     <StyledMainContainer>
-      <StyledPanelDominantLeft>
+      <StyledPanelDominantLeft gridGap={15}>
         <StyledBox>
           <form onSubmit={submit}>
             <h1>Review a Product</h1>

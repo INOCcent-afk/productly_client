@@ -35,8 +35,6 @@ const UserFormComponent: FC<Props> = ({ pageType }: Props) => {
 
   const isLogInPage = pageType === "Login";
 
-  const [error, setError] = useState("");
-
   const handleLogInData = (e: SyntheticEvent<HTMLInputElement>): void => {
     setUserSignInData({
       ...userSignInData,
@@ -91,7 +89,7 @@ const UserFormComponent: FC<Props> = ({ pageType }: Props) => {
           Router.push("/");
       } catch (error: any) {
         if (error.response.data) {
-          setError(error.response.data);
+          toast.error(error.response.data);
         }
       }
       setLoading(false);

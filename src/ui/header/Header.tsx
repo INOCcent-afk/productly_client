@@ -57,7 +57,6 @@ const Header: FC = () => {
   const { data: searchedUsers, isFetching: isSearchedUsersLoading } =
     useUsersSearchedData(
       searchUser,
-      selectAuth.token,
       searchUser === "" ? false : true,
       output,
       true
@@ -128,7 +127,7 @@ const Header: FC = () => {
     },
     {
       text: "About",
-      event: () => Router.push("/about"),
+      event: () => Router.push("/edit-profile"),
       icon: <LinkIcon fill={darkYellow} width={15} />,
     },
     ...(router.pathname === "/" ? mobileLoginRegisterItems : userDropdownItems),

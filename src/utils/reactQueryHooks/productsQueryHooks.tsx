@@ -13,12 +13,11 @@ export const useProductsData = () =>
 
 export const useUsersSearchedData = (
   name: string,
-  token: string,
   isEnabled?: boolean,
   state?: any,
   keepPreviousData?: boolean
 ) =>
-  useQuery(["searchedUsers", state], () => searchUsers(name, token), {
+  useQuery(["searchedUsers", state], () => searchUsers(name), {
     enabled: isEnabled,
     keepPreviousData,
   });

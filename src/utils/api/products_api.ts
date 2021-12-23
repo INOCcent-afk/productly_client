@@ -1,6 +1,7 @@
 import axios from "axios";
 import { TRouterQuery } from "../../models/nextType/TRouterQuery";
 import { IReviewPost } from "../../models/products/reviews";
+import { IUpdateUser, IUser } from "../../models/user/IUser";
 import { IUserSignIn } from "../../models/user/IUserSign";
 import { IUserSignUp } from "../../models/user/IUserSIgnUp";
 
@@ -35,8 +36,19 @@ export const getReviewsOfSingleProduct = async (id: string) => {
   return data.data;
 };
 
-export const searchUsers = async (name: string, token: string) => {
+export const searchUsers = async (name: string) => {
   const { data } = await API.get(`/user/search/${name}`);
 
   return data.data;
 };
+
+export const uploadUserAvatar = async (
+  id: string,
+  payload: IUpdateUser,
+  token: string
+) =>
+  API.put(`/user/${id}/edit-profile`, payload, {
+    headers: {
+      jwt_token: token,
+    },
+  });
