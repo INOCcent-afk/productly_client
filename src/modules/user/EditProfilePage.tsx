@@ -3,13 +3,13 @@ import React, { SyntheticEvent, useEffect, useState } from "react";
 import { useMutation } from "react-query";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { IUpdateUser } from "../models/user/IUser";
-import { refetchUser } from "../redux/AuthSlice.slice";
-import { useAppDispatch } from "../redux/hooks";
-import { AppState } from "../redux/store";
-import { getSingleUser, uploadUserAvatar } from "../utils/api/products_api";
+import { IUpdateUser } from "../../models/user/IUser";
+import { refetchUser } from "../../redux/AuthSlice.slice";
+import { useAppDispatch } from "../../redux/hooks";
+import { AppState } from "../../redux/store";
+import { getSingleUser, uploadUserAvatar } from "../../utils/api/products_api";
 
-const EditProfile = () => {
+const EditProfilePage = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const user: any = useSelector<AppState>((state) => state.auth);
@@ -160,4 +160,4 @@ const EditProfile = () => {
   );
 };
 
-export default EditProfile;
+export default EditProfilePage;

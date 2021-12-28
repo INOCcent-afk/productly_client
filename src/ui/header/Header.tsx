@@ -1,5 +1,6 @@
 import React, {
   FC,
+  MutableRefObject,
   SyntheticEvent,
   useCallback,
   useRef,
@@ -44,6 +45,7 @@ const Header: FC = () => {
   const router = useRouter();
   const { width } = useWindowDimensions();
   const [isInputFocus, setIsInputFocus] = useState(false);
+  const inputRef = useRef() as MutableRefObject<HTMLInputElement>;
 
   const handleSignOut = () => {
     dispatch(signOutDispatch());
@@ -91,7 +93,7 @@ const Header: FC = () => {
     },
     {
       text: "Account Settings",
-      event: () => Router.push("/account-settings"),
+      event: () => Router.push("/user/account-settings"),
       icon: <CogIcon fill={darkYellow} width={15} />,
     },
     {
@@ -153,11 +155,16 @@ const Header: FC = () => {
                 onChangeEvent={updateUserValue}
                 placeholder={isInputFocus ? "search other users" : "search..."}
                 onFocusEvent={() => setIsInputFocus(true)}
-                onBlurEvent={() => setIsInputFocus(false)}
+                onBlurEvent={() => {
+                  setIsInputFocus(false);
+                  console.log("HI");
+                  inputRef.current.focus();
+                }}
                 closeButtonEvent={clearUserValue}
                 additonalInputClassname={`w-52 ${
                   isInputFocus && "smd:w-full md:w-full"
                 }`}
+                ref={inputRef}
                 additonalContainerClassname={isInputFocus ? "w-full" : ""}
               />
               {searchUser && isInputFocus && (

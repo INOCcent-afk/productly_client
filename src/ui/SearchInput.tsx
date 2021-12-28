@@ -16,51 +16,57 @@ interface ISearchInputProps {
   additonalInputClassname?: string;
 }
 
-const SearchInput: FC<ISearchInputProps> = ({
-  value,
-  onChangeEvent,
-  closeButtonEvent,
-  placeholder,
-  additonalContainerClassname,
-  additonalInputClassname,
-  onFocusEvent,
-  onBlurEvent,
-}: ISearchInputProps) => {
-  return (
-    <StyledSearchInputContainer
-      className={`${additonalContainerClassname}`}
-      onBlur={onBlurEvent}
-      onFocus={onFocusEvent}
-      key="input-container"
-    >
-      <SearchIcon
-        className="absolute left-2"
-        style={{ top: 14 }}
-        fill={gray300}
-      />
-      <StyledSearchInput
-        type="text"
-        value={value}
-        onChange={onChangeEvent}
-        placeholder={placeholder}
-        className={`${additonalInputClassname} border-none`}
-      />
-      <CloseIcon
-        className="absolute right-2 cursor-pointer"
-        onClick={() => {
-          closeButtonEvent();
-          onFocusEvent();
-        }}
-        onKeyPress={(event) => {
-          if (event.key === "Enter") closeButtonEvent();
-        }}
-        tabIndex={0}
-        style={{ top: 13 }}
-        fill={gray300}
-      />
-    </StyledSearchInputContainer>
-  );
-};
+const SearchInput = React.forwardRef<HTMLInputElement, ISearchInputProps>(
+  (
+    {
+      value,
+      onChangeEvent,
+      closeButtonEvent,
+      placeholder,
+      additonalContainerClassname,
+      additonalInputClassname,
+      onFocusEvent,
+      onBlurEvent,
+    },
+    ref
+  ) => {
+    return (
+      <StyledSearchInputContainer
+        className={`${additonalContainerClassname}`}
+        onBlur={onBlurEvent}
+        onFocus={onFocusEvent}
+        key="input-container"
+        ref={ref}
+      >
+        <SearchIcon
+          className="absolute left-2"
+          style={{ top: 14 }}
+          fill={gray300}
+        />
+        <StyledSearchInput
+          type="text"
+          value={value}
+          onChange={onChangeEvent}
+          placeholder={placeholder}
+          className={`${additonalInputClassname} border-none`}
+        />
+        <CloseIcon
+          className="absolute right-2 cursor-pointer"
+          onClick={() => {
+            closeButtonEvent();
+            onFocusEvent();
+          }}
+          onKeyPress={(event) => {
+            if (event.key === "Enter") closeButtonEvent();
+          }}
+          tabIndex={0}
+          style={{ top: 13 }}
+          fill={gray300}
+        />
+      </StyledSearchInputContainer>
+    );
+  }
+);
 
 export default SearchInput;
 

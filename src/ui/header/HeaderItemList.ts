@@ -1,17 +1,5 @@
 import { ILink } from "../../models/Links/ILink";
 
-export const userDropdownItems = [
-  {
-    text: "Profile",
-  },
-  {
-    text: "Account Settings",
-  },
-  {
-    text: "Sign out",
-  },
-];
-
 export const navItems: ILink[] = [
   {
     text: "Review",
@@ -23,6 +11,6 @@ export const navItems: ILink[] = [
   },
   {
     text: "About",
-    href: "/edit-profile",
+    href: "/about",
   },
 ];
