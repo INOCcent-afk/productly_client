@@ -8,8 +8,8 @@ import {
   searchUsers,
 } from "../api/products_api";
 
-export const useProductsData = () =>
-  useQuery<IProduct[]>("products", getAllProducts);
+export const useProductsData = (state?: any) =>
+  useQuery<IProduct[]>(["products", state], getAllProducts);
 
 export const useUsersSearchedData = (
   name: string,

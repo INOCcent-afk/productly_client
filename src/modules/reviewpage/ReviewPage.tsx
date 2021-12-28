@@ -22,6 +22,8 @@ import {
   useProductsData,
 } from "../../utils/reactQueryHooks/productsQueryHooks";
 import { darkYellow } from "../../utils/theme/colors";
+import Image from "next/image";
+import StarMeter from "../../ui/StarMeter";
 
 const ReviewPage = () => {
   const user: any = useSelector<AppState>((state) => state.auth.user);
@@ -45,7 +47,8 @@ const ReviewPage = () => {
     }
   );
 
-  const { data: productsData, isLoading } = useProductsData();
+  const { data: productsData, isLoading, refetch } = useProductsData();
+
   const { data: singleProductData, isLoading: singleProductIsLoading } =
     useProductData(
       selectedProduct,
@@ -74,8 +77,6 @@ const ReviewPage = () => {
     if (productsData) {
       setSelectedProduct(productsData[0].product_id);
     }
-
-    console.log(productsData);
   }, [productsData]);
 
   const tite = (num: number) => {
@@ -87,7 +88,11 @@ const ReviewPage = () => {
 
   return (
     <StyledMainContainer>
-      <StyledPanelDominantLeft className="!items-start" gridGap={15}>
+      <StyledPanelDominantLeft
+        gridColumnsDesktop="8fr 4fr"
+        className="!items-start"
+        gridGap={15}
+      >
         <StyledBox className="p-5">
           <form className="flex flex-col gap-5" onSubmit={submit}>
             <div className="flex gap-2 items-cente mb-4">
@@ -113,11 +118,14 @@ const ReviewPage = () => {
               )}
             </StyleSelectInput>
             <StyledTitle className="text-gray-600">Star Rating</StyledTitle>
-            <StarRating
-              rating={reviewData.rating}
-              setRating={tite}
-              disabled={false}
-            />
+            <div className="flex items-center gap-5 flex-wrap">
+              <StarRating
+                rating={reviewData.rating}
+                setRating={tite}
+                disabled={false}
+              />
+              {ratingLabel[reviewData.rating]}
+            </div>
             <StyledTitle className="text-gray-600">Review</StyledTitle>
             <StyledTextarea
               name="review_message"
@@ -129,11 +137,31 @@ const ReviewPage = () => {
             </div>
           </form>
         </StyledBox>
-        <StyledBox>
+        <StyledBox className="hidden lg:block">
           {singleProductIsLoading ? (
             <h1>Wait a minute kapeng mainit</h1>
           ) : (
-            <h1>{singleProductData && singleProductData.product_name}</h1>
+            <div className="w-full">
+              <div className="relative w-full h-48">
+                <Image
+                  layout="fill"
+                  src="https://images.pexels.com/photos/1002649/pexels-photo-1002649.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                  objectFit="cover"
+                />
+              </div>
+              <div className="flex flex-col gap-3 p-8">
+                <StyledTitle>{singleProductData?.product_name}</StyledTitle>
+                <div className="flex items-center gap-1">
+                  <StarMeter
+                    rating={singleProductData?.average_rating as number}
+                  />
+                  <span className="text-gray-400">
+                    ( {singleProductData?.average_rating} )
+                  </span>
+                </div>
+                <span>( {singleProductData?.count} ) Reviews</span>
+              </div>
+            </div>
           )}
         </StyledBox>
       </StyledPanelDominantLeft>
@@ -142,3 +170,15 @@ const ReviewPage = () => {
 };
 
 export default ReviewPage;
+
+interface IRatingLabel {
+  [key: number]: JSX.Element;
+}
+
+const ratingLabel: IRatingLabel = {
+  1: <p className="text-red-500">Totally unsatisfied</p>,
+  2: <p className="text-red-500">I don't like it</p>,
+  3: <p className="text-gray-600">It's okay, I guess</p>,
+  4: <p className="text-green-400">It's pretty good</p>,
+  5: <p className="text-green-400">I love it!</p>,
+};

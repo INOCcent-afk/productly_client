@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import styled from "styled-components";
 import {
   StyledBox,
@@ -11,7 +11,11 @@ import { StyledTitle } from "../../styles/styled-elements/common-elements";
 import LongProductDisplay from "../../ui/products/LongProductDisplay";
 
 const HomePage: FC = () => {
-  const { data: productsData, isLoading } = useProductsData();
+  const { data: productsData, isLoading, refetch } = useProductsData();
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   if (isLoading) {
     return <div>loading</div>;

@@ -22,4 +22,5 @@ export const StyledTextarea = styled.textarea`
   border: 1px solid ${(props) => props.theme.borderColors.grayBorder};
   border-radius: 5px;
   min-height: 200px;
+  padding: 10px;
 `;

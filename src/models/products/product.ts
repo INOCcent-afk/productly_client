@@ -9,6 +9,8 @@ export interface IProduct {
 
   product_name: string;
 
+  product_image: string;
+
   reviews_product_id: string;
 
   user_id: string;
