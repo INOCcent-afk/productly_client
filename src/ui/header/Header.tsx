@@ -37,14 +37,16 @@ import { toast } from "react-toastify";
 const Header: FC = () => {
   const dispatch = useAppDispatch();
   const selectAuth = useAppSelector((state) => state.auth);
+  const router = useRouter();
+
   const [searchUser, setSearchUser] = useState("");
   const [output, setOutput] = useState("");
   const [userSettingModal, setUserSettingModal] = useState(false);
   const [mobileNavModal, setMobileNavModal] = useState(false);
-  const debounced = useRef(debounce((value) => setOutput(value), 600));
-  const router = useRouter();
-  const { width } = useWindowDimensions();
   const [isInputFocus, setIsInputFocus] = useState(false);
+
+  const { width } = useWindowDimensions();
+  const debounced = useRef(debounce((value) => setOutput(value), 600));
   const inputRef = useRef() as MutableRefObject<HTMLInputElement>;
 
   const handleSignOut = () => {
@@ -88,7 +90,9 @@ const Header: FC = () => {
   const userDropdownItems: ITextAndEvent[] = [
     {
       text: "Profile",
-      event: () => Router.push("/profile"),
+      event: () => {
+        Router.push("/profile");
+      },
       icon: <UserIcon fill={darkYellow} width={15} />,
     },
     {
@@ -188,17 +192,20 @@ const Header: FC = () => {
         <StyledRightNav className={`${isInputFocus && "justify-end"}`}>
           {selectAuth.token ? (
             <>
-              {selectAuth.token && (
-                <h3 className="text-center">{selectAuth.user.first_name}</h3>
-              )}
-              <StyledAnimatedAvatar
-                size={40}
-                tabIndex={0}
-                onClick={() => setUserSettingModal(!userSettingModal)}
-                className="outline-none"
-              >
-                {selectAuth.user.first_name.charAt(0)}
-              </StyledAnimatedAvatar>
+              <h3 className="text-center">{selectAuth.user.first_name}</h3>
+              <div className="" ref={userSettingNode}>
+                <StyledAnimatedAvatar
+                  size={40}
+                  tabIndex={0}
+                  onClick={() => setUserSettingModal(!userSettingModal)}
+                  className="outline-none"
+                >
+                  {selectAuth.user.first_name.charAt(0)}
+                </StyledAnimatedAvatar>
+                {userSettingModal && width > +tablet && (
+                  <ListModal items={userDropdownItems} top={100} right={15} />
+                )}
+              </div>
             </>
           ) : (
             <>
@@ -216,26 +223,13 @@ const Header: FC = () => {
         <div
           className="relative md:hidden cursor-pointer"
           onClick={() => setMobileNavModal(!mobileNavModal)}
+          ref={mobileNavNode}
         >
           <DotsVertical className="ml-auto" fill={darkYellow} />
           {mobileNavModal && width < +tablet && (
-            <ListModal
-              ref={mobileNavNode}
-              items={mobileDropdownItems}
-              top={40}
-              right={15}
-            />
+            <ListModal items={mobileDropdownItems} top={40} right={15} />
           )}
         </div>
-
-        {userSettingModal && width > +tablet && (
-          <ListModal
-            ref={userSettingNode}
-            items={userDropdownItems}
-            top={100}
-            right={15}
-          />
-        )}
       </StyledHeader>
     </StyledHeaderContainer>
   );
