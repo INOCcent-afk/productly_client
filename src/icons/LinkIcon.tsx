@@ -1,6 +1,6 @@
-import React from "react";
+import React, { FC } from "react";
 
-const LinkIcon = (props: React.SVGProps<SVGSVGElement>) => {
+const LinkIcon: FC = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       className="w-6 h-6"

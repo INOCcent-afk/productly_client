@@ -1,6 +1,6 @@
-import React from "react";
+import React, { FC } from "react";
 
-const LogoutIcon = (props: React.SVGProps<SVGSVGElement>) => {
+const LogoutIcon: FC = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       className="w-6 h-6"

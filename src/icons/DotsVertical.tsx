@@ -1,6 +1,6 @@
-import React from "react";
+import React, { FC } from "react";
 
-const DotsVertical = (props: React.SVGProps<SVGSVGElement>) => {
+const DotsVertical: FC = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       className="w-6 h-6"
