@@ -1,6 +1,6 @@
-import React from "react";
+import React, { FC } from "react";
 
-const CogIcon = (props: React.SVGProps<SVGSVGElement>) => {
+const CogIcon: FC = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       className="w-6 h-6"
