@@ -1,6 +1,6 @@
-import React from "react";
+import React, { FC } from "react";
 
-const SearchIcon = (props: React.SVGProps<SVGSVGElement>) => {
+const SearchIcon: FC = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       className="w-6 h-6"
