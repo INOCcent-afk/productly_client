@@ -45,6 +45,12 @@ const ProfilePage = () => {
         <div className="flex gap-28 my-14">
           <div className="flex flex-col gap-3 items-center">
             <div className="text-4xl font-bold">
+              {data?.userRatingsCount.count}
+            </div>
+            <StyledTitle>Ratings</StyledTitle>
+          </div>
+          <div className="flex flex-col gap-3 items-center">
+            <div className="text-4xl font-bold">
               {data?.userReviewsCount.count}
             </div>
             <StyledTitle>Reviews</StyledTitle>
