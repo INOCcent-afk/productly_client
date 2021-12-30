@@ -92,17 +92,22 @@ const Header: FC = () => {
       text: "Profile",
       event: () => {
         Router.push(`/profile/${selectAuth.user.user_id}`);
+        setUserSettingModal(false);
       },
       icon: <UserIcon fill={darkYellow} width={15} />,
     },
     {
       text: "Account Settings",
-      event: () => Router.push("/user/account-settings"),
+      event: () => {
+        Router.push("/user/account-settings");
+        setUserSettingModal(false);
+      },
       icon: <CogIcon fill={darkYellow} width={15} />,
     },
     {
       text: "Sign out",
       event: handleSignOut,
+
       icon: <LogoutIcon fill={darkYellow} width={15} />,
     },
   ];
@@ -123,17 +128,19 @@ const Header: FC = () => {
   const mobileDropdownItems: ITextAndEvent[] = [
     {
       text: "Reviews",
-      event: () => Router.push("/reviews"),
+      event: () => Router.push("/review"),
       icon: <LinkIcon fill={darkYellow} width={15} />,
     },
     {
       text: "Products",
-      event: () => Router.push("/products"),
+      event: () => {
+        Router.push("/productly-homepage");
+      },
       icon: <LinkIcon fill={darkYellow} width={15} />,
     },
     {
       text: "About",
-      event: () => Router.push("/edit-profile"),
+      event: () => Router.push("/about"),
       icon: <LinkIcon fill={darkYellow} width={15} />,
     },
     ...(router.pathname === "/" ? mobileLoginRegisterItems : userDropdownItems),
