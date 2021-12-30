@@ -1,6 +1,6 @@
-import React, { FC } from "react";
+import React from "react";
 
-const ArrowDownIcon: FC = (props: React.SVGProps<SVGSVGElement>) => {
+const ArrowDownIcon = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       className="w-6 h-6"

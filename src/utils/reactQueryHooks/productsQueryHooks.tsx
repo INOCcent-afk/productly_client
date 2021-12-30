@@ -1,10 +1,12 @@
 import { useQuery } from "react-query";
 import { TRouterQuery } from "../../models/nextType/TRouterQuery";
 import { IProduct } from "../../models/products/product";
+import { ISingleUser } from "../../models/user/ISIngleUser";
 
 import {
   getAllProducts,
   getSingleProduct,
+  getSingleUser,
   searchUsers,
 } from "../api/products_api";
 
@@ -30,3 +32,6 @@ export const useProductData = (
   useQuery<IProduct>(["product", state], () => getSingleProduct(id), {
     enabled: isEnabled,
   });
+
+export const useSingleUser = (id: string) =>
+  useQuery<ISingleUser>("singleUser", () => getSingleUser(id));

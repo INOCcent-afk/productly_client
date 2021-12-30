@@ -1,7 +1,7 @@
 import axios from "axios";
 import { TRouterQuery } from "../../models/nextType/TRouterQuery";
 import { IReviewPost } from "../../models/products/reviews";
-import { IUpdateUser, IUser } from "../../models/user/IUser";
+import { IUpdateUser } from "../../models/user/IUser";
 import { IUserSignIn } from "../../models/user/IUserSign";
 import { IUserSignUp } from "../../models/user/IUserSIgnUp";
 

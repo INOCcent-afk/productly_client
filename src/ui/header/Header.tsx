@@ -91,7 +91,7 @@ const Header: FC = () => {
     {
       text: "Profile",
       event: () => {
-        Router.push("/profile");
+        Router.push(`/profile/${selectAuth.user.user_id}`);
       },
       icon: <UserIcon fill={darkYellow} width={15} />,
     },
