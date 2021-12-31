@@ -21,13 +21,12 @@ const ProductDetailsPage = () => {
 
   let id;
   id = router.query.id;
+
   if (!id && typeof window !== "undefined") {
     id = window.location.pathname.split("/").pop();
   }
 
   const { data, isLoading, isError } = useProductData(id, true, id);
-
-  !data && !isLoading && typeof window !== "undefined" && router.push("/404");
 
   return (
     <StyledMainContainer>
