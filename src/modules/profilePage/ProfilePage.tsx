@@ -20,7 +20,7 @@ const ProfilePage = () => {
   }, []);
 
   return (
-    <div className="mb-32">
+    <div className="mb-32" style={{ minHeight: "100vh" }}>
       <div className="relative w-full h-60">
         <Image
           layout="fill"

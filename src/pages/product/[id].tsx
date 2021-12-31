@@ -29,11 +29,9 @@ const ProductDetailsPage = () => {
 
   !data && !isLoading && typeof window !== "undefined" && router.push("/404");
 
-  console.log(data);
-
   return (
     <StyledMainContainer>
-      <StyledPanelDominantLeft gridGap={30} gridColumnsDesktop="7fr 5fr">
+      <StyledPanelDominantLeft className="!gap-5" gridColumnsDesktop="7fr 5fr">
         <StyledBox className="relative" style={{ minHeight: 500 }}>
           <Image
             layout="fill"
@@ -47,7 +45,7 @@ const ProductDetailsPage = () => {
           <StyledMainTitle color="black">
             {data?.product.product_name}
           </StyledMainTitle>
-          <StyledBody className="mt-5">
+          <StyledBody className="mt-5 mb-20">
             {data?.product.product_description}
           </StyledBody>
           <StyledButton

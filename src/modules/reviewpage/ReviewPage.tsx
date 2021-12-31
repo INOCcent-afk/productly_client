@@ -24,6 +24,7 @@ import {
 import { darkYellow } from "../../utils/theme/colors";
 import Image from "next/image";
 import StarMeter from "../../ui/StarMeter";
+import Link from "next/link";
 
 const ReviewPage = () => {
   const user: any = useSelector<AppState>((state) => state.auth.user);
@@ -137,33 +138,39 @@ const ReviewPage = () => {
             </div>
           </form>
         </StyledBox>
-        <StyledBox className="hidden lg:block">
-          {singleProductIsLoading ? (
-            <h1>Wait a minute kapeng mainit</h1>
-          ) : (
-            <div className="w-full">
-              <div className="relative w-full h-48">
-                <Image
-                  layout="fill"
-                  src="https://images.pexels.com/photos/1002649/pexels-photo-1002649.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                  objectFit="cover"
-                />
-              </div>
-              <div className="flex flex-col gap-3 p-8">
-                <StyledTitle>{singleProductData?.product_name}</StyledTitle>
-                <div className="flex items-center gap-1">
-                  <StarMeter
-                    rating={singleProductData?.average_rating as number}
+        <Link href={`product/${singleProductData?.product.reviews_product_id}`}>
+          <StyledBox className="hidden lg:block cursor-pointer">
+            {singleProductIsLoading ? (
+              <h1>Wait a minute kapeng mainit</h1>
+            ) : (
+              <div className="w-full">
+                <div className="relative w-full h-48">
+                  <Image
+                    layout="fill"
+                    src="https://images.pexels.com/photos/1002649/pexels-photo-1002649.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                    objectFit="cover"
                   />
-                  <span className="text-gray-400">
-                    ( {singleProductData?.average_rating} )
-                  </span>
                 </div>
-                <span>( {singleProductData?.count} ) Reviews</span>
+                <div className="flex flex-col gap-3 p-8">
+                  <StyledTitle>
+                    {singleProductData?.product.product_name}
+                  </StyledTitle>
+                  <div className="flex items-center gap-1">
+                    <StarMeter
+                      rating={
+                        singleProductData?.product.average_rating as number
+                      }
+                    />
+                    <span className="text-gray-400">
+                      ( {singleProductData?.product.average_rating} )
+                    </span>
+                  </div>
+                  <span>( {singleProductData?.product.count} ) Reviews</span>
+                </div>
               </div>
-            </div>
-          )}
-        </StyledBox>
+            )}
+          </StyledBox>
+        </Link>
       </StyledPanelDominantLeft>
     </StyledMainContainer>
   );
