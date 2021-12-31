@@ -34,6 +34,10 @@ export const StyledButton = styled.button<ButtonProps>`
     .bullets {
       background: ${(props) => props.theme.backgroundColors.primary};
     }
+
+    svg {
+      fill: ${(props) => props.theme.backgroundColors.primary};
+    }
   }
 
   &:disabled {
