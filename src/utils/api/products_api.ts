@@ -21,7 +21,7 @@ export const getAllProducts = async () => {
 export const getSingleProduct = async (id: TRouterQuery) => {
   const { data } = await API.get(`/product/${id}`);
 
-  return data.data.product;
+  return data.data;
 };
 
 export const createReview = async (

@@ -4,6 +4,7 @@ import {
   StyledBody,
 } from "../../styles/styled-elements/common-elements";
 import { StyledBox } from "../../styles/styled-elements/container-elements";
+import DisplayName from "../DisplayName";
 import StarMeter from "../StarMeter";
 
 interface LongProductReviewProps {
@@ -23,10 +24,12 @@ const LongProductReview: FC<LongProductReviewProps> = ({
     <StyledBox>
       <div className="flex gap-2 py-4 px-2 border-b">
         <StyledAvatar size={60} className="!text-xl">
-          D
+          <DisplayName singleLetter={true} id={user} />
         </StyledAvatar>
         <div className="flex flex-col gap-1">
-          <span className="ml-2 font-bold text-gray-600">{user}</span>
+          <span className="ml-2 font-bold text-gray-600">
+            <DisplayName id={user} />
+          </span>
           <div className="flex gap-2">
             <StarMeter starSize={25} rating={rating} />
             <span>{rating}</span>

@@ -1,3 +1,5 @@
+import { IReview } from "./reviews";
+
 export interface IProduct {
   average_rating: number;
 
@@ -14,4 +16,14 @@ export interface IProduct {
   reviews_product_id: string;
 
   user_id: string;
+}
+
+export interface IProductReviewCount {
+  count: number;
+}
+
+export interface IProductFullQuery {
+  product: IProduct;
+  productReviews: IReview[];
+  productReviewCount: IProductReviewCount;
 }

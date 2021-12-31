@@ -29,6 +29,8 @@ const ProductDetailsPage = () => {
 
   !data && !isLoading && typeof window !== "undefined" && router.push("/404");
 
+  console.log(data);
+
   return (
     <StyledMainContainer>
       <StyledPanelDominantLeft gridGap={30} gridColumnsDesktop="7fr 5fr">
@@ -42,8 +44,12 @@ const ProductDetailsPage = () => {
           />
         </StyledBox>
         <StyledBox className="relative p-10">
-          <StyledMainTitle color="black">{data?.product_name}</StyledMainTitle>
-          <StyledBody className="mt-5">{data?.product_description}</StyledBody>
+          <StyledMainTitle color="black">
+            {data?.product.product_name}
+          </StyledMainTitle>
+          <StyledBody className="mt-5">
+            {data?.product.product_description}
+          </StyledBody>
           <StyledButton
             borderRadius={10}
             className="!px-5 !py-3 flex gap-3 absolute bottom-5 left-8"
@@ -54,21 +60,24 @@ const ProductDetailsPage = () => {
         </StyledBox>
       </StyledPanelDominantLeft>
       <ProductAnalytics
-        rating={data?.average_rating as number}
-        ratingCount={data?.count as number}
-        reviewCount={data?.count as number}
+        rating={data?.product.average_rating as number}
+        ratingCount={data?.product.count as number}
+        reviewCount={data?.productReviewCount.count as number}
       />
       <div className="my-24 mx-auto" style={{ maxWidth: 800 }}>
         <StyledMainTitle className="!text-black text-center xx">
           Ratings & Reviews
         </StyledMainTitle>
         <div className="flex flex-col gap-8 mt-10">
-          <LongProductReview
-            date="12/04/21"
-            user="Michael"
-            description="asasasas"
-            rating={5}
-          />
+          {data?.productReviews.map((review) => (
+            <LongProductReview
+              date={review.created_at}
+              user={review.user_id}
+              description={review.review_message}
+              rating={review.rating}
+              key={review.review_id}
+            />
+          ))}
         </div>
       </div>
     </StyledMainContainer>

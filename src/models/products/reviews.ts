@@ -12,6 +12,8 @@ export interface IReview {
   review_product_id: string;
 
   user_id: string;
+
+  created_at: string;
 }
 
 export interface IReviewPost {
