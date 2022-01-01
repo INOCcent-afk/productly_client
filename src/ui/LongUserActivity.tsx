@@ -6,6 +6,7 @@ import {
 import Image from "next/image";
 import StarMeter from "./StarMeter";
 import { StyledTitle } from "../styles/styled-elements/common-elements";
+import Moment from "react-moment";
 
 interface LongUserActivity {
   productImage?: string;
@@ -37,7 +38,9 @@ const LongUserActivity: FC<LongUserActivity> = ({
               <StarMeter rating={rating} /> ({rating})
             </div>
           </div>
-          <div className="">{date}</div>
+          <div className="">
+            <Moment format="MM/DD/YYYY">{date}</Moment>
+          </div>
         </div>
       </StyledPanelDominantRight>
     </StyledBox>

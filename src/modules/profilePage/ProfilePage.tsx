@@ -120,22 +120,23 @@ const ProfilePage = () => {
           </div>
         </div>
       </div>
-
-      <div className="mx-auto " style={{ maxWidth: 700 }}>
-        <StyledMainTitle className="text-center !my-20">
-          Activity
-        </StyledMainTitle>
-        <div className="flex flex-col gap-5">
-          {data?.user_activity.activity.map((activity) => (
-            <LongUserActivity
-              key={activity.product_id}
-              productTitle={activity.product_name}
-              rating={activity.average_rating}
-              date={activity.created_at}
-            />
-          ))}
+      {data?.user_activity && (
+        <div className="mx-auto " style={{ maxWidth: 700 }}>
+          <StyledMainTitle className="text-center !my-20">
+            Activity
+          </StyledMainTitle>
+          <div className="flex flex-col gap-5">
+            {data?.user_activity.activity.map((activity) => (
+              <LongUserActivity
+                key={activity.product_id}
+                productTitle={activity.product_name}
+                rating={activity.average_rating}
+                date={activity.created_at}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
