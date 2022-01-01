@@ -57,8 +57,8 @@ export const StyledButtonOutlined = styled(StyledButton)`
     color: ${(props) => props.color || props.theme.colors.primary};
   }
 
-  &:hover,
-  &:focus {
+  &:hover:enabled,
+  &:focus:enabled {
     color: ${(props) => props.backgroundColor || props.theme.colors.white};
     background-color: ${(props) =>
       props.color || props.theme.backgroundColors.primary};
