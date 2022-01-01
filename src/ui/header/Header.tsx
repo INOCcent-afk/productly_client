@@ -140,7 +140,7 @@ const Header: FC = () => {
     },
     {
       text: "About",
-      event: () => Router.push("/about"),
+      event: () => Router.push("/about-us"),
       icon: <LinkIcon fill={darkYellow} width={15} />,
     },
     ...(router.pathname === "/" ? mobileLoginRegisterItems : userDropdownItems),
