@@ -29,7 +29,7 @@ const AboutPage = () => {
           <div className="absolute w-8 h-10 bg-yellow-600 bottom-24 about-tag"></div>
         </div>
       </StyledBox>
-      <div className="flex items-center justify-center p-20">
+      <div className="flex items-center justify-center py-20 px-5">
         <Creator />
       </div>
     </div>

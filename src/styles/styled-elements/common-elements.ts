@@ -4,6 +4,7 @@ interface IAvatarProps {
   size: number;
   backgroundColor?: string;
   color?: string;
+  backgroundImage?: string;
 }
 
 interface ITitleProps {
@@ -18,6 +19,9 @@ export const StyledAvatar = styled.div<IAvatarProps>`
   align-items: center;
   justify-content: center;
   border-radius: 50%;
+  background-image: url(${(props) => props.backgroundImage});
+  background-size: cover;
+  background-position: center;
   width: ${(props) => props.size}px;
   height: ${(props) => props.size}px;
   background-color: ${(props) =>

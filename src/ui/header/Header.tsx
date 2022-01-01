@@ -47,7 +47,6 @@ const Header: FC = () => {
 
   const { width } = useWindowDimensions();
   const debounced = useRef(debounce((value) => setOutput(value), 600));
-  const inputRef = useRef() as MutableRefObject<HTMLInputElement>;
 
   const handleSignOut = () => {
     dispatch(signOutDispatch());
@@ -59,12 +58,7 @@ const Header: FC = () => {
   };
 
   const { data: searchedUsers, isFetching: isSearchedUsersLoading } =
-    useUsersSearchedData(
-      searchUser,
-      searchUser === "" ? false : true,
-      output,
-      true
-    );
+    useUsersSearchedData(searchUser, true, output, true);
 
   let userSettingNode = useClickOutsideHook(() => {
     setUserSettingModal(false);
@@ -146,6 +140,10 @@ const Header: FC = () => {
     ...(router.pathname === "/" ? mobileLoginRegisterItems : userDropdownItems),
   ];
 
+  React.useEffect(() => {
+    setSearchUser("");
+  }, [router]);
+
   return (
     <StyledHeaderContainer>
       <StyledHeader
@@ -166,16 +164,11 @@ const Header: FC = () => {
                 onChangeEvent={updateUserValue}
                 placeholder={isInputFocus ? "search other users" : "search..."}
                 onFocusEvent={() => setIsInputFocus(true)}
-                onBlurEvent={() => {
-                  setIsInputFocus(false);
-                  console.log("HI");
-                  inputRef.current.focus();
-                }}
+                onBlurEvent={() => setIsInputFocus(false)}
                 closeButtonEvent={clearUserValue}
                 additonalInputClassname={`w-52 ${
                   isInputFocus && "smd:w-full md:w-full"
                 }`}
-                ref={inputRef}
                 additonalContainerClassname={isInputFocus ? "w-full" : ""}
               />
               {searchUser && isInputFocus && (

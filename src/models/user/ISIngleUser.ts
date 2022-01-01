@@ -5,7 +5,9 @@ export interface ISingleUser {
   user: IUser;
   userRatingsCount: ICount;
   userReviewsCount: ICount;
-  user_activity: IProduct[];
+  user_activity: {
+    activity: IProduct[];
+  };
 }
 
 export interface ICount {

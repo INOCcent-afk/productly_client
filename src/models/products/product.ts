@@ -16,6 +16,8 @@ export interface IProduct {
   reviews_product_id: string;
 
   user_id: string;
+
+  created_at: string;
 }
 
 export interface IProductReviewCount {

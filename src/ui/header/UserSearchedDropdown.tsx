@@ -7,14 +7,16 @@ import UserLink from "./UserLink";
 interface UserSearchedDropdownProps {
   users: ISearchedUser[];
   isLoading: boolean;
+  additionalClassName?: string;
 }
 
 const UserSearchedDropdown: FC<UserSearchedDropdownProps> = ({
   users,
   isLoading,
+  additionalClassName,
 }: UserSearchedDropdownProps) => {
   return (
-    <StyledUserSearchedDropdown>
+    <StyledUserSearchedDropdown className={additionalClassName}>
       {isLoading ? (
         <StyledMessage>
           <h1>Spinner</h1>
