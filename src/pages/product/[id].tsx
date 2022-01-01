@@ -15,8 +15,9 @@ import { StyledButton } from "../../styles/styled-elements/button-elements";
 import PencilAltIcon from "../../icons/PencilAltIcon";
 import ProductAnalytics from "../../ui/ProductAnalytics";
 import LongProductReview from "../../ui/products/LongProductReview";
+import { NextPage } from "next";
 
-const ProductDetailsPage = () => {
+const ProductDetailsPage: NextPage = () => {
   const router = useRouter();
 
   let id;
@@ -27,6 +28,10 @@ const ProductDetailsPage = () => {
   }
 
   const { data, isLoading, isError } = useProductData(id, true, id);
+
+  if (isError) {
+    router.push("/404");
+  }
 
   return (
     <StyledMainContainer>

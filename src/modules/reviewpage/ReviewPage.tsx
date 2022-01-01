@@ -16,7 +16,7 @@ import {
   StyleSelectInput,
 } from "../../styles/styled-elements/input-elements";
 import StarRating from "../../ui/StarRating";
-import { createReview } from "../../utils/api/products_api";
+import { createReview, getSingleProduct } from "../../utils/api/products_api";
 import {
   useProductData,
   useProductsData,

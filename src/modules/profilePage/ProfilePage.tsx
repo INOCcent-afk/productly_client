@@ -13,11 +13,15 @@ const ProfilePage = () => {
   const router = useRouter();
   const { user_id } = router.query;
 
-  const { data, refetch } = useSingleUser(user_id as string);
+  const { data, refetch, isError } = useSingleUser(user_id as string);
 
   useEffect(() => {
     refetch();
   }, []);
+
+  if (isError) {
+    router.push("/404");
+  }
 
   return (
     <div className="mb-32" style={{ minHeight: "100vh" }}>
