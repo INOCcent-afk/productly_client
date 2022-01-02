@@ -7,12 +7,14 @@ import Image from "next/image";
 import StarMeter from "./StarMeter";
 import { StyledTitle } from "../styles/styled-elements/common-elements";
 import Moment from "react-moment";
+import Link from "next/link";
 
 interface LongUserActivity {
   productImage?: string;
   productTitle: string;
   rating: number;
   date: string;
+  productID: string;
 }
 
 const LongUserActivity: FC<LongUserActivity> = ({
@@ -20,30 +22,33 @@ const LongUserActivity: FC<LongUserActivity> = ({
   productTitle,
   rating,
   date,
+  productID,
 }: LongUserActivity) => {
   return (
-    <StyledBox>
-      <StyledPanelDominantRight>
-        <div className="relative h-24">
-          <Image
-            src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.giphy.com%2Fmedia%2F6NlmBQLhWy2QM%2Fsource.gif&f=1&nofb=1"
-            layout="fill"
-            objectFit="cover"
-          />
-        </div>
-        <div className="px-5 py-2 flex flex-col gap-5">
-          <div className="flex justify-between">
-            <StyledTitle>{productTitle}</StyledTitle>
-            <div className="flex items-center gap-2">
-              <StarMeter rating={rating} /> ({rating})
+    <Link href={`/product/${productID}`}>
+      <StyledBox className="cursor-pointer">
+        <StyledPanelDominantRight>
+          <div className="relative h-24">
+            <Image
+              src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.giphy.com%2Fmedia%2F6NlmBQLhWy2QM%2Fsource.gif&f=1&nofb=1"
+              layout="fill"
+              objectFit="cover"
+            />
+          </div>
+          <div className="px-5 py-2 flex flex-col gap-5">
+            <div className="flex justify-between">
+              <StyledTitle>{productTitle}</StyledTitle>
+              <div className="flex items-center gap-2">
+                <StarMeter rating={rating} /> ({rating})
+              </div>
+            </div>
+            <div className="">
+              <Moment format="MM/DD/YYYY, h:mm:ss a">{date}</Moment>
             </div>
           </div>
-          <div className="">
-            <Moment format="MM/DD/YYYY, h:mm:ss a">{date}</Moment>
-          </div>
-        </div>
-      </StyledPanelDominantRight>
-    </StyledBox>
+        </StyledPanelDominantRight>
+      </StyledBox>
+    </Link>
   );
 };
 

@@ -16,6 +16,7 @@ import PencilAltIcon from "../../icons/PencilAltIcon";
 import ProductAnalytics from "../../ui/ProductAnalytics";
 import LongProductReview from "../../ui/products/LongProductReview";
 import { NextPage } from "next";
+import Link from "next/link";
 
 const ProductDetailsPage: NextPage = () => {
   const router = useRouter();
@@ -61,7 +62,9 @@ const ProductDetailsPage: NextPage = () => {
             className="!px-5 !py-3 flex gap-3 absolute bottom-5 left-8"
           >
             <PencilAltIcon fill="white" />
-            <span>Rate This Product</span>
+            <Link href={`/review/${id}`}>
+              <span>Rate This Product</span>
+            </Link>
           </StyledButton>
         </StyledBox>
       </StyledPanelDominantLeft>

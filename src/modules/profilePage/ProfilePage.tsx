@@ -130,6 +130,7 @@ const ProfilePage = () => {
                 productTitle={activity.product_name}
                 rating={activity.average_rating}
                 date={activity.latest_review_date}
+                productID={activity.product_id}
               />
             ))}
           </div>
