@@ -7,7 +7,7 @@ export const navItems: ILink[] = [
   },
   {
     text: "Products",
-    href: "/productly-homepage",
+    href: "/products",
   },
   {
     text: "About",

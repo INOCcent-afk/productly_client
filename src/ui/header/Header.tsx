@@ -128,7 +128,7 @@ const Header: FC = () => {
     {
       text: "Products",
       event: () => {
-        Router.push("/productly-homepage");
+        Router.push("/products");
       },
       icon: <LinkIcon fill={darkYellow} width={15} />,
     },
