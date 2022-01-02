@@ -120,8 +120,8 @@ const ProfilePage = () => {
           </div>
         </div>
       </div>
-      {data?.user_activity && (
-        <div className="mx-auto " style={{ maxWidth: 700 }}>
+      {data?.user_activity.activity.length && (
+        <div className="mx-auto px-2" style={{ maxWidth: 700 }}>
           <StyledMainTitle className="text-center !my-20">
             Activity
           </StyledMainTitle>
@@ -131,7 +131,7 @@ const ProfilePage = () => {
                 key={activity.product_id}
                 productTitle={activity.product_name}
                 rating={activity.average_rating}
-                date={activity.created_at}
+                date={activity.latest_review_date}
               />
             ))}
           </div>
