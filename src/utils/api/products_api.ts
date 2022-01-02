@@ -30,6 +30,12 @@ export const getSingleProduct = async (id: TRouterQuery) => {
   return data.data;
 };
 
+export const searchProducts = async (name: string) => {
+  const { data } = await API.get(`/products/search/${name}`);
+
+  return data.data;
+};
+
 export const createReview = async (
   payload: IReviewPost,
   user_id: string | unknown,

@@ -24,6 +24,10 @@ export interface IProductReviewCount {
   count: number;
 }
 
+export interface IProductSearched {
+  products: IProduct[];
+}
+
 export interface IProductFullQuery {
   product: IProduct;
   productReviews: IReview[];

@@ -1,6 +1,10 @@
 import { useQuery } from "react-query";
 import { TRouterQuery } from "../../models/nextType/TRouterQuery";
-import { IProduct, IProductFullQuery } from "../../models/products/product";
+import {
+  IProduct,
+  IProductFullQuery,
+  IProductSearched,
+} from "../../models/products/product";
 import { ISingleUser } from "../../models/user/ISIngleUser";
 
 import {
@@ -8,6 +12,7 @@ import {
   getPopularRatedProducts,
   getSingleProduct,
   getSingleUser,
+  searchProducts,
   searchUsers,
 } from "../api/products_api";
 
@@ -16,6 +21,21 @@ export const useProductsData = (state?: any) =>
 
 export const usePopularProductsData = (state?: any) =>
   useQuery<IProduct[]>(["popular-products", state], getPopularRatedProducts);
+
+export const useProductsSearchedData = (
+  name: string,
+  isEnabled?: boolean,
+  state?: any,
+  keepPreviousData?: boolean
+) =>
+  useQuery<IProductSearched>(
+    ["searchedUsers", state],
+    () => searchProducts(name),
+    {
+      enabled: isEnabled,
+      keepPreviousData,
+    }
+  );
 
 export const useUsersSearchedData = (
   name: string,
