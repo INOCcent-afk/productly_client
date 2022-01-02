@@ -17,6 +17,8 @@ const AboutPage = () => {
           alt="product_image"
           objectFit="cover"
           objectPosition="center"
+          blurDataURL="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.giphy.com%2Fmedia%2F6NlmBQLhWy2QM%2Fsource.gif&f=1&nofb=1"
+          placeholder="blur"
         />
         <div className="absolute w-full h-full bg-black opacity-70"></div>
         <div className="absolute bottom-10 about-title">

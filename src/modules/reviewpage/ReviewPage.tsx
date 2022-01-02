@@ -154,6 +154,8 @@ const ReviewPage = () => {
                   <Image
                     layout="fill"
                     src="https://images.pexels.com/photos/1002649/pexels-photo-1002649.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                    blurDataURL="https://images.pexels.com/photos/1002649/pexels-photo-1002649.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                    placeholder="blur"
                     objectFit="cover"
                   />
                 </div>

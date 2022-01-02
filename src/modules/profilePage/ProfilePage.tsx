@@ -47,6 +47,8 @@ const ProfilePage = () => {
               layout="fill"
               objectFit="cover"
               src={data.user.cover_photo}
+              blurDataURL={data.user.cover_photo}
+              placeholder="blur"
               alt="cover_photo"
             />
           ) : (
@@ -54,6 +56,8 @@ const ProfilePage = () => {
               layout="fill"
               objectFit="cover"
               src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.giphy.com%2Fmedia%2F6NlmBQLhWy2QM%2Fsource.gif&f=1&nofb=1"
+              blurDataURL="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.giphy.com%2Fmedia%2F6NlmBQLhWy2QM%2Fsource.gif&f=1&nofb=1"
+              placeholder="blur"
               alt="cover_photo"
             />
           )}

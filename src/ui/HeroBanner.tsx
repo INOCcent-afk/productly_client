@@ -34,6 +34,8 @@ const HeroBanner = () => {
       <Image
         layout="fill"
         src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.giphy.com%2Fmedia%2F6NlmBQLhWy2QM%2Fsource.gif&f=1&nofb=1"
+        blurDataURL="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.giphy.com%2Fmedia%2F6NlmBQLhWy2QM%2Fsource.gif&f=1&nofb=1"
+        placeholder="blur"
         alt="banner_image"
         objectFit="cover"
       />

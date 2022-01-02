@@ -13,7 +13,12 @@ const Creator = () => {
           className="relative w-full"
           style={{ marginBottom: -1, height: 400, maxWidth: 400 }}
         >
-          <Image layout="fill" src="/dave_inoc.png" />
+          <Image
+            layout="fill"
+            src="/dave_inoc.png"
+            blurDataURL="/dave_inoc.png"
+            placeholder="blur"
+          />
         </div>
       </div>
       <StyledTitle>Dave Inoc</StyledTitle>
