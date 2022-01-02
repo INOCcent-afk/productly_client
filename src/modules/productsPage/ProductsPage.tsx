@@ -26,7 +26,6 @@ import {
 } from "../../utils/reactQueryHooks/productsQueryHooks";
 import CubeProduct from "../../ui/products/CubeProduct";
 import Masonry from "react-masonry-css";
-import FlipMove from "react-flip-move";
 
 const ProductsPage = () => {
   const [searchProduct, setSearchProduct] = useState("");
