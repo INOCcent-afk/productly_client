@@ -5,6 +5,7 @@ import { ISingleUser } from "../../models/user/ISIngleUser";
 
 import {
   getAllProducts,
+  getPopularRatedProducts,
   getSingleProduct,
   getSingleUser,
   searchUsers,
@@ -12,6 +13,9 @@ import {
 
 export const useProductsData = (state?: any) =>
   useQuery<IProduct[]>(["products", state], getAllProducts);
+
+export const usePopularProductsData = (state?: any) =>
+  useQuery<IProduct[]>(["popular-products", state], getPopularRatedProducts);
 
 export const useUsersSearchedData = (
   name: string,

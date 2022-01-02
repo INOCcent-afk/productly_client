@@ -18,6 +18,12 @@ export const getAllProducts = async () => {
   return data.data.products;
 };
 
+export const getPopularRatedProducts = async () => {
+  const { data } = await API.get("/products/top-rated");
+
+  return data.data.products;
+};
+
 export const getSingleProduct = async (id: TRouterQuery) => {
   const { data } = await API.get(`/product/${id}`);
 

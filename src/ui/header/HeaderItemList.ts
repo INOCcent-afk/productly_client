@@ -3,7 +3,7 @@ import { ILink } from "../../models/Links/ILink";
 export const navItems: ILink[] = [
   {
     text: "Review",
-    href: "/review/1",
+    href: "/review/make-a-review",
   },
   {
     text: "Products",

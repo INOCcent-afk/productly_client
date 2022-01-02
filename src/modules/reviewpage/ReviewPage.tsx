@@ -83,7 +83,15 @@ const ReviewPage = () => {
   }, [productsData]);
 
   useEffect(() => {
-    setSelectedProduct(router.query.id as string);
+    if (productsData) {
+      const item = productsData.filter((x) => x.product_id === router.query.id);
+
+      if (item.length) {
+        setSelectedProduct(router.query.id as string);
+      } else {
+        setSelectedProduct(productsData[0].product_id);
+      }
+    }
   }, []);
 
   const setRating = (num: number) => {
@@ -144,7 +152,9 @@ const ReviewPage = () => {
             </div>
           </form>
         </StyledBox>
-        <Link href={`product/${singleProductData?.product.reviews_product_id}`}>
+        <Link
+          href={`/product/${singleProductData?.product.reviews_product_id}`}
+        >
           <StyledBox className="hidden lg:block cursor-pointer">
             {singleProductIsLoading ? (
               <div className="px-20 py-48 bg-yellow-600 animate-pulse"></div>
