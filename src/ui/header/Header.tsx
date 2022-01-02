@@ -122,7 +122,7 @@ const Header: FC = () => {
   const mobileDropdownItems: ITextAndEvent[] = [
     {
       text: "Reviews",
-      event: () => Router.push("/review"),
+      event: () => Router.push("/review/1"),
       icon: <LinkIcon fill={darkYellow} width={15} />,
     },
     {

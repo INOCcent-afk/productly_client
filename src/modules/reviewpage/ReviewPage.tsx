@@ -16,7 +16,7 @@ import {
   StyleSelectInput,
 } from "../../styles/styled-elements/input-elements";
 import StarRating from "../../ui/StarRating";
-import { createReview, getSingleProduct } from "../../utils/api/products_api";
+import { createReview } from "../../utils/api/products_api";
 import {
   useProductData,
   useProductsData,
@@ -25,8 +25,10 @@ import { darkYellow } from "../../utils/theme/colors";
 import Image from "next/image";
 import StarMeter from "../../ui/StarMeter";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const ReviewPage = () => {
+  const router = useRouter();
   const user: any = useSelector<AppState>((state) => state.auth.user);
 
   const [selectedProduct, setSelectedProduct] = useState("");
@@ -79,6 +81,10 @@ const ReviewPage = () => {
       setSelectedProduct(productsData[0].product_id);
     }
   }, [productsData]);
+
+  useEffect(() => {
+    setSelectedProduct(router.query.id as string);
+  }, []);
 
   const setRating = (num: number) => {
     setReviewData({
@@ -141,7 +147,7 @@ const ReviewPage = () => {
         <Link href={`product/${singleProductData?.product.reviews_product_id}`}>
           <StyledBox className="hidden lg:block cursor-pointer">
             {singleProductIsLoading ? (
-              <h1>Wait a minute kapeng mainit</h1>
+              <div className="px-20 py-48 bg-yellow-600 animate-pulse"></div>
             ) : (
               <div className="w-full">
                 <div className="relative w-full h-48">

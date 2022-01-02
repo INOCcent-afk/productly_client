@@ -1,7 +1,3 @@
-import React from "react";
+import ReviewPage from "../../modules/reviewpage/ReviewPage";
 
-const DynamicReview = () => {
-  return <div>Dynamic Review</div>;
-};
-
-export default DynamicReview;
+export default ReviewPage;
