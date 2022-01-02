@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useProductData } from "../../utils/reactQueryHooks/productsQueryHooks";
 import {
@@ -27,11 +27,15 @@ const ProductDetailsPage: NextPage = () => {
     id = window.location.pathname.split("/").pop();
   }
 
-  const { data, isLoading, isError } = useProductData(id, true, id);
+  const { data, isLoading, isError, refetch } = useProductData(id, true, id);
 
   if (isError) {
     router.push("/404");
   }
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   return (
     <StyledMainContainer>

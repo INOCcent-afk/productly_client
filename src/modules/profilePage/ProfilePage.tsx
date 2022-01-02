@@ -97,13 +97,11 @@ const ProfilePage = () => {
               </CopyToClipboard>
             </div>
           )}
-          <div className="border border-gray-300 py-5 px-10 rounded-md">
-            <StyledBody>
-              {data?.user.bio_description
-                ? data?.user.bio_description
-                : "👋 Hi nice to meet you!"}
-            </StyledBody>
-          </div>
+          {data?.user.bio_description && (
+            <div className="border border-gray-300 py-5 px-10 rounded-md">
+              <StyledBody>{data?.user.bio_description}</StyledBody>
+            </div>
+          )}
           <div className="flex gap-28 my-14">
             <div className="flex flex-col gap-3 items-center">
               <div className="text-4xl font-bold">

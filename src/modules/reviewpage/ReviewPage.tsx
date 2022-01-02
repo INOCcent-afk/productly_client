@@ -80,7 +80,7 @@ const ReviewPage = () => {
     }
   }, [productsData]);
 
-  const tite = (num: number) => {
+  const setRating = (num: number) => {
     setReviewData({
       ...reviewData,
       rating: num,
@@ -122,7 +122,7 @@ const ReviewPage = () => {
             <div className="flex items-center gap-5 flex-wrap">
               <StarRating
                 rating={reviewData.rating}
-                setRating={tite}
+                setRating={setRating}
                 disabled={false}
               />
               {ratingLabel[reviewData.rating]}

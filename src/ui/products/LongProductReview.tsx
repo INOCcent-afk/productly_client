@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import Moment from "react-moment";
 import {
   StyledAvatar,
   StyledBody,
@@ -38,7 +39,9 @@ const LongProductReview: FC<LongProductReviewProps> = ({
       </div>
       <div className="flex flex-col py-2 px-4 gap-3">
         <StyledBody className="font-bold">{description}</StyledBody>
-        <StyledBody className="!text-xs !text-gray-500">{date}</StyledBody>
+        <StyledBody className="!text-xs !text-gray-500">
+          <Moment format="MM/DD/YYYY, h:mm:ss a">{date}</Moment>
+        </StyledBody>
       </div>
     </StyledBox>
   );

@@ -173,7 +173,7 @@ const Header: FC = () => {
               />
               {searchUser && isInputFocus && (
                 <UserSearchedDropdown
-                  users={searchedUsers ? searchedUsers.users : []}
+                  users={searchedUsers && searchedUsers.users}
                   isLoading={isSearchedUsersLoading}
                 />
               )}

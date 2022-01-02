@@ -42,6 +42,10 @@ const EditProfilePage = () => {
     reader.readAsDataURL(file);
     reader.onloadend = () => {
       setPreviewSource(reader.result);
+      setUserInfo({
+        ...userInfo,
+        display_picture: reader.result as any,
+      });
     };
   };
 
@@ -79,7 +83,7 @@ const EditProfilePage = () => {
 
         toast.success("Profile Updated");
 
-        router.push("/profile");
+        router.push(`/profile/${userID}`);
       },
       onMutate: () => {
         toast.warn("Updating Profile info", {
@@ -111,6 +115,7 @@ const EditProfilePage = () => {
           type="text"
           value={userInfo.first_name}
           onChange={(e) => handleInfoData(e)}
+          required
         />
         <br />
 
@@ -120,6 +125,7 @@ const EditProfilePage = () => {
           type="text"
           value={userInfo.last_name}
           onChange={(e) => handleInfoData(e)}
+          required
         />
         <br />
 

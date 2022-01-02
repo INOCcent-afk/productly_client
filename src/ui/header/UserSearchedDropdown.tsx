@@ -23,7 +23,7 @@ const UserSearchedDropdown: FC<UserSearchedDropdownProps> = ({
         </StyledMessage>
       ) : (
         <>
-          {users.length !== 0 ? (
+          {users && users.length !== 0 ? (
             users.map((user) => (
               <UserLink
                 key={user.user_id}
