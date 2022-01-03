@@ -8,6 +8,8 @@ import {
   StyledTitle,
 } from "../styles/styled-elements/common-elements";
 import { lightYellow } from "../utils/theme/colors";
+import Coffee from "../images/Coffee.svg";
+import CoffeeIcon from "../icons/CoffeeIcon";
 
 const HeroBanner = () => {
   return (
@@ -80,8 +82,8 @@ const HeroBannerFloatingImage = () => {
     <div className="hidden lg:block relative">
       <StyledFirstLayerOverlay className="z-20"></StyledFirstLayerOverlay>
       <StyledSecondLayerOverlay className="animate-pulse z-10"></StyledSecondLayerOverlay>
-      <img className="w-80 z-30 relative" src="/coffee.svg" alt="brand_image" />
-      <div className="floating-balls delay-700 top-0 z-20"></div>
+      <CoffeeIcon width={320} height={320} className="w-80 z-30 relative" />
+      <div className="floating-balls delay-700 top-0 z-20 w-8"></div>
       <div className="floating-balls !w-20 !h-20 delay-75 top-0 right-0 z-20"></div>
       <div className="floating-balls !w-24 !h-24 delay-700 top-56 z-20"></div>
     </div>
