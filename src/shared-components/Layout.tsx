@@ -22,7 +22,8 @@ const Layout: FC<LayoutProps> = ({ children }: LayoutProps) => {
     if (
       data !== true &&
       router.pathname !== "/" &&
-      router.pathname !== "/register"
+      router.pathname !== "/register" &&
+      !router.pathname.includes("/profile/")
     )
       router.push("/");
     else if (

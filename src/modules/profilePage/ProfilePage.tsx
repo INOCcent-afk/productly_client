@@ -18,7 +18,8 @@ import { useAppSelector } from "../../redux/hooks";
 import LongUserActivity from "../../ui/LongUserActivity";
 
 const ProfilePage = () => {
-  const user = useAppSelector((state) => state.auth.user.user_id);
+  const user = useAppSelector((state) => state.auth);
+  const currentUserID = user.user && user.user.user_id;
   const router = useRouter();
 
   let user_id;
@@ -36,7 +37,7 @@ const ProfilePage = () => {
     refetch();
   }, [user_id]);
 
-  const isMe = user && user === user_id;
+  const isMe = user && currentUserID === user_id;
 
   return (
     <div className="mb-32" style={{ minHeight: "100vh" }}>
