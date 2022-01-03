@@ -160,7 +160,7 @@ const EditProfilePage = () => {
                   onChange={handleFileInputChange}
                   className="file"
                 />
-                <label htmlFor="file">
+                <label className="file-input-label" htmlFor="file">
                   Select file
                   <p className="file-name"></p>
                 </label>

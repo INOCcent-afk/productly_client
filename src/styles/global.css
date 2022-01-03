@@ -111,7 +111,7 @@
     position: absolute;
   }
   
-  .file-input label {
+  .file-input .file-input-label {
     display: block;
     position: relative;
     width: 150px;
@@ -135,13 +135,13 @@
     color: #555;
   }
   
-  input:hover + label,
-  input:focus + label {
+  .file:hover + .file-input-label,
+  .file:focus + .file-input-label {
     transform: scale(1.02);
   }
   
   /* Adding an outline to the label on focus */
-  input:focus + label {
+  .file:focus + .file-input-label {
     outline: 1px solid #000;
     outline: -webkit-focus-ring-color auto 2px;
   }

@@ -180,10 +180,20 @@ const ReviewPage = () => {
                       }
                     />
                     <span className="text-gray-400">
-                      ( {singleProductData?.product.average_rating} )
+                      (
+                      {singleProductData?.product.average_rating
+                        ? singleProductData?.product.average_rating
+                        : 0}
+                      )
                     </span>
                   </div>
-                  <span>( {singleProductData?.product.count} ) Reviews</span>
+                  <span>
+                    (
+                    {singleProductData?.product.count
+                      ? singleProductData?.product.count
+                      : 0}
+                    ) Reviews
+                  </span>
                 </div>
               </div>
             )}
