@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.2",
+    "@svgr/webpack": "^6.1.2",
     "axios": "^0.24.0",
     "babel-plugin-styled-components": "^1.13.3",
     "lodash.debounce": "^4.0.8",
