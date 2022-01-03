@@ -29,6 +29,7 @@ const UserSearchedDropdown: FC<UserSearchedDropdownProps> = ({
                 key={user.user_id}
                 id={user.user_id}
                 name={`${user.first_name} ${user.last_name}`}
+                image={user.display_picture}
               />
             ))
           ) : (

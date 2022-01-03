@@ -199,8 +199,10 @@ const Header: FC = () => {
                   tabIndex={0}
                   onClick={() => setUserSettingModal(!userSettingModal)}
                   className="outline-none"
+                  backgroundImage={selectAuth.user.display_picture}
                 >
-                  {selectAuth.user.first_name.charAt(0)}
+                  {!selectAuth.user.display_picture &&
+                    selectAuth.user.first_name.charAt(0)}
                 </StyledAnimatedAvatar>
                 {userSettingModal && width > +tablet && (
                   <ListModal items={userDropdownItems} top={100} right={15} />

@@ -3,11 +3,27 @@ import React, { SyntheticEvent, useEffect, useState } from "react";
 import { useMutation } from "react-query";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import CogIcon from "../../icons/CogIcon";
 import { IUpdateUser } from "../../models/user/IUser";
 import { refetchUser } from "../../redux/AuthSlice.slice";
 import { useAppDispatch } from "../../redux/hooks";
 import { AppState } from "../../redux/store";
+import { StyledButton } from "../../styles/styled-elements/button-elements";
+import {
+  StyledMainTitle,
+  StyledTitle,
+} from "../../styles/styled-elements/common-elements";
+import {
+  StyledBox,
+  StyledMainContainer,
+} from "../../styles/styled-elements/container-elements";
+import {
+  StyledInputText,
+  StyledTextarea,
+} from "../../styles/styled-elements/input-elements";
+import Avatar from "../../ui/Avatar";
 import { getSingleUser, uploadUserAvatar } from "../../utils/api/products_api";
+import { darkYellow } from "../../utils/theme/colors";
 
 const EditProfilePage = () => {
   const dispatch = useAppDispatch();
@@ -106,63 +122,93 @@ const EditProfilePage = () => {
   }, [user.user]);
 
   return (
-    <div>
-      <h1 className="title">Upload an Image</h1>
-      <form onSubmit={handleSubmitFile} className="form">
-        <label htmlFor="">first name</label>
-        <input
-          name="first_name"
-          type="text"
-          value={userInfo.first_name}
-          onChange={(e) => handleInfoData(e)}
-          required
-        />
-        <br />
+    <StyledMainContainer>
+      <StyledBox className="flex flex-col items-start p-10 gap-5">
+        <div className="flex items-center gap-3">
+          <CogIcon fill={darkYellow} width={50} height={50} />
+          <StyledMainTitle className="!text-black">
+            Account Settings
+          </StyledMainTitle>
+        </div>
 
-        <label htmlFor="">last name</label>
-        <input
-          name="last_name"
-          type="text"
-          value={userInfo.last_name}
-          onChange={(e) => handleInfoData(e)}
-          required
-        />
-        <br />
+        <form onSubmit={handleSubmitFile} className="form flex flex-col gap-8">
+          <div className="flex flex-col gap-5">
+            <StyledTitle className="!font-normal">Profile Picture</StyledTitle>
+            <div className="flex items-center gap-5">
+              {previewSource && (
+                <Avatar
+                  size={220}
+                  name={user.user.first_name.charAt(0)}
+                  additionalClassName="!text-6xl"
+                  backgroundImage={previewSource}
+                ></Avatar>
+              )}
+              {!previewSource && user.user.display_picture && (
+                <Avatar
+                  size={220}
+                  name={user.user.first_name.charAt(0)}
+                  additionalClassName="!text-6xl"
+                  backgroundImage={user.user.display_picture}
+                ></Avatar>
+              )}
 
-        <label htmlFor="">bio</label>
-        <textarea
-          value={userInfo.bio_description}
-          onChange={(e) =>
-            setUserInfo({
-              ...userInfo,
-              bio_description: e.target.value,
-            })
-          }
-        ></textarea>
-        <br />
+              <div className="file-input">
+                <input
+                  id="file"
+                  type="file"
+                  name="image"
+                  onChange={handleFileInputChange}
+                  className="file"
+                />
+                <label htmlFor="file">
+                  Select file
+                  <p className="file-name"></p>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="">First Name</label>
+            <StyledInputText
+              borderRadius={8}
+              name="first_name"
+              type="text"
+              value={userInfo.first_name}
+              onChange={(e) => handleInfoData(e)}
+              required
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="">Last name</label>
+            <StyledInputText
+              borderRadius={8}
+              name="last_name"
+              type="text"
+              value={userInfo.last_name}
+              onChange={(e) => handleInfoData(e)}
+              required
+            />
+          </div>
 
-        <input
-          id="fileInput"
-          type="file"
-          name="image"
-          onChange={handleFileInputChange}
-          className="form-input"
-        />
-        <button className="btn" type="submit">
-          Submit
-        </button>
-      </form>
-      {previewSource && (
-        <img src={previewSource} alt="chosen" style={{ height: "300px" }} />
-      )}
-      {!previewSource && user.user.display_picture && (
-        <img
-          src={user.user.display_picture}
-          alt="chosen"
-          style={{ height: "300px" }}
-        />
-      )}
-    </div>
+          <div className="flex flex-col gap-3">
+            <label htmlFor="">Bio</label>
+            <StyledTextarea
+              value={userInfo.bio_description}
+              onChange={(e) =>
+                setUserInfo({
+                  ...userInfo,
+                  bio_description: e.target.value,
+                })
+              }
+            ></StyledTextarea>
+          </div>
+
+          <StyledButton borderRadius={100} className="btn" type="submit">
+            Submit
+          </StyledButton>
+        </form>
+      </StyledBox>
+    </StyledMainContainer>
   );
 };
 

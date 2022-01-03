@@ -34,4 +34,6 @@ export interface ISearchedUser {
   first_name: string;
 
   last_name: string;
+
+  display_picture: string;
 }

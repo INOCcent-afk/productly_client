@@ -2,17 +2,19 @@ import React, { FC } from "react";
 import { StyledAvatar } from "../../styles/styled-elements/common-elements";
 import styled from "styled-components";
 import { useRouter } from "next/router";
+import Avatar from "../Avatar";
 
 interface UserLinkProps {
   id: string;
   name: string;
+  image: string;
 }
 
-const UserLink: FC<UserLinkProps> = ({ id, name }: UserLinkProps) => {
+const UserLink: FC<UserLinkProps> = ({ id, name, image }: UserLinkProps) => {
   const router = useRouter();
   return (
     <StyledUserLink onMouseDown={() => router.push(`/profile/${id}`)}>
-      <StyledAvatar size={30}>{name.charAt(0)}</StyledAvatar>
+      <Avatar size={30} name={name.charAt(0)} backgroundImage={image}></Avatar>
       <span>{name}</span>
     </StyledUserLink>
   );
