@@ -91,14 +91,13 @@ const ProductsPage = () => {
               <h1 className="text-center">Loading Data of Products</h1>
             )}
 
-            {searchProduct && !isFetching && (
+            {output && !isFetching && (
               <Masonry
                 breakpointCols={{ default: 3, 768: 1, 1024: 2 }}
                 className="my-masonry-grid"
                 columnClassName="my-masonry-grid_column"
               >
-                {data &&
-                  data.products.length !== 0 &&
+                {data && data.products && data.products.length ? (
                   data.products.map((product) => (
                     <CubeProduct
                       key={product.product_id}
@@ -107,12 +106,14 @@ const ProductsPage = () => {
                       reviewsCount={product.count}
                       id={product.product_id}
                     />
-                  ))}
-                {data && data.products.length === 0 && <h1>NO data</h1>}
+                  ))
+                ) : (
+                  <h1>NO data</h1>
+                )}
               </Masonry>
             )}
 
-            {!searchProduct && !isProductsFetching && (
+            {!output && !isProductsFetching && (
               <Masonry
                 breakpointCols={{ default: 3, 768: 1, 1024: 2 }}
                 className="my-masonry-grid"
