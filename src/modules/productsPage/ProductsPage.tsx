@@ -48,16 +48,18 @@ const ProductsPage = () => {
 
   const { data, isFetching, refetch } = useProductsSearchedData(
     searchProduct,
-    true,
+    output ? true : false,
     output,
     true
   );
 
-  const { data: ProductsData, refetch: refetchProductsData } =
-    useProductsData();
+  const {
+    data: ProductsData,
+    refetch: refetchProductsData,
+    isFetching: isProductsFetching,
+  } = useProductsData();
 
   useEffect(() => {
-    refetch();
     refetchProductsData();
   }, []);
 
@@ -82,7 +84,11 @@ const ProductsPage = () => {
           </div>
           <StyledBox className="p-5">
             {searchProduct && isFetching && (
-              <h1 className="text-center">Loading Data </h1>
+              <h1 className="text-center">Loading Data</h1>
+            )}
+
+            {!searchProduct && isProductsFetching && (
+              <h1 className="text-center">Loading Data of Products</h1>
             )}
 
             {searchProduct && !isFetching && (
@@ -91,7 +97,8 @@ const ProductsPage = () => {
                 className="my-masonry-grid"
                 columnClassName="my-masonry-grid_column"
               >
-                {data && data.products.length !== 0 ? (
+                {data &&
+                  data.products.length !== 0 &&
                   data.products.map((product) => (
                     <CubeProduct
                       key={product.product_id}
@@ -100,21 +107,18 @@ const ProductsPage = () => {
                       reviewsCount={product.count}
                       id={product.product_id}
                     />
-                  ))
-                ) : (
-                  <h1>No Data T_T</h1>
-                )}
+                  ))}
+                {data && data.products.length === 0 && <h1>NO data</h1>}
               </Masonry>
             )}
 
-            {!searchProduct && (
+            {!searchProduct && !isProductsFetching && (
               <Masonry
                 breakpointCols={{ default: 3, 768: 1, 1024: 2 }}
                 className="my-masonry-grid"
                 columnClassName="my-masonry-grid_column"
               >
-                {!searchProduct &&
-                  ProductsData &&
+                {ProductsData &&
                   ProductsData.map((product) => (
                     <CubeProduct
                       key={product.product_id}

@@ -14,10 +14,10 @@ const CoffeeIcon = (props: React.SVGProps<SVGSVGElement>) => {
           <rect width="130" height="130" />
         </clipPath>
       </defs>
-      <g clip-path="url(#_clipPath_N0o6drAtHsVxKLsH0tUgSvDkyO0eZq1y)">
+      <g clipPath="url(#_clipPath_N0o6drAtHsVxKLsH0tUgSvDkyO0eZq1y)">
         <g>
           <ellipse
-            vector-effect="non-scaling-stroke"
+            vectorEffect="non-scaling-stroke"
             cx="59.34009276041135"
             cy="66.17034774656292"
             rx="26"
@@ -30,7 +30,7 @@ const CoffeeIcon = (props: React.SVGProps<SVGSVGElement>) => {
           />
           <path
             d=" M 88.764 75.604 C 92.362 66.211 99.013 60.013 103.607 61.773 C 108.202 63.532 109.01 72.587 105.413 81.981 C 101.815 91.374 95.164 97.572 90.57 95.813 C 85.976 94.053 85.167 84.998 88.764 75.604 Z  M 91.104 77.165 C 93.23 71.614 97.135 67.943 99.819 68.971 C 102.503 69.999 102.956 75.34 100.83 80.89 C 98.705 86.441 94.799 90.112 92.115 89.084 C 89.431 88.056 88.978 82.715 91.104 77.165 Z "
-            fill-rule="evenodd"
+            fillRule="evenodd"
             fill="rgb(58,45,39)"
           />
           <path

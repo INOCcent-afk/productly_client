@@ -58,7 +58,7 @@ const Header: FC = () => {
   };
 
   const { data: searchedUsers, isFetching: isSearchedUsersLoading } =
-    useUsersSearchedData(searchUser, true, output, true);
+    useUsersSearchedData(searchUser, output ? true : false, output, true);
 
   let userSettingNode = useClickOutsideHook(() => {
     setUserSettingModal(false);

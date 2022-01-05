@@ -16,30 +16,37 @@ const UserSearchedDropdown: FC<UserSearchedDropdownProps> = ({
   additionalClassName,
 }: UserSearchedDropdownProps) => {
   return (
-    <StyledUserSearchedDropdown className={additionalClassName}>
+    <>
       {isLoading ? (
-        <StyledMessage>
-          <h1>Spinner</h1>
-        </StyledMessage>
+        <StyledUserSearchedDropdown className={additionalClassName}>
+          <StyledMessage>
+            <h1>Spinner</h1>
+          </StyledMessage>
+        </StyledUserSearchedDropdown>
       ) : (
         <>
-          {users && users.length !== 0 ? (
-            users.map((user) => (
-              <UserLink
-                key={user.user_id}
-                id={user.user_id}
-                name={`${user.first_name} ${user.last_name}`}
-                image={user.display_picture}
-              />
-            ))
-          ) : (
-            <StyledMessage>
-              <h1>No Data T_T</h1>
-            </StyledMessage>
-          )}
+          <StyledUserSearchedDropdown className={additionalClassName}>
+            {users &&
+              users.length !== 0 &&
+              users.map((user) => (
+                <UserLink
+                  key={user.user_id}
+                  id={user.user_id}
+                  name={`${user.first_name} ${user.last_name}`}
+                  image={user.display_picture}
+                />
+              ))}
+          </StyledUserSearchedDropdown>
+          <StyledUserSearchedDropdown className={additionalClassName}>
+            {users && users.length === 0 && (
+              <StyledMessage>
+                <h1>NO data</h1>
+              </StyledMessage>
+            )}
+          </StyledUserSearchedDropdown>
         </>
       )}
-    </StyledUserSearchedDropdown>
+    </>
   );
 };
 
