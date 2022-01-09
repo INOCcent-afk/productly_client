@@ -46,22 +46,15 @@ const ProductsPage = () => {
     debounced.current("");
   }, []);
 
-  const { data, isFetching, refetch } = useProductsSearchedData(
+  const { data, isFetching } = useProductsSearchedData(
     searchProduct,
     output ? true : false,
     output,
     true
   );
 
-  const {
-    data: ProductsData,
-    refetch: refetchProductsData,
-    isFetching: isProductsFetching,
-  } = useProductsData();
-
-  useEffect(() => {
-    refetchProductsData();
-  }, []);
+  const { data: ProductsData, isFetching: isProductsFetching } =
+    useProductsData();
 
   return (
     <StyledMainContainer>
