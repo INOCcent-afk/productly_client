@@ -34,6 +34,8 @@ const ProductDetailsPage: NextPage = () => {
     router.push("/404");
   }
 
+  console.log(data);
+
   useEffect(() => {
     refetch();
   }, []);
@@ -87,6 +89,8 @@ const ProductDetailsPage: NextPage = () => {
               description={review.review_message}
               rating={review.rating}
               key={review.review_id}
+              display_picture={review.display_picture}
+              first_name={review.first_name}
             />
           ))}
         </div>

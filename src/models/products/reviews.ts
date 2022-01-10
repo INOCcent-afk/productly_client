@@ -13,6 +13,10 @@ export interface IReview {
 
   user_id: string;
 
+  first_name: string;
+
+  display_picture: string;
+
   created_at: string;
 }
 

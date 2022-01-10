@@ -5,16 +5,16 @@ import {
   StyledBody,
 } from "../../styles/styled-elements/common-elements";
 import { StyledBox } from "../../styles/styled-elements/container-elements";
-import DisplayName from "../DisplayName";
 import StarMeter from "../StarMeter";
 import Link from "next/link";
-import Avatar from "../Avatar";
 
 interface LongProductReviewProps {
   rating: number;
   description: string;
   date: string;
   user: string;
+  display_picture: string;
+  first_name: string;
 }
 
 const LongProductReview: FC<LongProductReviewProps> = ({
@@ -22,16 +22,18 @@ const LongProductReview: FC<LongProductReviewProps> = ({
   description,
   date,
   user,
+  display_picture,
+  first_name,
 }: LongProductReviewProps) => {
   return (
     <Link href={`/profile/${user}`}>
       <StyledBox className="cursor-pointer">
         <div className="flex gap-2 py-4 px-2 border-b">
-          <Avatar size={60} userID={user}></Avatar>
+          <StyledAvatar backgroundImage={display_picture} size={60}>
+            {!display_picture && first_name.charAt(0)}
+          </StyledAvatar>
           <div className="flex flex-col gap-1">
-            <span className="ml-2 font-bold text-gray-600">
-              <DisplayName id={user} />
-            </span>
+            <span className="ml-2 font-bold text-gray-600">{first_name}</span>
             <div className="flex gap-2">
               <StarMeter starSize={25} rating={rating} />
               <span>{rating}</span>
