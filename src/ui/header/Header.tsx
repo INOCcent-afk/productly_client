@@ -1,6 +1,5 @@
 import React, {
   FC,
-  MutableRefObject,
   SyntheticEvent,
   useCallback,
   useRef,

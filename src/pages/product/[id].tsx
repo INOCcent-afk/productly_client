@@ -28,17 +28,11 @@ const ProductDetailsPage: NextPage = () => {
     id = window.location.pathname.split("/").pop();
   }
 
-  const { data, isLoading, isError, refetch } = useProductData(id, true, id);
+  const { data, isLoading, isError } = useProductData(id, true, id);
 
   if (isError) {
     router.push("/404");
   }
-
-  console.log(data);
-
-  useEffect(() => {
-    refetch();
-  }, []);
 
   return (
     <StyledMainContainer>

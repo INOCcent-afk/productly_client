@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import PencilAltIcon from "../../icons/PencilAltIcon";
@@ -28,6 +28,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 const ReviewPage = () => {
+  const queryClient = useQueryClient();
   const router = useRouter();
   const user: any = useSelector<AppState>((state) => state.auth.user);
 
@@ -43,6 +44,9 @@ const ReviewPage = () => {
     () => createReview(reviewData, userID, selectedProduct),
     {
       onSuccess: () => {
+        queryClient.invalidateQueries("products");
+        queryClient.invalidateQueries("popular-products");
+        queryClient.invalidateQueries("product");
         toast.success("Review has been added!", {
           icon: false,
         });
@@ -50,7 +54,7 @@ const ReviewPage = () => {
     }
   );
 
-  const { data: productsData, isLoading, refetch } = useProductsData();
+  const { data: productsData, isLoading } = useProductsData();
 
   const { data: singleProductData, isLoading: singleProductIsLoading } =
     useProductData(

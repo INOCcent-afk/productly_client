@@ -25,10 +25,9 @@ const UserSearchedDropdown: FC<UserSearchedDropdownProps> = ({
         </StyledUserSearchedDropdown>
       ) : (
         <>
-          <StyledUserSearchedDropdown className={additionalClassName}>
-            {users &&
-              users.length !== 0 &&
-              users.map((user) => (
+          {users && users.length !== 0 && (
+            <StyledUserSearchedDropdown className={additionalClassName}>
+              {users.map((user) => (
                 <UserLink
                   key={user.user_id}
                   id={user.user_id}
@@ -36,14 +35,16 @@ const UserSearchedDropdown: FC<UserSearchedDropdownProps> = ({
                   image={user.display_picture}
                 />
               ))}
-          </StyledUserSearchedDropdown>
-          <StyledUserSearchedDropdown className={additionalClassName}>
-            {users && users.length === 0 && (
+            </StyledUserSearchedDropdown>
+          )}
+
+          {users && users.length === 0 && (
+            <StyledUserSearchedDropdown className={additionalClassName}>
               <StyledMessage>
                 <h1>NO data</h1>
               </StyledMessage>
-            )}
-          </StyledUserSearchedDropdown>
+            </StyledUserSearchedDropdown>
+          )}
         </>
       )}
     </>

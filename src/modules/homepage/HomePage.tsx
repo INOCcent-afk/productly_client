@@ -6,19 +6,12 @@ import {
   StyledPanelDominantLeft,
 } from "../../styles/styled-elements/container-elements";
 import HeroBanner from "../../ui/HeroBanner";
-import {
-  usePopularProductsData,
-  useProductsData,
-} from "../../utils/reactQueryHooks/productsQueryHooks";
+import { usePopularProductsData } from "../../utils/reactQueryHooks/productsQueryHooks";
 import { StyledTitle } from "../../styles/styled-elements/common-elements";
 import LongProductDisplay from "../../ui/products/LongProductDisplay";
 
 const HomePage: FC = () => {
-  const { data: productsData, isLoading, refetch } = usePopularProductsData();
-
-  useEffect(() => {
-    refetch();
-  }, []);
+  const { data: productsData, isLoading } = usePopularProductsData();
 
   if (isLoading) {
     return <div>loading</div>;
