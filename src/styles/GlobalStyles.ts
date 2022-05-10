@@ -6,7 +6,8 @@ const GlobalStyles = styled.createGlobalStyle`
   body {
     padding: 0;
     margin: 0;
-    font-family: Inter;
+    font-family: TwitterChirp, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, Helvetica, Arial, sans-serif;
     font-weight: 400;
     font-style: normal;
     line-height: 1.5em;

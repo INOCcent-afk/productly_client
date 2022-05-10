@@ -32,6 +32,7 @@ import useWindowDimensions from "../../utils/hooks/UseWindowDimensions";
 import { tablet } from "../../utils/theme/breakpoints";
 import useClickOutsideHook from "../../utils/hooks/useClickOutsideHook";
 import { toast } from "react-toastify";
+import { verifyUser } from "../../utils/api/verify_user";
 
 const Header: FC = () => {
   const dispatch = useAppDispatch();
@@ -43,6 +44,12 @@ const Header: FC = () => {
   const [userSettingModal, setUserSettingModal] = useState(false);
   const [mobileNavModal, setMobileNavModal] = useState(false);
   const [isInputFocus, setIsInputFocus] = useState(false);
+  const [authenticated, setAuthenticated] = useState(null);
+
+  const checkAuthenticated = async () => {
+    const data = await verifyUser(localStorage.getItem("token")!);
+    return setAuthenticated(data);
+  };
 
   const { width } = useWindowDimensions();
   const debounced = useRef(debounce((value) => setOutput(value), 600));
@@ -141,6 +148,7 @@ const Header: FC = () => {
 
   React.useEffect(() => {
     setSearchUser("");
+    checkAuthenticated();
   }, [router]);
 
   return (
@@ -157,28 +165,32 @@ const Header: FC = () => {
                 <img className="w-24" src="/brand.png" alt="" />
               </a>
             </Link>
-            <div className={`relative ${isInputFocus ? "w-full" : ""}`}>
-              <SearchInput
-                value={searchUser}
-                onChangeEvent={updateUserValue}
-                placeholder={isInputFocus ? "search other users" : "search..."}
-                onFocusEvent={() => setIsInputFocus(true)}
-                onBlurEvent={() => setIsInputFocus(false)}
-                closeButtonEvent={clearUserValue}
-                additonalInputClassname={`w-52 ${
-                  isInputFocus && "smd:w-full md:w-full"
-                }`}
-                additonalContainerClassname={isInputFocus ? "w-full" : ""}
-              />
-              {searchUser && isInputFocus && (
-                <UserSearchedDropdown
-                  users={searchedUsers && searchedUsers.users}
-                  isLoading={isSearchedUsersLoading}
+            {authenticated && (
+              <div className={`relative ${isInputFocus ? "w-full" : ""}`}>
+                <SearchInput
+                  value={searchUser}
+                  onChangeEvent={updateUserValue}
+                  placeholder={
+                    isInputFocus ? "search other users" : "search..."
+                  }
+                  onFocusEvent={() => setIsInputFocus(true)}
+                  onBlurEvent={() => setIsInputFocus(false)}
+                  closeButtonEvent={clearUserValue}
+                  additonalInputClassname={`w-52 ${
+                    isInputFocus && "smd:w-full md:w-full"
+                  }`}
+                  additonalContainerClassname={isInputFocus ? "w-full" : ""}
                 />
-              )}
-            </div>
+                {searchUser && isInputFocus && (
+                  <UserSearchedDropdown
+                    users={searchedUsers && searchedUsers.users}
+                    isLoading={isSearchedUsersLoading}
+                  />
+                )}
+              </div>
+            )}
           </StyledBranding>
-          {!isInputFocus && (
+          {!isInputFocus && authenticated && (
             <StyledMainNav>
               {navItems.map((item) => (
                 <Link key={item.href} href={item.href}>
