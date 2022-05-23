@@ -136,6 +136,7 @@ const ProfilePage = () => {
                 rating={activity.average_rating}
                 date={activity.latest_review_date}
                 productID={activity.product_id}
+                productImage={activity.product_image}
               />
             ))}
           </div>

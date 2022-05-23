@@ -15,6 +15,7 @@ interface LongProductDisplay {
   product_description: string;
   product_reviews: number;
   average_rating: number;
+  product_image: string;
 }
 
 const LongProductDisplay: FC<LongProductDisplay> = ({
@@ -23,6 +24,7 @@ const LongProductDisplay: FC<LongProductDisplay> = ({
   product_description,
   product_reviews,
   average_rating,
+  product_image,
 }: LongProductDisplay) => {
   const maxLength = 110;
   const checkLength = product_description.length > maxLength ? maxLength : 0;
@@ -35,9 +37,9 @@ const LongProductDisplay: FC<LongProductDisplay> = ({
         <StyledVisual>
           <Image
             layout="fill"
-            src="https://images.pexels.com/photos/1002649/pexels-photo-1002649.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+            src={product_image}
             alt="product_image"
-            blurDataURL="https://images.pexels.com/photos/1002649/pexels-photo-1002649.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+            blurDataURL={product_image}
             placeholder="blur"
             objectFit="cover"
           />

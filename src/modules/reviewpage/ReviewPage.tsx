@@ -158,6 +158,7 @@ const ReviewPage = () => {
         </StyledBox>
         <Link
           href={`/product/${singleProductData?.product.reviews_product_id}`}
+          passHref
         >
           <StyledBox className="hidden lg:block cursor-pointer">
             {singleProductIsLoading ? (
@@ -165,13 +166,16 @@ const ReviewPage = () => {
             ) : (
               <div className="w-full">
                 <div className="relative w-full h-48">
-                  <Image
-                    layout="fill"
-                    src="https://images.pexels.com/photos/1002649/pexels-photo-1002649.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                    blurDataURL="https://images.pexels.com/photos/1002649/pexels-photo-1002649.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                    placeholder="blur"
-                    objectFit="cover"
-                  />
+                  {singleProductData?.product && (
+                    <Image
+                      layout="fill"
+                      src={singleProductData?.product.product_image}
+                      blurDataURL={singleProductData?.product.product_image}
+                      placeholder="blur"
+                      objectFit="cover"
+                      alt="bg"
+                    />
+                  )}
                 </div>
                 <div className="flex flex-col gap-3 p-8">
                   <StyledTitle>

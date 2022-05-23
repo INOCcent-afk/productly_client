@@ -9,7 +9,7 @@ import Link from "next/link";
 
 interface CubeProductProps {
   rating: number;
-  image?: string;
+  image: string;
   productName: string;
   reviewsCount: number;
   id: string;
@@ -28,11 +28,11 @@ const CubeProduct: FC<CubeProductProps> = ({
         <div className="h-48 relative">
           <Image
             layout="fill"
-            src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.giphy.com%2Fmedia%2F6NlmBQLhWy2QM%2Fsource.gif&f=1&nofb=1"
+            src={image}
             alt="product_image"
             objectFit="cover"
             objectPosition="center"
-            blurDataURL="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.giphy.com%2Fmedia%2F6NlmBQLhWy2QM%2Fsource.gif&f=1&nofb=1"
+            blurDataURL={image}
             placeholder="blur"
           />
           <div className="flex items-center gap-2 absolute right-3 top-2">

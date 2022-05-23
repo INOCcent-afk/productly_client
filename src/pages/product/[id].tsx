@@ -38,15 +38,17 @@ const ProductDetailsPage: NextPage = () => {
     <StyledMainContainer>
       <StyledPanelDominantLeft className="!gap-5" gridColumnsDesktop="7fr 5fr">
         <StyledBox className="relative" style={{ minHeight: 500 }}>
-          <Image
-            layout="fill"
-            src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.giphy.com%2Fmedia%2F6NlmBQLhWy2QM%2Fsource.gif&f=1&nofb=1"
-            blurDataURL="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.giphy.com%2Fmedia%2F6NlmBQLhWy2QM%2Fsource.gif&f=1&nofb=1"
-            placeholder="blur"
-            alt="product_image"
-            objectFit="cover"
-            objectPosition="center"
-          />
+          {data?.product.product_image && (
+            <Image
+              layout="fill"
+              src={data?.product.product_image}
+              blurDataURL={data?.product.product_image}
+              placeholder="blur"
+              alt="product_image"
+              objectFit="cover"
+              objectPosition="center"
+            />
+          )}
         </StyledBox>
         <StyledBox className="relative p-10">
           <StyledMainTitle color="black">

@@ -98,6 +98,7 @@ const ProductsPage = () => {
                       rating={product.average_rating}
                       reviewsCount={product.count}
                       id={product.product_id}
+                      image={product.product_image}
                     />
                   ))
                 ) : (
@@ -120,6 +121,7 @@ const ProductsPage = () => {
                       rating={product.average_rating}
                       reviewsCount={product.count}
                       id={product.product_id}
+                      image={product.product_image}
                     />
                   ))}
               </Masonry>

@@ -10,7 +10,7 @@ import Moment from "react-moment";
 import Link from "next/link";
 
 interface LongUserActivity {
-  productImage?: string;
+  productImage: string;
   productTitle: string;
   rating: number;
   date: string;
@@ -30,8 +30,8 @@ const LongUserActivity: FC<LongUserActivity> = ({
         <StyledPanelDominantRight>
           <div className="relative h-24">
             <Image
-              src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.giphy.com%2Fmedia%2F6NlmBQLhWy2QM%2Fsource.gif&f=1&nofb=1"
-              blurDataURL="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.giphy.com%2Fmedia%2F6NlmBQLhWy2QM%2Fsource.gif&f=1&nofb=1"
+              src={productImage}
+              blurDataURL={productImage}
               placeholder="blur"
               layout="fill"
               objectFit="cover"
