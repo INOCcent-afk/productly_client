@@ -160,7 +160,13 @@ const Header: FC = () => {
       >
         <StyledLeftNav>
           <StyledBranding className={`${isInputFocus && "basis-full"}`}>
-            <Link href="/productly-homepage">
+            <Link
+              href={
+                router.pathname === "/" || router.pathname === "/register"
+                  ? "/"
+                  : "/productly-homepage"
+              }
+            >
               <a className="cursor-pointer">
                 <img className="w-24" src="/brand.png" alt="" />
               </a>
