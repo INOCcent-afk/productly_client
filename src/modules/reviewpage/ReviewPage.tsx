@@ -44,6 +44,7 @@ const ReviewPage = () => {
     () => createReview(reviewData, userID, selectedProduct),
     {
       onSuccess: () => {
+        router.push(`/product/${selectedProduct}`);
         queryClient.invalidateQueries("products");
         queryClient.invalidateQueries("popular-products");
         queryClient.invalidateQueries("product");

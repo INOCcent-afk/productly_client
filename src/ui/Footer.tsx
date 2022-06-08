@@ -7,7 +7,10 @@ import Link from "next/link";
 const Footer = () => {
   return (
     <StyledFooter className="bg-gray-800 py-6">
-      <Link href="https://www.facebook.com/" passHref={true}>
+      <Link
+        href="https://github.com/INOCcent-afk/productly_client"
+        passHref={true}
+      >
         <a
           target="_blank"
           className="flex justify-center items-center gap-5 text-yellow-600 my-5"
